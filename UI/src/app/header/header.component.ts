@@ -23,12 +23,12 @@ export class HeaderComponent {
      }
 
      languages = [
-      {value: 1, label: 'Português', icon: ''},
-      {value: 2, label: 'Inglês', icon: ''},
-      {value: 3, label: 'Alemão', icon: ''},
-      {value: 4, label: 'Chinês', icon: ''},
-      {value: 5, label: 'Espanhol', icon: ''},
-      {value: 6, label: 'Francês', icon: ''},
+      {value: 1, label: 'Português', icon: './assets/flags/brazil.png'},
+      {value: 2, label: 'Inglês', icon: './assets/flags/eua.png'},
+      {value: 3, label: 'Alemão', icon: './assets/flags/germany.png'},
+      {value: 4, label: 'Chinês', icon: './assets/flags/china.png'},
+      {value: 5, label: 'Espanhol', icon: './assets/flags/spain.png'},
+      {value: 6, label: 'Francês', icon: './assets/flags/france.png'},
     ];
 
   public goHome(): void {
@@ -36,7 +36,7 @@ export class HeaderComponent {
   }
 
   toggleTheme() {
-    this.themeService.getIsDarkMode()
+   this.themeService.getIsDarkMode()
     .pipe(take(1))
     .subscribe(isDarkMode => {
       this.themeService.setIsDarkMode(!isDarkMode);
