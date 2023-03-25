@@ -1,4 +1,4 @@
-<div style="margin-top: 100px;" [ngClass]="themeClasses">
+<div style="margin-top: 100px;">
   <h1>
     {{ 'home.title' | translate }}
   </h1>
@@ -6,12 +6,4 @@
   <p>
     {{'text' | translate}}
   </p>
-
-  <button type="button" class="btn btn-outline-primary" (click)="themeService.toggleTheme()">Alternar tema</button>
-  <button type="button" class="btn btn-primary" (click)="changeLanguage('pt')">Portugues</button>
-  <button type="button" class="btn btn-primary" (click)="changeLanguage('en-US')">Ingles</button>
-  <button type="button" class="btn btn-primary" (click)="changeLanguage('al')">Alemão</button>
-  <button type="button" class="btn btn-primary" (click)="changeLanguage('ch')">Chines</button>
-  <button type="button" class="btn btn-primary" (click)="changeLanguage('es')">Espanhol</button>
-  <button type="button" class="btn btn-primary" (click)="changeLanguage('fr')">Frances</button>
 </div>

@@ -1,4 +1,6 @@
-<app-header></app-header>
-<main>
-  <router-outlet></router-outlet>
-</main>
+<body [class.dark-mode]="(themeService.getIsDarkMode() | async) ? true : false">
+  <app-header></app-header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</body>

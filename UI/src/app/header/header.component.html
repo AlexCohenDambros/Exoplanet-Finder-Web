@@ -1,14 +1,17 @@
-<header>
-  <div class="left">
-    <button (click)="goHome()">
-      <mat-icon style="border: none;">public</mat-icon>
-    </button>
-  </div>
-  <div class="right">
-    <mat-form-field>
-      <mat-select placeholder="Opções" [(value)]="selectedOption" (selectionChange)="onOptionSelected()">
-        <mat-option *ngFor="let option of options" [value]="option.value">{{option.label}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+<header class="custom-header">
+    <div class="left">
+      <button (click)="goHome()">
+        <mat-icon style="border: none;">public</mat-icon>
+      </button>
+    </div>
+    <div class="right">
+      <mat-form-field>
+        <mat-select class="custom-select" placeholder="Opções" [(value)]="selectedOption" (selectionChange)="onLanguageSelected()">
+          <mat-option *ngFor="let option of languages" [value]="option.value">{{option.icon}} {{option.label}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-icon-button matSuffix (click)="toggleTheme()">
+        <mat-icon>{{ themeService.isDarkMode ? 'dark_mode' : 'light_mode' }}</mat-icon>
+      </button>
+    </div>
 </header>
