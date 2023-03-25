@@ -8,8 +8,4 @@ import { ThemeService } from '../../switch-theme/theme.service';
 })
 export class NotFoundComponent {
   constructor(public themeService: ThemeService) { }
-
-  get themeClasses(): string {
-    return this.themeService.isDarkTheme ? 'dark-theme' : 'light-theme';
-  }
 }

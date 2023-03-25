@@ -17,6 +17,7 @@ import { ServerErrorComponent } from './http-errors/server-error/server-error.co
 import { HomeComponent } from './home/home.component';
 import { TestComponent } from './test/test.component';
 import { MatSelectModule } from '@angular/material/select';
+import { ThemeStateComponent } from './switch-theme/theme-state/theme-state.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -29,7 +30,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NotFoundComponent,
     ServerErrorComponent,
     HomeComponent,
-    TestComponent
+    TestComponent,
+    ThemeStateComponent
   ],
   imports: [
     BrowserModule,

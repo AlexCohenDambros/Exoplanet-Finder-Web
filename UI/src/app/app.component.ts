@@ -18,8 +18,4 @@ export class AppComponent {
   public changeLanguage(lang: string): void {
     this.languageService.setLanguage(lang);
   }
-
-  get themeClasses(): string {
-    return this.themeService.isDarkTheme ? 'dark-theme' : 'light-theme';
-  }
 }
