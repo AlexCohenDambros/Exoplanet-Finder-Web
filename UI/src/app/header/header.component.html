@@ -8,12 +8,9 @@
       <mat-form-field>
         <mat-select class="custom-select" placeholder="Opções" [(value)]="selectedOption" (selectionChange)="onLanguageSelected()">
           <mat-option *ngFor="let option of languages" [value]="option.value">
-            <img src="{{option.icon}}" alt="country flags"> {{option.label}}
+            <img src="{{option.icon}}" alt="country flags"> {{ option.label | translate}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-icon-button matSuffix (click)="toggleTheme()">
-        <mat-icon>{{ themeService.isDarkMode ? 'dark_mode' : 'light_mode' }}</mat-icon>
-      </button>
     </div>
 </header>
