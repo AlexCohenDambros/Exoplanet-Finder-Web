@@ -1,4 +1,11 @@
 {
+  "translate.portuguese": "Portugais",
+  "translate.english": "Anglais",
+  "translate.spanish": "Espagnol",
+  "translate.french": "Français",
+  "translate.german": "Allemand",
+  "translate.china": "Chinois",
+
   "home.title": "exoplanète",
   "text": "Projet TCC",
   "home.subtitle": "Découvrez les exoplanètes"

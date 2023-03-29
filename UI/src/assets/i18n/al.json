@@ -1,4 +1,11 @@
 {
+  "translate.portuguese": "Portugiesisch",
+  "translate.english": "Englisch",
+  "translate.spanish": "Spanisch",
+  "translate.french": "Französisch",
+  "translate.german": "Deutsch",
+  "translate.china": "Chinesisch",
+
   "home.title": "Exoplanet",
   "text": "TCC-Projekt",
   "Home.message": "Willkommen beim Exoplanet-Projekt"

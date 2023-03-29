@@ -23,12 +23,12 @@ export class HeaderComponent {
      }
 
      languages = [
-      {value: 1, label: 'Português', icon: './assets/flags/brazil.png'},
-      {value: 2, label: 'Inglês', icon: './assets/flags/eua.png'},
-      {value: 3, label: 'Alemão', icon: './assets/flags/germany.png'},
-      {value: 4, label: 'Chinês', icon: './assets/flags/china.png'},
-      {value: 5, label: 'Espanhol', icon: './assets/flags/spain.png'},
-      {value: 6, label: 'Francês', icon: './assets/flags/france.png'},
+      {value: 1, label: 'translate.portuguese', icon: './assets/flags/brazil.png'},
+      {value: 2, label: 'translate.english', icon: './assets/flags/eua.png'},
+      {value: 3, label: 'translate.german', icon: './assets/flags/germany.png'},
+      {value: 4, label: 'translate.china', icon: './assets/flags/china.png'},
+      {value: 5, label: 'translate.spanish', icon: './assets/flags/spain.png'},
+      {value: 6, label: 'translate.french', icon: './assets/flags/france.png'},
     ];
 
   public goHome(): void {
