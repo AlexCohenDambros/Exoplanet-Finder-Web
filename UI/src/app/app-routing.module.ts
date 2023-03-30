@@ -4,6 +4,7 @@ import { ServerErrorComponent } from './http-errors/server-error/server-error.co
 import { NotFoundComponent } from './http-errors/not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { TestComponent } from './test/test.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: '404', component: NotFoundComponent },
   {path: '500', component: ServerErrorComponent},
   { path: 'test', component: TestComponent },
+  { path: 'login', component: LoginComponent },
   { path: '**', component: NotFoundComponent }
 ];
 

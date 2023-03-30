@@ -9,11 +9,29 @@ header {
 
 .left {
   flex-grow: 1;
-  outline: none;
-  border: none;
 }
 
 .right {
   flex-shrink: 0;
   margin-left: 10px;
+}
+
+mat-form-field {
+  margin-right: 30px;
+}
+.custom-select{
+  margin-right: 200px;
+}
+
+.home-button{
+  cursor: pointer;
+  margin-top: 0;
+  margin-left: 20px;
+  width: 32px;
+  height: 32px;
+  background-image: url(../header/home-icon/planeta.png);
+}
+
+.home-button:hover{
+  background-image: url(../header/home-icon/alien.png);
 }

@@ -18,6 +18,8 @@ import { HomeComponent } from './home/home.component';
 import { TestComponent } from './test/test.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ThemeStateComponent } from './switch-theme/theme-state/theme-state.component';
+import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -31,11 +33,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     ServerErrorComponent,
     HomeComponent,
     TestComponent,
-    ThemeStateComponent
+    ThemeStateComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
         TranslateModule.forRoot({
