@@ -48,5 +48,17 @@ namespace API.Controller
             return (res != null) ? Ok(res) : BadRequest();
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int id){
+            var res = _userService.DeleteUser(id);
+            return res ? Ok() : BadRequest();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser([FromBody] UserDTO userDTO, int id){
+            var res = _userService.UpdateUser(userDTO, id);
+            return res ? Ok() : BadRequest();
+
+        }
     }
 }

@@ -47,6 +47,20 @@ namespace API.Service.User
             return (u == null) ? userRepository.CreateNewUser(TransformDTOtoUser(userInput)) : null;
         }
 
+        public bool DeleteUser(int id){
+            if(GetUserByID(id)==null){
+                return false;
+            }
+            return userRepository.DeleteUser(id);
+        }
+
+        public bool UpdateUser(UserDTO userDTO,int id){
+            if(GetUserByID(id)==null){
+                return false;
+            }
+            return userRepository.UpdateUser(userDTO,id);
+        }
+
     }
 }
 

@@ -12,5 +12,9 @@ namespace API.Service.User
         UserDRO GetUserByID(int id);
 
         UserDRO? CreateUser(UserDTO userInput);
+
+        bool DeleteUser(int id);
+
+        bool UpdateUser(UserDTO userDTO,int id);
     }
 }

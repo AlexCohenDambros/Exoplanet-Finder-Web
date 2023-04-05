@@ -12,5 +12,9 @@ namespace API.Repository.User
         UserDRO GetUserByEmail(string email);
 
         UserDRO GetUserByID(int id);
+
+        bool DeleteUser(int id);
+
+        bool UpdateUser(UserDTO userDTO,int id);
     }
 }

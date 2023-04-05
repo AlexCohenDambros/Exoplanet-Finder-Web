@@ -25,18 +25,18 @@ namespace API.Repository.User
             }
         }
 
-        public UserDRO GetByEmail(string email)
+        public UserDRO GetUserByEmail(string email)
         {
             using (IDbConnection connection = _serviceProvider.GetService<IDbConnection>()!)
             {
                 connection.Open();
                 string query = "select id, email from [User] where email=@email";
-                UserModel u = connection.QueryFirstOrDefault<UserModel>(query,new {email});
+                UserModel u = connection.QueryFirstOrDefault<UserModel>(query, new { email });
                 UserDRO? userDRO = (u == null) ? null : (new UserDRO(u.id, u.email));
                 return userDRO;
 
             }
-            
+
         }
 
         public UserDRO GetUserByID(int id)
@@ -45,7 +45,7 @@ namespace API.Repository.User
             {
                 connection.Open();
                 string query = "select id, email from [User] where id=@id";
-                UserModel u = connection.QueryFirstOrDefault<UserModel>(query, new { id});
+                UserModel u = connection.QueryFirstOrDefault<UserModel>(query, new { id });
                 UserDRO? userDRO = (u == null) ? null : (new UserDRO(u.id, u.email));
                 return userDRO;
 
@@ -55,17 +55,57 @@ namespace API.Repository.User
 
         public UserDRO CreateNewUser(UserModel u)
         {
-            
+
             using (IDbConnection connection = _serviceProvider.GetService<IDbConnection>()!)
             {
                 connection.Open();
                 string query = "insert into [User] (name, email, password) OUTPUT INSERTED.id, INSERTED.email values (@name, @email,@password)";
-                UserModel Nu = connection.QueryFirst<UserModel>(query, new { name=u.name,email=u.email,password=u.password});
+                UserModel Nu = connection.QueryFirst<UserModel>(query, new { name = u.name, email = u.email, password = u.password });
 
                 return new UserDRO(Nu.id, Nu.email);
 
             }
         }
-        
+
+        public bool DeleteUser(int id)
+        {
+            try
+            {
+                using (IDbConnection connection = _serviceProvider.GetService<IDbConnection>()!)
+                {
+                    connection.Open();
+                    string query = "UPDATE [User] SET deleted=0 where id=@id";
+                    connection.ExecuteAsync(query, new {id});
+                    return true;
+
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateUser(UserDTO userDTO,int id){
+            try
+            {
+                using (IDbConnection connection = _serviceProvider.GetService<IDbConnection>()!)
+                {
+                    connection.Open();
+                    string query = "UPDATE [User] SET name=@name, email=@email, password=@password where id=@id";
+                    connection.ExecuteAsync(query, new {id});
+                    return true;
+
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
     }
 }
