@@ -32,5 +32,21 @@ namespace API.Controller
             var res = _userService.CreateUser(u);
             return (res!=null) ? Ok(res) : BadRequest();
         }
+
+        [HttpGet("email/{email}")]
+        public IActionResult GetByEmail(string email)
+        {
+            var res = _userService.GetUserByEmail(email);
+            return (res!=null) ? Ok(res) : BadRequest();
+        }
+
+
+        [HttpGet("id/{id}")]
+        public IActionResult GetUserByID(int id)
+        {
+            var res = _userService.GetUserByID(id);
+            return (res != null) ? Ok(res) : BadRequest();
+        }
+
     }
 }
