@@ -1,5 +1,5 @@
-﻿using API.Model;
-using API.Service;
+﻿using API.Model.User;
+using API.Service.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,9 +22,14 @@ namespace API.Controller
         [HttpGet]
        public IActionResult GetAll()
         {
-            IEnumerable<User> users = _userService.GetAllUsers();
+            IEnumerable<UserModel> users = _userService.GetAllUsers();
             return (users.Any() ? Ok(users) : BadRequest());
         }
 
+        [HttpPost]
+        public IActionResult CreateUser([FromBody] UserDTO u)
+        {
+           //var user = ""
+        }
     }
 }

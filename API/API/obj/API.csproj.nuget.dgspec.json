@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pichau\\Desktop\\Sumersoft\\Projetos\\LMS\\LMS\\SAMWebScrapers\\API\\API\\API.csproj": {}
+    "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\tcc\\Exoplanet-Finder-Web\\API\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pichau\\Desktop\\Sumersoft\\Projetos\\LMS\\LMS\\SAMWebScrapers\\API\\API\\API.csproj": {
+    "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\tcc\\Exoplanet-Finder-Web\\API\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pichau\\Desktop\\Sumersoft\\Projetos\\LMS\\LMS\\SAMWebScrapers\\API\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\tcc\\Exoplanet-Finder-Web\\API\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Pichau\\Desktop\\Sumersoft\\Projetos\\LMS\\LMS\\SAMWebScrapers\\API\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pichau\\Desktop\\Sumersoft\\Projetos\\LMS\\LMS\\SAMWebScrapers\\API\\API\\obj\\",
+        "projectPath": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\tcc\\Exoplanet-Finder-Web\\API\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\tcc\\Exoplanet-Finder-Web\\API\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Pichau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -84,7 +84,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,5 +1,5 @@
-using API.Repository;
-using API.Service;
+using API.Repository.User;
+using API.Service.User;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Text.Json;
@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddTransient<IDbConnection>((sp) => new SqlConnection(builder.Configuration.GetConnectionString("conString")));
-builder.Services.AddSingleton<UserService>();
+builder.Services.AddSingleton<UserService, IUserService>();
 builder.Services.AddSingleton<UserRepository, IUserReporitory>();
 builder.Services.AddControllers().AddJsonOptions(options =>
 {

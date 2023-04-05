@@ -1,6 +1,6 @@
-﻿namespace API.Model
+﻿namespace API.Model.User
 {
-    public class User
+    public class UserModel
     {
         public int id { get; set; }
         public string name { get; set; }
