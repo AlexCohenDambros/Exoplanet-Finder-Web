@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThemeService } from '../../switch-theme/theme.service';
+import { ThemeService } from 'src/app/shared/switch-theme/theme.service';
 
 @Component({
   selector: 'app-not-found',
