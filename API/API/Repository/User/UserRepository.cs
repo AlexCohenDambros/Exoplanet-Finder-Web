@@ -7,6 +7,10 @@ namespace API.Repository.User
 
         IEnumerable<UserModel> GetAll();
 
-        UserModel CreateNewUser(UserModel u);
+        UserDRO CreateNewUser(UserModel u);
+
+        UserDRO GetUserByEmail(string email);
+
+        UserDRO GetUserByID(int id);
     }
 }

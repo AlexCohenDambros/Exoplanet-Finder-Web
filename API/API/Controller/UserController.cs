@@ -29,7 +29,8 @@ namespace API.Controller
         [HttpPost]
         public IActionResult CreateUser([FromBody] UserDTO u)
         {
-           //var user = ""
+            var res = _userService.CreateUser(u);
+            return (res!=null) ? Ok(res) : BadRequest();
         }
     }
 }

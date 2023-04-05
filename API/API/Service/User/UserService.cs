@@ -6,5 +6,11 @@ namespace API.Service.User
     {
         IEnumerable<UserModel> GetAllUsers();
         UserModel TransformDTOtoUser(UserDTO userDTO);
+
+        UserDRO GetUserByEmail(string email);
+
+        UserDRO GetUserByID(int id);
+
+        UserDRO? CreateUser(UserDTO userInput);
     }
 }

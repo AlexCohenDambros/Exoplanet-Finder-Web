@@ -15,20 +15,38 @@ namespace API.Service.User
         }
 
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<UserModel> GetAllUsers()
         {
             return userRepository.GetAll();
         }
-        public User TransformDTOtoUser(UserDTO userDTO)
+
+        public UserDRO GetUserByEmail(string email)
         {
-            var user = new User();
+            return userRepository.GetUserByEmail(email);
+        }
+
+        public UserDRO GetUserByID(int id)
+        {
+            return userRepository.GetUserByID(id);
+        }
+
+        public UserModel TransformDTOtoUser(UserDTO userDTO)
+        {
+            var user = new UserModel();
             user.name = userDTO.name;
             user.email = userDTO.email;
-            user.password = UserDTO.password;
+            user.password = userDTO.password;
             return user;
 
 
         }
+
+        public UserDRO? CreateUser(UserDTO userInput)
+        {
+            var u = GetUserByEmail(userInput.email);
+            return (u == null) ? userRepository.CreateNewUser(TransformDTOtoUser(userInput)) : null;
+        }
+
     }
 }
 
