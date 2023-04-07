@@ -7,29 +7,22 @@ namespace API.Service.User
     public class IUserService : UserService
     {
         private UserRepository userRepository;
-
-
         public IUserService(UserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
-
-
         public IEnumerable<UserModel> GetAllUsers()
         {
             return userRepository.GetAll();
         }
-
         public UserDRO GetUserByEmail(string email)
         {
             return userRepository.GetUserByEmail(email);
         }
-
         public UserDRO GetUserByID(int id)
         {
             return userRepository.GetUserByID(id);
         }
-
         public UserModel TransformDTOtoUser(UserDTO userDTO)
         {
             var user = new UserModel();
@@ -37,10 +30,7 @@ namespace API.Service.User
             user.email = userDTO.email;
             user.password = userDTO.password;
             return user;
-
-
         }
-
         public UserDRO? CreateUser(UserDTO userInput)
         {
             var u = GetUserByEmail(userInput.email);
@@ -60,7 +50,6 @@ namespace API.Service.User
             }
             return userRepository.UpdateUser(userDTO,id);
         }
-
     }
 }
 

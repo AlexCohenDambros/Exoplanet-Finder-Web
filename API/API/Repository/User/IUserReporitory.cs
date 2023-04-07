@@ -12,25 +12,23 @@ namespace API.Repository.User
         {
             _serviceProvider = serviceProvider;
         }
-
         public IEnumerable<UserModel> GetAll()
         {
             using (IDbConnection connection = _serviceProvider.GetService<IDbConnection>()!)
             {
                 connection.Open();
-                string query = "SELECT id, name, email,password from [User]";
+                string query = "SELECT id, name, email,password from [User] where deleted=0";
                 IEnumerable<UserModel> m = connection.Query<UserModel>(query);
                 return m;
 
             }
         }
-
         public UserDRO GetUserByEmail(string email)
         {
             using (IDbConnection connection = _serviceProvider.GetService<IDbConnection>()!)
             {
                 connection.Open();
-                string query = "select id, email from [User] where email=@email";
+                string query = "select id, email from [User] where email=@email and deleted=0";
                 UserModel u = connection.QueryFirstOrDefault<UserModel>(query, new { email });
                 UserDRO? userDRO = (u == null) ? null : (new UserDRO(u.id, u.email));
                 return userDRO;
@@ -38,21 +36,18 @@ namespace API.Repository.User
             }
 
         }
-
         public UserDRO GetUserByID(int id)
         {
             using (IDbConnection connection = _serviceProvider.GetService<IDbConnection>()!)
             {
                 connection.Open();
-                string query = "select id, email from [User] where id=@id";
-                UserModel u = connection.QueryFirstOrDefault<UserModel>(query, new { id });
+                string query = "select id, email from [User] where id=@id and deleted=0";
+                UserModel? u = connection.QueryFirstOrDefault<UserModel>(query, new { id });
                 UserDRO? userDRO = (u == null) ? null : (new UserDRO(u.id, u.email));
                 return userDRO;
 
             }
         }
-
-
         public UserDRO CreateNewUser(UserModel u)
         {
 
@@ -66,7 +61,6 @@ namespace API.Repository.User
 
             }
         }
-
         public bool DeleteUser(int id)
         {
             try
@@ -74,7 +68,7 @@ namespace API.Repository.User
                 using (IDbConnection connection = _serviceProvider.GetService<IDbConnection>()!)
                 {
                     connection.Open();
-                    string query = "UPDATE [User] SET deleted=0 where id=@id";
+                    string query = "UPDATE [User] SET deleted=1 where id=@id";
                     connection.ExecuteAsync(query, new {id});
                     return true;
 
@@ -86,7 +80,6 @@ namespace API.Repository.User
                 return false;
             }
         }
-
         public bool UpdateUser(UserDTO userDTO,int id){
             try
             {
@@ -94,18 +87,14 @@ namespace API.Repository.User
                 {
                     connection.Open();
                     string query = "UPDATE [User] SET name=@name, email=@email, password=@password where id=@id";
-                    connection.ExecuteAsync(query, new {id});
+                    connection.ExecuteAsync(query, new {name=userDTO.name, email=userDTO.email, password=userDTO.password,id=id});
                     return true;
-
                 }
-
             }
             catch (Exception)
             {
                 return false;
             }
         }
-
-
     }
 }

@@ -23,21 +23,21 @@ namespace API.Controller
        public IActionResult GetAll()
         {
             IEnumerable<UserModel> users = _userService.GetAllUsers();
-            return (users.Any() ? Ok(users) : BadRequest());
+            return (users.Any() ? Ok(users) : BadRequest("error"));
         }
 
         [HttpPost]
         public IActionResult CreateUser([FromBody] UserDTO u)
         {
             var res = _userService.CreateUser(u);
-            return (res!=null) ? Ok(res) : BadRequest();
+            return (res!=null) ? Ok(res) : BadRequest("Information missing or user already exists");
         }
 
         [HttpGet("email/{email}")]
         public IActionResult GetByEmail(string email)
         {
             var res = _userService.GetUserByEmail(email);
-            return (res!=null) ? Ok(res) : BadRequest();
+            return (res!=null) ? Ok(res) : BadRequest("User does not exist");
         }
 
 
@@ -45,7 +45,7 @@ namespace API.Controller
         public IActionResult GetUserByID(int id)
         {
             var res = _userService.GetUserByID(id);
-            return (res != null) ? Ok(res) : BadRequest();
+            return (res != null) ? Ok(res) : BadRequest("User does not exist");
         }
 
         [HttpDelete("{id}")]
