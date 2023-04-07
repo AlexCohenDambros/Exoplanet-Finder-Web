@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ThemeService } from '../switch-theme/theme.service';
 import { take } from 'rxjs';
-import { ThemeStateComponent } from '../switch-theme/theme-state/theme-state.component';
-import { LanguageService } from '../translate/language.service';
+import { ThemeStateComponent } from '../switch-theme/components/theme-state/theme-state.component';
+import { ThemeService } from 'src/app/shared/switch-theme/theme.service';
+import { LanguageService } from 'src/app/shared/translate/language.service';
 
 @Component({
   selector: 'app-header',

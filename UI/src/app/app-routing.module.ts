@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ServerErrorComponent } from './http-errors/server-error/server-error.component';
-import { NotFoundComponent } from './http-errors/not-found/not-found.component';
-import { HomeComponent } from './home/home.component';
-import { TestComponent } from './test/test.component';
-import { LoginComponent } from './login/login.component';
+import { TestComponent } from './shared/test/test.component';
+import { LoginComponent } from './features/login/login.component';
+import { HomeComponent } from './features/home-page/home.component';
+import { NotFoundComponent } from './shared/http-errors/not-found/not-found.component';
+import { ServerErrorComponent } from './shared/http-errors/server-error/server-error.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
