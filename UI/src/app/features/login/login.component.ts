@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,9 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -20,8 +23,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    // Processa os dados do formulário aqui
     console.log(this.loginForm.value);
+  }
+
+  onRegister() {
+    this.router.navigate(['/join']);
   }
 
 }
