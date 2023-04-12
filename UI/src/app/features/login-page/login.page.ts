@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-login-page',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss']
 })
 export class LoginComponent implements OnInit {
 

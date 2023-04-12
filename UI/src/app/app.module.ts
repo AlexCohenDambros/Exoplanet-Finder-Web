@@ -13,14 +13,14 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TestComponent } from './shared/test/test.component';
-import { LoginComponent } from './features/login/login.component';
 import { ThemeService } from './shared/switch-theme/theme.service';
 import { HeaderComponent } from './shared/header/header.component';
 import { NotFoundComponent } from './shared/http-errors/not-found/not-found.component';
 import { ServerErrorComponent } from './shared/http-errors/server-error/server-error.component';
-import { HomeComponent } from './features/home-page/home.component';
+import { HomeComponent } from './features/home-page/home.page';
 import { ThemeStateComponent } from './shared/switch-theme/components/theme-state/theme-state.component';
-import { JoinComponent } from './features/join/join.component';
+import { LoginComponent } from './features/login-page/login.page';
+import { JoinComponent } from './features/join-page/join.page';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-join',
-  templateUrl: './join.component.html',
-  styleUrls: ['./join.component.scss']
+  selector: 'app-join-page',
+  templateUrl: './join.page.html',
+  styleUrls: ['./join.page.scss']
 })
 export class JoinComponent implements OnInit {
 
