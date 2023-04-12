@@ -28,7 +28,6 @@ export class HeaderComponent {
       {value: 3, label: 'translate.german', icon: './assets/flags/germany.png'},
       {value: 4, label: 'translate.china', icon: './assets/flags/china.png'},
       {value: 5, label: 'translate.spanish', icon: './assets/flags/spain.png'},
-      {value: 6, label: 'translate.french', icon: './assets/flags/france.png'},
     ];
 
   public goHome(): void {
@@ -68,10 +67,6 @@ export class HeaderComponent {
       case 5:
         console.log("espanhol selecionado");
         this.changeLanguage('es')
-        break;
-      case 6:
-        console.log("frances selecionado");
-        this.changeLanguage('fr')
         break;
       default:
         this.changeLanguage('pt');
