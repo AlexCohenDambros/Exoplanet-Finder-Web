@@ -24,6 +24,8 @@ import { ThemeService } from './shared/switch-theme/theme.service';
 import { HeaderComponent } from './shared/header/header.component';
 import { NotFoundComponent } from './shared/http-errors/not-found/not-found.component';
 import { ToastrModule } from 'ngx-toastr';
+import { LoadingComponent } from './shared/loading/loading.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -41,7 +43,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     JoinComponent,
     JoinFormComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     MatCardModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   providers: [ThemeService],
   bootstrap: [AppComponent]
