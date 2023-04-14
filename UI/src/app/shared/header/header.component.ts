@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { ThemeStateComponent } from '../switch-theme/components/theme-state/theme-state.component';
-import { ThemeService } from 'src/app/shared/switch-theme/theme.service';
-import { LanguageService } from 'src/app/shared/translate/language.service';
+import { ThemeService } from '../switch-theme/theme.service';
+import { LanguageService } from '../translate/language.service';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +28,6 @@ export class HeaderComponent {
       {value: 3, label: 'translate.german', icon: './assets/flags/germany.png'},
       {value: 4, label: 'translate.china', icon: './assets/flags/china.png'},
       {value: 5, label: 'translate.spanish', icon: './assets/flags/spain.png'},
-      {value: 6, label: 'translate.french', icon: './assets/flags/france.png'},
     ];
 
   public goHome(): void {
@@ -68,10 +67,6 @@ export class HeaderComponent {
       case 5:
         console.log("espanhol selecionado");
         this.changeLanguage('es')
-        break;
-      case 6:
-        console.log("frances selecionado");
-        this.changeLanguage('fr')
         break;
       default:
         this.changeLanguage('pt');
