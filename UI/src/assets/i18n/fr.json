@@ -10,5 +10,15 @@
 
   "home.title": "exoplanète",
   "text": "Projet TCC",
-  "home.subtitle": "Découvrez les exoplanètes"
+  "home.subtitle": "Découvrez les exoplanètes",
+
+  "join.form.name": "Nom",
+  "join.form.familyName": "Nom de famille",
+  "join.form.email": "E-mail",
+  "join.form.password": "Mot de passe",
+  "join.form.login": "Enregistrer",
+  "join.form.name.errorMessage": "Le nom est requis",
+  "join.form.familyName.errorMessage": "Le nom de famille est requis",
+  "join.form.email.errorMessage": "L'e-mail est obligatoire et doit être valide",
+  "join.form.password.errorMessage": "Le mot de passe est obligatoire et doit comporter au moins 10 caractères, dont au moins une lettre majuscule et un caractère spécial."
 }

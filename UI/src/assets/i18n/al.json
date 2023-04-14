@@ -10,5 +10,15 @@
 
   "home.title": "Exoplanet",
   "text": "TCC-Projekt",
-  "Home.message": "Willkommen beim Exoplanet-Projekt"
+  "Home.message": "Willkommen beim Exoplanet-Projekt",
+
+  "join.form.name": "Name",
+  "join.form.familyName": "Nachname",
+  "join.form.email": "Email",
+  "join.form.password": "Passwort",
+  "join.form.login": "Registrieren",
+  "join.form.name.errorMessage": "Name ist erforderlich",
+  "join.form.familyName.errorMessage": "Nachname ist erforderlich",
+  "join.form.email.errorMessage": "E-Mail ist erforderlich und muss gültig sein",
+  "join.form.password.errorMessage": "Das Passwort ist erforderlich und muss mindestens 10 Zeichen lang sein, darunter mindestens ein Großbuchstabe und ein Sonderzeichen."
 }

@@ -12,15 +12,18 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {MatIconModule} from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './features/home-page/home.page';
+import { LoginComponent } from './features/login-page/login.page';
+import { JoinComponent } from './features/join-page/join.page';
+import { JoinFormComponent } from './features/join-page/components/join-form/join-form.component';
+import { LoginFormComponent } from './features/login-page/components/login-form/login-form.component';
+import { ServerErrorComponent } from './shared/http-errors/server-error/server-error.component';
 import { TestComponent } from './shared/test/test.component';
+import { ThemeStateComponent } from './shared/switch-theme/components/theme-state/theme-state.component';
 import { ThemeService } from './shared/switch-theme/theme.service';
 import { HeaderComponent } from './shared/header/header.component';
 import { NotFoundComponent } from './shared/http-errors/not-found/not-found.component';
-import { ServerErrorComponent } from './shared/http-errors/server-error/server-error.component';
-import { HomeComponent } from './features/home-page/home.page';
-import { ThemeStateComponent } from './shared/switch-theme/components/theme-state/theme-state.component';
-import { LoginComponent } from './features/login-page/login.page';
-import { JoinComponent } from './features/join-page/join.page';
+import { ToastrModule } from 'ngx-toastr';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -36,7 +39,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     TestComponent,
     ThemeStateComponent,
     LoginComponent,
-    JoinComponent
+    JoinComponent,
+    JoinFormComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
+        ToastrModule.forRoot(),
     //// Angular Material
     MatButtonModule,
     MatInputModule,

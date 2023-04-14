@@ -10,5 +10,15 @@
 
   "home.title": "exoplaneta",
   "text": "proyecto TCC",
-  "Home.message": "Bienvenido a exoplaneta"
+  "Home.message": "Bienvenido a exoplaneta",
+
+  "join.form.name": "Nombre",
+  "join.form.familyName": "Apellido",
+  "join.form.email": "Correo electrónico",
+  "join.form.password": "Contraseña",
+  "join.form.login": "Registrar",
+  "join.form.name.errorMessage": "Se requiere el nombre",
+  "join.form.familyName.errorMessage": "Se requiere apellido",
+  "join.form.email.errorMessage": "El correo electrónico es obligatorio y debe ser válido",
+  "join.form.password.errorMessage": "La contraseña es obligatoria y debe tener al menos 10 caracteres, incluida al menos una letra mayúscula y un carácter especial."
 }

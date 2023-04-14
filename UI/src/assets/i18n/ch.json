@@ -9,5 +9,15 @@
 
   "home.title": "系外行星",
   "text": "TCC項目",
-  "Home.message": "歡迎來到系外行星項目"
+  "Home.message": "歡迎來到系外行星項目",
+
+  "join.form.name": "姓名",
+  "join.form.familyName": "姓",
+  "join.form.email": "電子郵件",
+  "join.form.password": "密碼",
+  "join.form.login": "登記",
+  "join.form.name.errorMessage": "姓名為必填項",
+  "join.form.familyName.errorMessage": "姓氏是必需的",
+  "join.form.email.errorMessage": "電子郵件是必需的，必須是有效的",
+  "join.form.password.errorMessage": "密碼為必填項，長度至少為 10 個字符，包括至少 1 個大寫字母和 1 個特殊字符。"
 }

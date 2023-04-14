@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { ThemeStateComponent } from '../switch-theme/components/theme-state/theme-state.component';
-import { ThemeService } from 'src/app/shared/switch-theme/theme.service';
-import { LanguageService } from 'src/app/shared/translate/language.service';
+import { ThemeService } from '../switch-theme/theme.service';
+import { LanguageService } from '../translate/language.service';
 
 @Component({
   selector: 'app-header',

@@ -1,0 +1,39 @@
+<form [formGroup]="Form" (ngSubmit)="cadastrar()" class="form-dark">
+
+    <div class="form-group">
+      <label for="nome">{{'join.form.name' | translate}}:</label>
+      <input type="text" class="form-control" id="nome" formControlName="nome">
+      <div *ngIf="Form.get('nome')?.invalid && Form.get('nome')?.touched " class="alert alert-danger">
+        {{'join.form.name.errorMessage' | translate}}.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="sobrenome">{{'join.form.familyName' | translate}}:</label>
+      <input type="text" class="form-control" id="sobrenome" formControlName="sobrenome">
+      <div *ngIf="Form.get('sobrenome')?.invalid && Form.get('sobrenome')?.touched" class="alert alert-danger">
+        {{'join.form.familyName.errorMessage' | translate}}.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">{{'join.form.email' | translate}}:</label>
+      <input type="email" class="form-control" id="email" formControlName="email">
+      <div *ngIf="Form.get('email')?.invalid && Form.get('email')?.touched" class="alert alert-danger">
+        {{'join.form.email.errorMessage' | translate}}.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="senha">{{'join.form.password' | translate}}:</label>
+      <div class="input-group">
+        <input type="password" class="form-control" id="senha" formControlName="senha">
+      </div>
+      <div *ngIf="Form.get('senha')?.invalid && Form.get('senha')?.touched" class="alert alert-danger mt-2">
+        {{'join.form.password.errorMessage' | translate}}.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="Form.invalid">{{'join.form.login' | translate}}</button>
+
+  </form>
