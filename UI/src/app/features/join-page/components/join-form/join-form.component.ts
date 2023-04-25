@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { JoinEndpoint } from 'src/app/domain/join/join.endpoint';
 import { JoinModel } from 'src/app/domain/join/join.models';
+import { UserModel } from 'src/app/domain/user/user.model';
+import { JoinService } from '../../services/join.service';
 
 @Component({
   selector: 'app-join-form',
@@ -16,11 +18,13 @@ export class JoinFormComponent implements OnInit {
 
   Form!: FormGroup;
   loading: boolean = false;
+  users!: UserModel[];
 
   constructor(
     private formBuilder: FormBuilder,
     private toastMessage: ToastrService,
     private joinModel: JoinModel,
+    private JoinService: JoinService,
     private router: Router) { }
 
   public ngOnInit(): void {
@@ -29,6 +33,10 @@ export class JoinFormComponent implements OnInit {
       sobrenome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.minLength(10), Validators.pattern(/^(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/)]],
+
+    });
+    this.JoinService.getUsers().subscribe((users) => {
+      this.users = users;
     });
   }
 
