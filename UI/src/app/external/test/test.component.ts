@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ThemeService } from '../switch-theme/theme.service';
-import { LanguageService } from '../translate/language.service';
+import { ThemeService } from '../../shared/switch-theme/theme.service';
+import { LanguageService } from '../../shared/translate/language.service';
 
 @Component({
   selector: 'app-test',
