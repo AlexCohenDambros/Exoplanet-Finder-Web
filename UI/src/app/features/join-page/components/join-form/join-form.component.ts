@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { JoinEndpoint } from 'src/app/domain/join/join.endpoint';
 import { JoinModel } from 'src/app/domain/join/join.models';
 
 @Component({
@@ -39,7 +38,7 @@ export class JoinFormComponent implements OnInit {
       let formEmail = this.Form.get('email')?.value;
       let formPassword = this.Form.get('senha')?.value;
 
-      let obj =  new JoinModel()
+      let obj = new JoinModel()
       obj.Name = formName;
       obj.FamilyName = formFamilyName;
       obj.Email = formEmail;

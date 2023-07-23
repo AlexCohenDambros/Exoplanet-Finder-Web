@@ -19,8 +19,6 @@ import { JoinFormComponent } from './features/join-page/components/join-form/joi
 import { LoginFormComponent } from './features/login-page/components/login-form/login-form.component';
 import { ServerErrorComponent } from './shared/http-errors/server-error/server-error.component';
 import { TestComponent } from './external/test/test.component';
-import { ThemeStateComponent } from './shared/switch-theme/components/theme-state/theme-state.component';
-import { ThemeService } from './shared/switch-theme/theme.service';
 import { HeaderComponent } from './shared/header/header.component';
 import { NotFoundComponent } from './shared/http-errors/not-found/not-found.component';
 import { ToastrModule } from 'ngx-toastr';
@@ -42,7 +40,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ServerErrorComponent,
     HomeComponent,
     TestComponent,
-    ThemeStateComponent,
     LoginComponent,
     JoinComponent,
     JoinFormComponent,
@@ -74,7 +71,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSelectModule,
     MatProgressSpinnerModule
   ],
-  providers: [ThemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

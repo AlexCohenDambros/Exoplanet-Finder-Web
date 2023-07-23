@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ThemeService } from '../../shared/switch-theme/theme.service';
 import { LanguageService } from '../../shared/translate/language.service';
 
 @Component({
@@ -10,8 +9,7 @@ import { LanguageService } from '../../shared/translate/language.service';
 export class TestComponent {
 
   constructor(
-    private languageService: LanguageService,
-    public themeService: ThemeService) {
+    private languageService: LanguageService) {
   }
 
   public changeLanguage(lang: string): void {
