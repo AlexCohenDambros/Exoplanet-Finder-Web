@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { JoinModel } from 'src/app/domain/join/join.models';
+import { LanguageService } from 'src/app/shared/translate/language.service';
 
 @Component({
   selector: 'app-join-form',
@@ -17,12 +18,15 @@ export class JoinFormComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
+    private readonly languageService: LanguageService,
     private formBuilder: FormBuilder,
     private toastMessage: ToastrService,
     private joinModel: JoinModel,
     private router: Router) { }
 
   public ngOnInit(): void {
+    this.languageService.setInitialLanguage();
+
     this.Form = this.formBuilder.group({
       nome: ['', Validators.required],
       sobrenome: ['', Validators.required],
