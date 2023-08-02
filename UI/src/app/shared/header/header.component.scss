@@ -4,6 +4,7 @@ header {
   align-items: center;
   width: 100%;
   background-color: #f0f0f0;
+  // background-color: red;
   padding: 10px;
 }
 
@@ -16,14 +17,7 @@ header {
   margin-left: 10px;
 }
 
-mat-form-field {
-  margin-right: 30px;
-}
-.custom-select{
-  margin-right: 200px;
-}
-
-.home-button{
+.home-button {
   cursor: pointer;
   margin-top: 0;
   margin-left: 20px;
@@ -32,6 +26,6 @@ mat-form-field {
   background-image: url(../header/components/home-icon/planeta.png);
 }
 
-.home-button:hover{
+.home-button:hover {
   background-image: url(../header/components/home-icon/alien.png);
 }

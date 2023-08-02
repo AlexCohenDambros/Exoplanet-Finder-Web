@@ -3,13 +3,6 @@
     <div class="home-button" mat-raised-button (click)="goHome()"></div>
   </div>
   <div class="right">
-    <mat-form-field>
-      <mat-select class="custom-select" placeholder="{{'home.languages' | translate}}" [(value)]="selectedOption"
-        (selectionChange)="onLanguageSelected()">
-        <mat-option *ngFor="let option of languages" [value]="option.value">
-          <img src="{{option.icon}}" alt="country flags"> {{ option.label | translate}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-home-translate></app-home-translate>
   </div>
 </header>

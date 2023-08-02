@@ -26,6 +26,7 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ScatterPlotComponent } from './external/scatter-plot/scatter-plot.component';
 import { NgChartsModule } from 'ng2-charts';
+import { HomeTranslateComponent } from './shared/header/components/home-translate/home-translate.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -45,7 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     JoinFormComponent,
     LoginFormComponent,
     LoadingComponent,
-    ScatterPlotComponent
+    ScatterPlotComponent,
+    HomeTranslateComponent,
   ],
   imports: [
     NgChartsModule,

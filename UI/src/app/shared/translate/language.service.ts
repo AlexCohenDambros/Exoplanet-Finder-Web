@@ -11,4 +11,10 @@ export class LanguageService {
   public setLanguage(lang: string): void {
     this.translateService.use(lang);
   }
+
+  public setInitialLanguage(): void {
+    const selectedLanguage = localStorage.getItem('selectedLanguage');
+
+    this.setLanguage(selectedLanguage ?? 'pt');
+  }
 }
