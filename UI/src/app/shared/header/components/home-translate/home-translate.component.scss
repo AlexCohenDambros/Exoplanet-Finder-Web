@@ -1,7 +1,14 @@
-mat-form-field {
-  margin-right: 30px;
+.mat-form-field {
+  color: #fff;
 }
 
-.custom-select {
-  margin-right: 200px;
+.mat-select {
+  color: #000;
+  background-color: #fff;
+  background-color: transparent;
+}
+
+.mat-option {
+  color: #000;
+  background-color: #fff;
 }

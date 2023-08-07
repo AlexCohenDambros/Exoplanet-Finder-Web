@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LanguageService } from '../translate/language.service';
 
 @Component({
   selector: 'app-header',
@@ -11,8 +10,8 @@ import { LanguageService } from '../translate/language.service';
 export class HeaderComponent {
 
   constructor(
-    public languageService: LanguageService,
-    public router: Router) { }
+    public router: Router
+  ) { }
 
   public goHome(): void {
     this.router.navigate(['/home']);
