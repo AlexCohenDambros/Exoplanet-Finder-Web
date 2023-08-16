@@ -9,6 +9,8 @@ import * as XLSX from 'xlsx';
 })
 export class ScatterPlotComponent {
 
+  removeFileSelector: boolean = false;
+
   selectFile(event: any) {
     const file = event.target.files[0];
     console.log('Arquivo selecionado:', file);
@@ -78,6 +80,8 @@ export class ScatterPlotComponent {
   }
 
   plotScatterplot(dados: any[], xColumn: string, yColumn: string) {
+    this.removeFileSelector = true;
+
     const canvas: HTMLCanvasElement = document.getElementById('myChart') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
 

@@ -1,3 +1,4 @@
+import { ScatterPlotComponent } from './features/scatter-plot/scatter-plot.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,10 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './features/home-page/home.page';
-import { LoginComponent } from './features/login-page/login.page';
-import { JoinComponent } from './features/join-page/join.page';
-import { JoinFormComponent } from './features/join-page/components/join-form/join-form.component';
-import { LoginFormComponent } from './features/login-page/components/login-form/login-form.component';
 import { ServerErrorComponent } from './shared/http-errors/server-error/server-error.component';
 import { TestComponent } from './external/test/test.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -24,7 +21,6 @@ import { NotFoundComponent } from './shared/http-errors/not-found/not-found.comp
 import { ToastrModule } from 'ngx-toastr';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ScatterPlotComponent } from './external/scatter-plot/scatter-plot.component';
 import { NgChartsModule } from 'ng2-charts';
 import { HomeTranslateComponent } from './shared/header/components/home-translate/home-translate.component';
 
@@ -41,10 +37,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ServerErrorComponent,
     HomeComponent,
     TestComponent,
-    LoginComponent,
-    JoinComponent,
-    JoinFormComponent,
-    LoginFormComponent,
     LoadingComponent,
     ScatterPlotComponent,
     HomeTranslateComponent,

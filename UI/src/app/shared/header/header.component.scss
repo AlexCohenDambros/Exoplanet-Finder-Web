@@ -20,12 +20,13 @@ header {
 .home-button {
   width: 60px;
   height: 70%;
-  background-image: url(../header/components/home-icon/planeta.png);
+  background-image: url(../header/components/home-icon/planet.png);
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
   top: 50%;
   left: 10px;
+  margin-left: 20px;
   transform: translateY(-50%);
 }
 
