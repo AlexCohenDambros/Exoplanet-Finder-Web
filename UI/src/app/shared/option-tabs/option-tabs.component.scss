@@ -1,0 +1,11 @@
+.centered-tab-group {
+  display: flex;
+  justify-content: center;
+}
+
+.mat-tab-label {
+  font-size: 18px;
+  min-width: unset !important;
+  padding: 20px 40px;
+  margin-left: 100px;
+}

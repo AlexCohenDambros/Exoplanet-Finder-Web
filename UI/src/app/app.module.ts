@@ -23,7 +23,8 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgChartsModule } from 'ng2-charts';
 import { HomeTranslateComponent } from './shared/header/components/home-translate/home-translate.component';
-
+import { OptionTabsComponent } from './shared/option-tabs/option-tabs.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -40,6 +41,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoadingComponent,
     ScatterPlotComponent,
     HomeTranslateComponent,
+    OptionTabsComponent,
   ],
   imports: [
     NgChartsModule,
@@ -63,7 +65,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatCardModule,
     MatIconModule,
     MatSelectModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule
   ],
   bootstrap: [AppComponent]
 })
