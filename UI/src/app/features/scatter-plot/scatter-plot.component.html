@@ -1,0 +1,17 @@
+<mat-card class="fileSelector" *ngIf="!removeFileSelector">
+  <mat-card-header>
+    <div mat-card-avatar mat-raised-button>
+      <mat-icon>
+        <span class="material-symbols-outlined">
+          attach_file
+        </span>
+      </mat-icon>
+    </div>
+    <mat-card-title>Adicione um arquivo para visualizar o gráfico de dispersão</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <input type="file" (change)="selectFile($event)" accept=".xlsx, , .csv">
+  </mat-card-content>
+</mat-card>
+
+<canvas id="myChart"></canvas>

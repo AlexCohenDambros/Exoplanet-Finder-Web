@@ -1,37 +1,42 @@
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #282c34;
+  color: #fff;
+  height: 60px;
   width: 100%;
-  background-color: #f0f0f0;
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
-.left {
-  flex-grow: 1;
+.container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
 }
 
-.right {
-  flex-shrink: 0;
-  margin-left: 10px;
-}
-
-mat-form-field {
-  margin-right: 30px;
-}
-.custom-select{
-  margin-right: 200px;
-}
-
-.home-button{
-  cursor: pointer;
-  margin-top: 0;
+.home-button {
+  width: 60px;
+  height: 70%;
+  background-image: url(../header/components/home-icon/planet.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  top: 50%;
+  left: 10px;
   margin-left: 20px;
-  width: 32px;
-  height: 32px;
-  background-image: url(../header/components/home-icon/planeta.png);
+  transform: translateY(-50%);
 }
 
-.home-button:hover{
+.home-button:hover {
   background-image: url(../header/components/home-icon/alien.png);
+}
+
+.home-translate {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
 }
