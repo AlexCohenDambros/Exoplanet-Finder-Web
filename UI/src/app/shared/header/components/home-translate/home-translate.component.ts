@@ -20,6 +20,7 @@ export class HomeTranslateComponent {
     { value: 5, label: 'translate.spanish', icon: './assets/flags/spain.png' },
   ];
 
+
   private saveAndChangeLanguage(lang: string): void {
     this.languageService.setLanguage(lang);
 

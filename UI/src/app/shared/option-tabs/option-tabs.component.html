@@ -1,11 +1,19 @@
-<mat-tab-group class="centered-tab-group">
-  <mat-tab label="Telescópio Kepler">
-    Telescópio Kepler
+<mat-tab-group class="optionBar">
+
+  <mat-tab label="{{'homePage' | translate}}">
+    <app-home-page></app-home-page>
   </mat-tab>
-  <mat-tab label="Telescópio TESS">
-    Telescópio TESS
+
+  <mat-tab label="{{'TelescópioKepler' | translate}}">
+    <app-telescope-kepler></app-telescope-kepler>
   </mat-tab>
-  <mat-tab label="Telescópio K2">
-    Telescópio K2
+
+  <mat-tab label="{{'TelescópioTESS' | translate}}">
+    <app-telescope-tess></app-telescope-tess>
   </mat-tab>
+
+  <mat-tab label="{{'TelescópioK2' | translate}}">
+    <app-telescope-k2></app-telescope-k2>
+  </mat-tab>
+
 </mat-tab-group>

@@ -8,7 +8,7 @@
   "translate.german": "Alemão",
   "translate.china": "Chinês",
 
-
+  "homePage": "Página Inicial",
   "home.title": "Exoplanetas",
   "text": "Projeto de TCC",
   "Home.message": "Bem vindo ao Exoplanet-Finder",
@@ -21,5 +21,13 @@
   "join.form.name.errorMessage": "O nome é obrigatório",
   "join.form.familyName.errorMessage": "O sobrenome é obrigatório",
   "join.form.email.errorMessage": "O email é obrigatório e deve ser válido",
-  "join.form.password.errorMessage": "A senha é obrigatória e deve ter pelo menos 10 caracteres, incluindo pelo menos uma letra maiúscula e um caracter especial."
+  "join.form.password.errorMessage": "A senha é obrigatória e deve ter pelo menos 10 caracteres, incluindo pelo menos uma letra maiúscula e um caracter especial.",
+  "TelescópioKepler": "Telescópio Kepler",
+  "TelescópioTESS": "Telescópio TESS",
+  "TelescópioK2": "Telescópio K2",
+  "addArchive": "Adicione um arquivo para visualizar o gráfico de dispersão",
+  "notFoundTitle": "404 - Página não encontrada",
+  "notFoundMessage": "Desculpe, a página que você está procurando não existe.",
+  "serverErrorTitle": "500 - Erro interno do servidor",
+  "serverErrorMessage": "Desculpe, ocorreu um erro interno no servidor que impediu a conclusão da sua solicitação."
 }

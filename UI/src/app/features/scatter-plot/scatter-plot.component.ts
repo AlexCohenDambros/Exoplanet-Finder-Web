@@ -107,8 +107,8 @@ export class ScatterPlotComponent {
           responsive: true,
           maintainAspectRatio: false,
           animation: {
-            duration: 1000, // Duração da animação em milissegundos
-            easing: 'easeOutQuart', // Easing function para controlar a transição
+            duration: 1000,
+            easing: 'easeOutQuart',
           },
         },
       });

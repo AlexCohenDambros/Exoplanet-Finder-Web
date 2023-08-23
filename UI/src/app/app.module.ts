@@ -19,12 +19,14 @@ import { TestComponent } from './external/test/test.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { NotFoundComponent } from './shared/http-errors/not-found/not-found.component';
 import { ToastrModule } from 'ngx-toastr';
-import { LoadingComponent } from './shared/loading/loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgChartsModule } from 'ng2-charts';
 import { HomeTranslateComponent } from './shared/header/components/home-translate/home-translate.component';
 import { OptionTabsComponent } from './shared/option-tabs/option-tabs.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { TelescopeTessComponent } from './features/telescope-tess/telescope-tess.component';
+import { TelescopeKeplerComponent } from './features/telescope-kepler/telescope-kepler.component';
+import { TelescopeK2Component } from './features/telescope-k2/telescope-k2.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -38,10 +40,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     ServerErrorComponent,
     HomeComponent,
     TestComponent,
-    LoadingComponent,
     ScatterPlotComponent,
     HomeTranslateComponent,
     OptionTabsComponent,
+    TelescopeTessComponent,
+    TelescopeKeplerComponent,
+    TelescopeK2Component
   ],
   imports: [
     NgChartsModule,
