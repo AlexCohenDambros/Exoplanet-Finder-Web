@@ -15,7 +15,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './features/home-page/home.page';
 import { ServerErrorComponent } from './shared/http-errors/server-error/server-error.component';
-import { TestComponent } from './external/test/test.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { NotFoundComponent } from './shared/http-errors/not-found/not-found.component';
 import { ToastrModule } from 'ngx-toastr';
@@ -39,7 +38,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NotFoundComponent,
     ServerErrorComponent,
     HomeComponent,
-    TestComponent,
     ScatterPlotComponent,
     HomeTranslateComponent,
     OptionTabsComponent,
