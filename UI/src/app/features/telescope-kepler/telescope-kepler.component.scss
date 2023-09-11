@@ -1,0 +1,25 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.kepler {
+  padding: 0 20%;
+  text-align: center;
+}
+
+.title-Kepler {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.subTitle-Kepler {
+  font-size: 20px
+}
+
+hr.solid {
+  border-top: 3px solid #bbb;
+}

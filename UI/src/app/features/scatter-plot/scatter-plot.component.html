@@ -7,7 +7,7 @@
         </span>
       </mat-icon>
     </div>
-    <mat-card-title>{{'addArchive'}}</mat-card-title>
+    <mat-card-title>{{'addArchive' | translate }}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <input type="file" (change)="selectFile($event)" accept=".xlsx, , .csv">
