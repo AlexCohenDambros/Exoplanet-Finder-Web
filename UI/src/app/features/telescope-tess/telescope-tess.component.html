@@ -1,0 +1,63 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <button mat-raised-button color="primary" style="width:200px;" (click)="openScatterPlot()">
+      {{'scatterPLotTitle' | translate}}
+    </button>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="container">
+      <div class="telescope w-100">
+        <div>
+          <app-home-translate></app-home-translate>
+        </div>
+        <p class="telescope-title">
+          <b>
+            {{ 'tessCuriosity' | translate }}
+          </b>
+        </p>
+        <p class="telescope-subtitle">
+          {{ 'tessSubtitle' | translate }}
+        </p>
+
+        <p>
+          <b>
+            {{ 'topic1' | translate }}
+          </b>
+          {{'tessText1' | translate}}
+        </p>
+
+        <p>
+          <b>
+            {{'topic2' | translate}}
+          </b>
+          {{'tessText2' | translate}}
+        </p>
+
+        <p>
+          <b>
+            {{'topic3' | translate}}
+          </b>
+          {{'tessText3' | translate}}
+        </p>
+
+        <p>
+          <b>
+            {{'topic4' | translate}}
+          </b>
+          {{'tessText4' | translate}}
+        </p>
+
+        <p>
+          <b>
+            {{'topic5' | translate}}
+          </b>
+          {{'tessText5' | translate}}
+        </p>
+
+        <p>
+          {{'tessText6' | translate}}
+        </p>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

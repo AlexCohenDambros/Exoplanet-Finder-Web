@@ -88,7 +88,6 @@ export class ScatterPlotComponent {
     if (ctx) {
       const labels = dados.map(item => item[xColumn]);
       const data = dados.map(item => item[yColumn]);
-
       const chart = new Chart(ctx, {
         type: 'scatter',
         data: {
@@ -107,8 +106,8 @@ export class ScatterPlotComponent {
           responsive: true,
           maintainAspectRatio: false,
           animation: {
-            duration: 1000, // Duração da animação em milissegundos
-            easing: 'easeOutQuart', // Easing function para controlar a transição
+            duration: 1000,
+            easing: 'easeOutQuart',
           },
         },
       });

@@ -1,4 +1,4 @@
-<mat-card class="fileSelector" *ngIf="!removeFileSelector">
+<mat-card class="fileSelector">
   <mat-card-header>
     <div mat-card-avatar mat-raised-button>
       <mat-icon>
@@ -10,8 +10,6 @@
     <mat-card-title>{{'addArchive' | translate }}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <input type="file" (change)="selectFile($event)" accept=".xlsx, , .csv">
+    <input type="file" (change)="selectFile()">
   </mat-card-content>
 </mat-card>
-
-<canvas id="myChart"></canvas>

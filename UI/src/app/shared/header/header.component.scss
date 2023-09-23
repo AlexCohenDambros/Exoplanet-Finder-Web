@@ -8,6 +8,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 9998;
 }
 
 .container {
@@ -28,10 +29,12 @@ header {
   left: 10px;
   margin-left: 20px;
   transform: translateY(-50%);
+  cursor: pointer;
 }
 
 .home-button:hover {
   background-image: url(../header/components/home-icon/alien.png);
+  cursor: pointer;
 }
 
 .home-translate {

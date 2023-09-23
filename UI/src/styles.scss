@@ -2,10 +2,25 @@
 
 body {
   margin: 0;
-  padding-top: 60px;
+  padding-top: 20px;
   min-height: 100vh;
+  height: 100%;
 }
 
 main {
   padding: 20px;
+}
+
+.telescope {
+  padding: 0 20%;
+  text-align: center;
+}
+
+.telescope-title {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.telescope-subtitle {
+  font-size: 20px
 }

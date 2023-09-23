@@ -6,11 +6,9 @@
   "translate.french": "French",
   "translate.german": "German",
   "translate.china": "Chinese",
-
   "home.title": "Exoplanet",
   "text": "TCC project",
   "Home.message": "Welcome to the Exoplanet project",
-
   "join.form.name": "Name",
   "join.form.familyName": "Family Name",
   "join.form.email": "E-mail",
@@ -19,5 +17,9 @@
   "join.form.name.errorMessage": "Name is required",
   "join.form.familyName.errorMessage": "Family Name is required",
   "join.form.email.errorMessage": "Email is required and must be valid",
-  "join.form.password.errorMessage": "The password is required and must be at least 10 characters long, including at least one uppercase letter and one special character."
+  "join.form.password.errorMessage": "The password is required and must be at least 10 characters long, including at least one uppercase letter and one special character.",
+  "tessCuriosity": "Curiosities about the TESS Telescope",
+  "tessSubtitle": "The Exoplanet Study Space Telescope, known as TESS, is one of NASA's most exciting and innovative space missions. Launched on April 18, 2018, TESS's main objective is to discover exoplanets. But beyond this fundamental mission, TESS has several fascinating curiosities that make it a valuable asset in space exploration:",
+  "topic1": "1. Exoplanet Hunting Observatory:",
+  "tessText1": "TESS is often called an 'exoplanet hunter' for its ability to detect planets in transit, that is, when they pass in front of their host stars, partially blocking their light. This is a crucial technique for finding exoplanets."
 }

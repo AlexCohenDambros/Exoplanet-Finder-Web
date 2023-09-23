@@ -12,18 +12,28 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './features/home-page/home.page';
 import { ServerErrorComponent } from './shared/http-errors/server-error/server-error.component';
-import { TestComponent } from './external/test/test.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { NotFoundComponent } from './shared/http-errors/not-found/not-found.component';
 import { ToastrModule } from 'ngx-toastr';
-import { LoadingComponent } from './shared/loading/loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgChartsModule } from 'ng2-charts';
 import { HomeTranslateComponent } from './shared/header/components/home-translate/home-translate.component';
-
+import { OptionTabsComponent } from './shared/option-tabs/option-tabs.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { TelescopeTessComponent } from './features/telescope-tess/telescope-tess.component';
+import { TelescopeKeplerComponent } from './features/telescope-kepler/telescope-kepler.component';
+import { TelescopeK2Component } from './features/telescope-k2/telescope-k2.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { SelectModelsComponent } from './features/select-models/select-models.component';
+import { ModalInputFilesComponent } from './shared/modal-input-files/modal-input-files.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -36,10 +46,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     NotFoundComponent,
     ServerErrorComponent,
     HomeComponent,
-    TestComponent,
-    LoadingComponent,
     ScatterPlotComponent,
     HomeTranslateComponent,
+    OptionTabsComponent,
+    TelescopeTessComponent,
+    TelescopeKeplerComponent,
+    TelescopeK2Component,
+    SelectModelsComponent,
+    ModalInputFilesComponent
   ],
   imports: [
     NgChartsModule,
@@ -63,7 +77,17 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatCardModule,
     MatIconModule,
     MatSelectModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatTableModule
   ],
   bootstrap: [AppComponent]
 })
