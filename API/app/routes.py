@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import os
 import pandas as pd
 import glob
@@ -7,6 +9,11 @@ import lightkurve as lk
 import io
 import base64
 import matplotlib.pyplot as plt
+import warnings
+
+# Suprimindo os warnings específicos
+warnings.filterwarnings("ignore", category=UserWarning, module="astropy")
+warnings.filterwarnings("ignore", category=UserWarning, module="lightkurve")
 
 bp = Blueprint('routes', __name__)
 
