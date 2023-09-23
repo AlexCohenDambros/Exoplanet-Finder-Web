@@ -15,7 +15,7 @@ def index():
     return jsonify({'message': 'Bem-vindo ao meu projeto Flask!'})
 
 
-@bp.route('/getDataTelescope', methods=['GET'])
+@bp.route('/getDataTelescope', methods=['POST'])
 def get_data_telescope():
     try:
         data = request.json
@@ -27,9 +27,9 @@ def get_data_telescope():
 
         # Define the CSV file path
         csv_file_path = f'Datasets/{received_id}/*.csv'
-        
+
         telescope_csv_paths = glob.glob(csv_file_path)
-        
+
         # Check if the file exists
         if not telescope_csv_paths:
             return jsonify({"error": "CSV file not found for the given ID"}), 404
@@ -44,9 +44,9 @@ def get_data_telescope():
 
         if received_id == 'TESS':
             names_disp = {"FP": 'FALSE POSITIVE', "PC": 'CANDIDATE',
-                        "CP": 'CONFIRMED', "FA": 'FALSE POSITIVE', "KP": 'CONFIRMED'}
+                          "CP": 'CONFIRMED', "FA": 'FALSE POSITIVE', "KP": 'CONFIRMED'}
             df.replace({'tfopwg_disp': names_disp}, inplace=True)
-        
+
         # Convert the DataFrame to CSV format
         csv_data = df.to_csv(index=False)
 
@@ -57,7 +57,7 @@ def get_data_telescope():
         return jsonify({"error": str(e)}), 400
 
 
-@bp.route('/getTargets', methods=['GET'])
+@bp.route('/getTargets', methods=['POST'])
 def get_targets():
     try:
         data = request.json
@@ -69,9 +69,9 @@ def get_targets():
 
         # Define the CSV file path
         csv_file_path = f'Datasets/{received_id}/*.csv'
-        
+
         telescope_csv_paths = glob.glob(csv_file_path)
-        
+
         # Check if the file exists
         if not telescope_csv_paths:
             return jsonify({"error": "CSV file not found for the given ID"}), 404
@@ -120,13 +120,13 @@ def get_targets():
         # Process the dataset based on the telescope information
         if received_id in telescope_info:
             info = telescope_info[received_id]
-            
+
             if info['drop_method'] is not None:
                 df = df[df['discoverymethod'] != info['drop_method']]
-            
+
             df.rename(columns=info['rename_columns'], inplace=True)
             df = df[info['select_columns']]
-            
+
         list_targets = df["id_target"].unique().tolist()
         list_targets = list(map(str, list_targets))
 
@@ -136,14 +136,15 @@ def get_targets():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-    
+
 
 @bp.route('/getModels', methods=['GET'])
-def get_models(): 
+def get_models():
     try:
         base_directory = 'Models/*'
-        
-        list_models = [directory.replace('Models\\', '') for directory in glob.glob(base_directory) if os.path.isdir(directory)]
+
+        list_models = [directory.replace('Models\\', '') for directory in glob.glob(
+            base_directory) if os.path.isdir(directory)]
 
         # Return JSON
         response_data = {"list_models": list_models}
@@ -151,5 +152,26 @@ def get_models():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
+
+@bp.route('/insertModel', methods=['POST'])
+def insert_model():
+    try:
+        # Check if a file is included in the POST request
+        if 'model' not in request.files:
+            return jsonify({"error": "No file part"}), 400
+
+        model_file = request.files['model']
+
+        # Check if the file has a .pkl extension
+        if not model_file.filename.endswith('.pkl'):
+            return jsonify({"error": "Invalid file format. Please provide a .pkl file"}), 400
+
+        # Save the model file to the specified folder
+        os.makedirs("Models/ImportedModels", exist_ok=True)
+        model_file.save(os.path.join("Models/ImportedModels", model_file.filename))
+
+        return jsonify({"message": "Model uploaded successfully"}), 200
     
-    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
