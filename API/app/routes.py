@@ -3,6 +3,10 @@ import pandas as pd
 import glob
 from io import StringIO
 from flask import request, Blueprint, jsonify, Response
+import lightkurve as lk 
+import io
+import base64
+import matplotlib.pyplot as plt
 
 bp = Blueprint('routes', __name__)
 
@@ -175,3 +179,50 @@ def insert_model():
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+    
+@bp.route('/generateGraph', methods=['POST'])
+def generate_graph():
+    try:
+        data = request.json
+        received_id = data["id"].upper()
+        target = data["target"]
+        
+        try:
+            if received_id == 'Kepler':
+                id_target = 'KIC ' + str(target)
+            elif received_id == 'TESS':
+                id_target = 'TIC ' + str(target)
+            else:
+                return jsonify({"error": "ID not recognized"}), 400
+            
+            lcs = lk.search_lightcurve(id_target, cadence='long').download_all()
+            
+            if lcs is not None:
+                # Crie uma figura
+                fig, ax = plt.subplots()
+                
+                # Plote os dados na figura
+                lcs.plot(ax=ax)
+                
+                # Salve a figura em um objeto BytesIO
+                img_buffer = io.BytesIO()
+                fig.savefig(img_buffer, format='png')
+                img_buffer.seek(0)
+                
+                # Converte a figura em representação base64
+                img_base64 = base64.b64encode(img_buffer.read()).decode('utf-8')
+                
+                plt.close(fig)  # Feche a figura para liberar recursos
+                
+                return jsonify({"image": img_base64})
+            
+            else:
+                return jsonify({"error": "No light curve data found"}), 404
+            
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
