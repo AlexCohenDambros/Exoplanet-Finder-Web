@@ -6,6 +6,7 @@ import { LanguageService } from 'src/app/shared/translate/language.service';
   templateUrl: './home-translate.component.html',
   styleUrls: ['./home-translate.component.scss']
 })
+
 export class HomeTranslateComponent {
 
   constructor(private languageService: LanguageService) { }
@@ -19,7 +20,6 @@ export class HomeTranslateComponent {
     { value: 4, label: 'translate.china', icon: './assets/flags/china.png' },
     { value: 5, label: 'translate.spanish', icon: './assets/flags/spain.png' },
   ];
-
 
   private saveAndChangeLanguage(lang: string): void {
     this.languageService.setLanguage(lang);

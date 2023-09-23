@@ -1,0 +1,78 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-upload-model {
+  float: right;
+  margin-right: 10px;
+  margin-top: 20px;
+}
+
+.accordion-container {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 90px;
+}
+
+.mat-mdc-form-field+.mat-mdc-form-field {
+  margin-left: 8px;
+}
+
+.custom-mat-form-field {
+  margin-top: 20px;
+  display: inline-block;
+  margin-right: 40px;
+  width: 200px;
+}
+
+.buttons-search {
+  float: right;
+  margin-top: 40px;
+}
+
+.buttons-search .clear {
+  width: 100px;
+  margin-right: 20px;
+}
+
+.buttons-search .submit {
+  width: 100px;
+}
+
+.mat-elevation-z8 {
+  width: 98%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  margin-left: 20px;
+}
+
+.mat-header-cell {
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #ccc;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+}
+
+.mat-cell {
+  text-align: center;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.mat-row:nth-child(odd) .mat-cell {
+  background-color: #f9f9f9;
+}
+
+button.mat-icon-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.mat-icon {
+  color: #007bff;
+  font-size: 30px;
+}
