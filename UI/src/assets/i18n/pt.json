@@ -1,18 +1,15 @@
 {
   "home.languages": "Idiomas",
-
   "translate.portuguese": "Português",
   "translate.english": "Inglês",
   "translate.spanish": "Espanhol",
   "translate.french": "Francês",
   "translate.german": "Alemão",
   "translate.china": "Chinês",
-
   "homePage": "Página Inicial",
   "home.title": "Exoplanetas",
   "text": "Projeto de TCC",
   "Home.message": "Bem vindo ao Exoplanet-Finder",
-
   "join.form.name": "Nome",
   "join.form.familyName": "Sobrenome",
   "join.form.email": "E-mail",
@@ -29,5 +26,19 @@
   "notFoundTitle": "404 - Página não encontrada",
   "notFoundMessage": "Desculpe, a página que você está procurando não existe.",
   "serverErrorTitle": "500 - Erro interno do servidor",
-  "serverErrorMessage": "Desculpe, ocorreu um erro interno no servidor que impediu a conclusão da sua solicitação."
+  "serverErrorMessage": "Desculpe, ocorreu um erro interno no servidor que impediu a conclusão da sua solicitação.",
+  "tessCuriosity": "Curiosidades sobre o Telescópio TESS",
+  "tessSubtitle": "O Telescópio Espacial de Estudo de Exoplanetas, conhecido como TESS, é uma das missões espaciais mais emocionantes e inovadoras da NASA. Lançado em 18 de abril de 2018, o TESS tem como objetivo principal descobrir exoplanetas. Mas, além dessa missão fundamental, o TESS tem várias curiosidades fascinantes que o tornam uma peça valiosa na exploração espacial:",
+  "topic1": "1. Observatório de Caça a Exoplanetas:",
+  "tessText1": "O TESS é muitas vezes chamado de 'caçador de exoplanetas' por sua capacidade de detectar planetas em trânsito, ou seja, quando eles passam na frente de suas estrelas hospedeiras, bloqueando parcialmente a luz delas. Isso é uma técnica crucial para encontrar exoplanetas.",
+  "topic2": "2. Diversidade Estelar:",
+  "tessText2": "O Kepler observou uma ampla gama de estrelas em sua busca por exoplanetas, incluindo gigantes vermelhas, anãs brancas, estrelas jovens e até mesmo sistemas estelares binários, onde duas estrelas orbitam uma em torno da outra.",
+  "topic3": "3. Descobrindo Habitáveis:",
+  "tessText3": "O Kepler descobriu uma série de exoplanetas que orbitavam na 'zona habitável' de suas estrelas-mãe, onde as condições poderiam ser adequadas para a presença de água líquida e, possivelmente, vida como a conhecemos.",
+  "topic4": "4. Variedade de Tamanhos:",
+  "tessText4": "As descobertas do Kepler mostraram que os exoplanetas vêm em uma ampla variedade de tamanhos, desde gigantes gasosos semelhantes a Júpiter até planetas rochosos menores, semelhantes à Terra.",
+  "topic5": "5. Exoplanetas Perversos:",
+  "tessText5": "O Kepler também detectou exoplanetas em órbitas extremamente rápidas, completando voltas ao redor de suas estrelas em questão de poucas horas. Isso desafiou nossa compreensão convencional da formação planetária.",
+  "tessText6": "O Telescópio Kepler, com sua busca pioneira por exoplanetas e suas fascinantes descobertas cósmicas, permanecerá como um marco na história da exploração espacial, abrindo novos horizontes para nossa compreensão do universo vasto e diversificado que nos rodeia.",
+  "scatterPLotTitle": "Gráfico de dispersão"
 }

@@ -26,6 +26,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TelescopeTessComponent } from './features/telescope-tess/telescope-tess.component';
 import { TelescopeKeplerComponent } from './features/telescope-kepler/telescope-kepler.component';
 import { TelescopeK2Component } from './features/telescope-k2/telescope-k2.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -68,7 +69,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatIconModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSidenavModule
   ],
   bootstrap: [AppComponent]
 })

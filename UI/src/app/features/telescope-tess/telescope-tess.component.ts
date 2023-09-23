@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-telescope-tess',
   templateUrl: './telescope-tess.component.html',
   styleUrls: ['./telescope-tess.component.scss']
 })
-export class TelescopeTessComponent implements OnInit {
+export class TelescopeTessComponent {
 
-  constructor() { }
+  constructor(
+    private readonly router: Router
+  ) { }
 
-  ngOnInit() {
+  public openScatterPlot(): void {
+    this.router.navigate(['scatter-plot']);
+  }
+
+  public onBack(): void {
+    this.router.navigate(['home']);
   }
 
 }

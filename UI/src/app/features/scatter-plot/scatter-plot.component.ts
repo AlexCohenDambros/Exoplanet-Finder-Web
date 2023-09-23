@@ -86,11 +86,8 @@ export class ScatterPlotComponent {
     const ctx = canvas.getContext('2d');
 
     if (ctx) {
-      console.log('ctx', ctx);
       const labels = dados.map(item => item[xColumn]);
-      console.log('labels:', labels)
       const data = dados.map(item => item[yColumn]);
-      console.log('data:', data)
       const chart = new Chart(ctx, {
         type: 'scatter',
         data: {
