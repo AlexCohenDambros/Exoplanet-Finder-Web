@@ -1,0 +1,24 @@
+.mat-elevation-z8 {
+  width: 98%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  margin-left: 20px;
+}
+
+.mat-header-cell {
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #ccc;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+}
+
+.mat-cell {
+  text-align: center;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.mat-row:nth-child(odd) .mat-cell {
+  background-color: #f9f9f9;
+}
