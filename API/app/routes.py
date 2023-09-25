@@ -203,14 +203,14 @@ def generate_graph():
             else:
                 return jsonify({"error": "ID not recognized"}), 400
             
-            lcs = lk.search_lightcurve(id_target, cadence='long').download_all()
+            lcs = lk.search_lightcurve(id_target, cadence='long').download_all().stitch().flatten().remove_outliers()
             
             if lcs is not None:
                 # Crie uma figura
                 fig, ax = plt.subplots()
                 
                 # Plote os dados na figura
-                lcs.plot(ax=ax)
+                lcs.plot(ax= ax)
                 
                 # Salve a figura em um objeto BytesIO
                 img_buffer = io.BytesIO()
