@@ -1,0 +1,28 @@
+<mat-drawer-container class="example-container full-screen" [hasBackdrop]="false">
+  <mat-drawer #drawer mode="side" [opened]="true" autosize>
+    <div class="custom-drawer-title">
+      Observações
+    </div>
+    <mat-divider></mat-divider>
+
+    <ng-container class="container" *ngFor="let item of selectedObservationsModel">
+      <mat-card class="custom-card">
+        <mat-card-title>{{item.name}}</mat-card-title>
+      </mat-card>
+    </ng-container>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <div class="center-element">
+      <mat-form-field>
+        <mat-label>Selecione o telescópio</mat-label>
+        <mat-select (selectionChange)="onSelectChange($event)">
+          <mat-option *ngFor="let item of telescopeModel" [value]="item.name">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-drawer-content>
+
+</mat-drawer-container>

@@ -35,6 +35,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { TableComponent } from './features/table/table.component';
+import { GraphPageComponent } from './features/graph-page/graph-page.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -55,7 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TelescopeK2Component,
     SelectModelsComponent,
     ModalInputFilesComponent,
-    TableComponent
+    TableComponent,
+    GraphPageComponent
   ],
   imports: [
     NgChartsModule,
