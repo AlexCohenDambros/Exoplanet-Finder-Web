@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/configuration/API/api.service';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -25,8 +25,25 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent {
+export class TableComponent implements OnInit{
 
+  constructor(private apiService: ApiService){}
+  telescope = 'TESS';
+  telescopeModel = [
+    { value: 1, name: 'TESS' },
+    { value: 2, name: 'K2' },
+    { value: 3, name: 'KEPLER' },
+  ];
   displayedColumns: string[] = ['demo-position', 'demo-name', 'demo-weight', 'demo-symbol'];
   dataSource = ELEMENT_DATA;
+  public submitForms(): void {
+    console.log(this.telescope);
+  }
+  ngOnInit() {
+    console.log(this.telescope)
+    let base = this.apiService.getTelescopeData(this.telescope)
+    base.subscribe(dados => {
+      console.log(dados)
+    })
+  }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class ApiService {
 
   getTelescopeData(id: string): Observable<Blob> {
     const url = `${this.apiUrl}/getDataTelescope`;
-    return this.http.post(url, {id:id},{ responseType: 'blob' });
+    return this.http.post(url, {id:id},{ responseType: 'blob' }).pipe(switchMap(blobData => this.blobToListOfLists(blobData)));
   }
   getTargets(id: string): Observable<any> {
     const url = `${this.apiUrl}/getTargets`;
@@ -34,6 +34,29 @@ export class ApiService {
     };
     return this.http.post(url, { id, target }, options);
   }
+
+  private blobToListOfLists(blobData: Blob): Observable<any> {
+    return new Observable(observer => {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const csvData = reader.result as string;
+        const rows = csvData.split('\n');
+        const listOfLists = [];
+
+        for (const row of rows) {
+          const columns = row.split(',');
+          listOfLists.push(columns);
+        }
+
+        observer.next(listOfLists);
+        observer.complete();
+      };
+
+      reader.readAsText(blobData);
+    });
+  }
+
 
 
 }
