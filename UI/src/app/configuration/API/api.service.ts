@@ -35,7 +35,7 @@ export class ApiService {
     return this.http.post(url, { id, target }, options);
   }
 
-  private blobToListOfLists(blobData: Blob): Observable<any> {
+  private blobToListOfLists(blobData: Blob, maxRows: number = 301): Observable<any> {
     return new Observable(observer => {
       const reader = new FileReader();
 
@@ -44,8 +44,8 @@ export class ApiService {
         const rows = csvData.split('\n');
         const listOfLists = [];
 
-        for (const row of rows) {
-          const columns = row.split(',');
+        for (let i = 0; i < Math.min(maxRows, rows.length); i++) {
+          const columns = rows[i].split(',');
           listOfLists.push(columns);
         }
 
@@ -56,6 +56,7 @@ export class ApiService {
       reader.readAsText(blobData);
     });
   }
+
 
 
 
