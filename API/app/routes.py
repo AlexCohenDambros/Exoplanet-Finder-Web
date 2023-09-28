@@ -1,15 +1,24 @@
-import matplotlib
-matplotlib.use('Agg')
 import os
+from . import method_bls
+
 import pandas as pd
-import glob
+
 from io import StringIO
-from flask import request, Blueprint, jsonify, Response
-import lightkurve as lk 
 import io
 import base64
+
+from flask import request, Blueprint, jsonify, Response
+
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+
+import lightkurve as lk
+
+import glob
+
 import warnings
+
 
 # Suprimindo os warnings específicos
 warnings.filterwarnings("ignore", category=UserWarning, module="astropy")
@@ -19,7 +28,6 @@ bp = Blueprint('routes', __name__)
 
 # Initialize a variable to store the received JSON data
 received_json = ""
-
 
 @bp.route('/')
 def index():
@@ -181,48 +189,52 @@ def insert_model():
         # Save the model file to the specified folder
         os.makedirs("Models/ImportedModels", exist_ok=True)
         model_file.save(os.path.join("Models/ImportedModels", model_file.filename))
-
+ 
         return jsonify({"message": "Model uploaded successfully"}), 200
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-    
 @bp.route('/generateGraph', methods=['POST'])
 def generate_graph():
     try:
         data = request.json
-        received_id = data["id"].upper()
-        target = data["target"]
+        id_target = data["id"]
+        telescope = data["telescope"].upper()
         
         try:
-            if received_id == 'Kepler':
-                id_target = 'KIC ' + str(target)
-            elif received_id == 'TESS':
-                id_target = 'TIC ' + str(target)
+            if telescope == 'Kepler':
+                id_target = 'KIC ' + str(id_target)
+            elif telescope == 'TESS':
+                id_target = 'TIC ' + str(id_target)
             else:
                 return jsonify({"error": "ID not recognized"}), 400
             
-            lcs = lk.search_lightcurve(id_target, cadence='long').download_all().stitch().flatten().remove_outliers()
+            lc = lk.search_lightcurve(id_target, cadence='long').download_all()
             
-            if lcs is not None:
-                # Crie uma figura
-                fig, ax = plt.subplots()
+            if lc is not None:
                 
-                # Plote os dados na figura
-                lcs.plot(ax= ax)
                 
-                # Salve a figura em um objeto BytesIO
-                img_buffer = io.BytesIO()
-                fig.savefig(img_buffer, format='png')
-                img_buffer.seek(0)
+                method_bls.data_bls(lc)
                 
-                # Converte a figura em representação base64
-                img_base64 = base64.b64encode(img_buffer.read()).decode('utf-8')
                 
-                plt.close(fig)  # Feche a figura para liberar recursos
                 
-                return jsonify({"image": img_base64})
+                # fig, ax = plt.subplots(figsize=(20, 10))
+                
+                # lcs.plot(ax= ax)
+                
+                # # Save the figure to a BytesIO object
+                # img_buffer = io.BytesIO()
+                # fig.savefig(img_buffer, format='png')
+                # img_buffer.seek(0)
+                
+                # # Converts the figure to base64 representation
+                # img_base64_flatten= base64.b64encode(img_buffer.read()).decode('utf-8')
+                
+                # plt.close(fig)
+                # plt.clf()
+                
+                # return jsonify({"image_flatten": img_base64_flatten})
             
             else:
                 return jsonify({"error": "No light curve data found"}), 404
