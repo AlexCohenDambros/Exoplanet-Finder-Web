@@ -1,32 +1,60 @@
-import { Component } from '@angular/core';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/configuration/API/api.service';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
 
-  displayedColumns: string[] = ['demo-position', 'demo-name', 'demo-weight', 'demo-symbol'];
-  dataSource = ELEMENT_DATA;
+  constructor(private apiService: ApiService) { }
+
+  loadedBase = ''
+  telescope = 'TESS';
+
+  telescopeModel = [
+    { value: 1, name: 'TESS' },
+    { value: 2, name: 'K2' },
+    { value: 3, name: 'KEPLER' },
+  ];
+
+  dataSource: any = [];
+
+  ngOnInit(): void {
+    let x = this.apiService.getTelescopeCsv("TESS");
+
+    x.subscribe(dados => {
+      console.log('aaa', dados)
+    })
+  }
+
+  public submitForms(): void {
+    if (this.loadedBase !== this.telescope) {
+      this.dataSource = []
+      let base = this.apiService.getTelescopeDataFiltered(this.telescope)
+      base.subscribe(dados => {
+        this.dataSource = dados
+      })
+      this.loadedBase = this.telescope;
+    }
+  }
+
+  public downloadCsv(): void {
+    const id = this.telescope;
+
+    this.apiService.getTelescopeCsv(id).subscribe((blobData: Blob) => {
+      const blob = new Blob([blobData], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${this.loadedBase}.csv`; // Nome do arquivo
+      document.body.appendChild(a);
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    });
+  }
+
 }
