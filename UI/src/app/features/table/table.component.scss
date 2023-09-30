@@ -1,5 +1,6 @@
 .table-container {
-  max-height: 400px; /* Ajuste a altura conforme necessário */
+  max-height: 400px;
+  /* Ajuste a altura conforme necessário */
   overflow: auto;
 }
 
@@ -23,10 +24,12 @@
   font-weight: bold;
   border: 1px solid #ddd;
 }
-.buttons-search{
+
+.buttons-search {
   margin: 0 10px;
 }
-.telescope-selector{
+
+.telescope-selector {
   display: flex;
   align-items: center;
   width: 98%;
@@ -58,7 +61,8 @@
 .mat-row:nth-child(odd) .mat-cell {
   background-color: #f9f9f9;
 }
-.header-item{
+
+.header-item {
   text-transform: uppercase;
-  font-size: 14px!important;
+  font-size: 14px !important;
 }

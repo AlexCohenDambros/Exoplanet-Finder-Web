@@ -11,14 +11,15 @@
     <button class="submit" mat-raised-button color="primary" (click)="submitForms()">Buscar</button>
   </div>
   <div class="buttons-search">
-    <button class="submit" mat-raised-button color="primary" (click)="downloadCsv()" [disabled]="!dataSource.length">Download CSV</button>
+    <button class="submit" mat-raised-button color="primary" (click)="downloadCsv()"
+      [disabled]="!dataSource.length">Download CSV</button>
   </div>
 </div>
 
 
 
 <div class="table-container">
-  <table class="data-table">
+  <table aria-describedby="table" class="data-table">
     <thead>
       <tr>
         <th *ngFor="let header of dataSource[0]" class="header-item">{{ header }}</th>

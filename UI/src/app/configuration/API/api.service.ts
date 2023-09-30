@@ -11,26 +11,31 @@ export class ApiService {
 
   getTelescopeDataFiltered(id: string): Observable<Blob> {
     const url = `${this.apiUrl}/getDataTelescope`;
-    return this.http.post(url, {id:id},{ responseType: 'blob' }).pipe(switchMap(blobData => this.blobToListOfLists(blobData)));
+    return this.http.post(url, { id: id }, { responseType: 'blob' }).pipe(switchMap(blobData => this.blobToListOfLists(blobData)));
   }
+
   getTelescopeCsv(id: string): Observable<Blob> {
     const url = `${this.apiUrl}/getDataTelescope`;
-    return this.http.post(url, {id:id},{ responseType: 'blob' });
+    return this.http.post(url, { id: id }, { responseType: 'blob' });
   }
+
   getTargets(id: string): Observable<any> {
     const url = `${this.apiUrl}/getTargets`;
-    return this.http.post(url, {id:id},{ headers: new HttpHeaders().append('Content-Type', 'application/json') });
+    return this.http.post(url, { id: id }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
   }
+
   getModels(): Observable<any> {
     const url = `${this.apiUrl}/getModels`;
-    return this.http.get(url,{ headers: new HttpHeaders().append('Content-Type', 'application/json') });
+    return this.http.get(url, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
   }
+
   InsertModel(arquivo: File): Observable<any> {
     const url = `${this.apiUrl}/insertModel`;
     const formData = new FormData();
     formData.append('arquivo', arquivo, arquivo.name);
-    return this.http.post(url,{ headers: new HttpHeaders().append('Content-Type', 'application/json') });
+    return this.http.post(url, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
   }
+
   getImagem(id: string, target: string): Observable<any> {
     const url = `${this.apiUrl}/generateGraph`;
     const options = {
