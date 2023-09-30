@@ -48,7 +48,7 @@ export class TableComponent implements OnInit {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'chupa_eu_gabu.csv'; // Nome do arquivo
+      a.download = `${this.loadedBase}.csv`; // Nome do arquivo
       document.body.appendChild(a);
       a.click();
 
