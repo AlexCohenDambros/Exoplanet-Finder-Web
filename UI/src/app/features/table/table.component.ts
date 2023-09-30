@@ -26,16 +26,16 @@ export class TableComponent {
   ];
   dataSource: any = [];
   public submitForms(): void {
-    console.log(this.loadedBase)
-    console.log(this.telescope)
     if(this.loadedBase!==this.telescope){
       this.dataSource=[]
-      let base = this.apiService.getTelescopeData(this.telescope)
+      let base = this.apiService.getTelescopeDataFiltered(this.telescope)
       base.subscribe(dados => {
         this.dataSource = dados
-        console.log(dados)
       })
       this.loadedBase = this.telescope;
     }
+  }
+  public downloadCsv():void{
+    
   }
 }

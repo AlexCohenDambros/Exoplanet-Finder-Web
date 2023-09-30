@@ -9,9 +9,13 @@ export class ApiService {
   private apiUrl = 'http://localhost:5000';
   constructor(private http: HttpClient) { }
 
-  getTelescopeData(id: string): Observable<Blob> {
+  getTelescopeDataFiltered(id: string): Observable<Blob> {
     const url = `${this.apiUrl}/getDataTelescope`;
     return this.http.post(url, {id:id},{ responseType: 'blob' }).pipe(switchMap(blobData => this.blobToListOfLists(blobData)));
+  }
+  getTelescopeCsv(id: string): Observable<Blob> {
+    const url = `${this.apiUrl}/getDataTelescope`;
+    return this.http.post(url, {id:id},{ responseType: 'blob' });
   }
   getTargets(id: string): Observable<any> {
     const url = `${this.apiUrl}/getTargets`;
@@ -35,7 +39,7 @@ export class ApiService {
     return this.http.post(url, { id, target }, options);
   }
 
-  private blobToListOfLists(blobData: Blob, maxRows: number = 301): Observable<any> {
+  private blobToListOfLists(blobData: Blob, maxRows: number = 400): Observable<any> {
     return new Observable(observer => {
       const reader = new FileReader();
 
@@ -44,7 +48,7 @@ export class ApiService {
         const rows = csvData.split('\n');
         const listOfLists = [];
 
-        for (let i = 0; i < Math.min(maxRows, rows.length); i++) {
+        for (let i = 0; i <= maxRows; i++) {
           const columns = rows[i].split(',');
           listOfLists.push(columns);
         }

@@ -10,6 +10,9 @@
   <div class="buttons-search">
     <button class="submit" mat-raised-button color="primary" (click)="submitForms()">Buscar</button>
   </div>
+  <div class="buttons-search">
+    <button class="submit" mat-raised-button color="primary" (click)="downloadCsv()" [disabled]="!dataSource.length">Download CSV</button>
+  </div>
 </div>
 
 
@@ -28,5 +31,3 @@
     </tbody>
   </table>
 </div>
-<mat-paginator [length]="dataSource.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
-</mat-paginator>
