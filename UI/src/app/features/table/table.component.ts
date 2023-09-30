@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/configuration/API/api.service';
 
 @Component({
@@ -6,9 +7,11 @@ import { ApiService } from 'src/app/configuration/API/api.service';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService,
+    private toastr: ToastrService) { }
 
   loadedBase = ''
   telescope = 'TESS';
@@ -21,14 +24,6 @@ export class TableComponent implements OnInit {
 
   dataSource: any = [];
 
-  ngOnInit(): void {
-    let x = this.apiService.getTelescopeCsv("TESS");
-
-    x.subscribe(dados => {
-      console.log('aaa', dados)
-    })
-  }
-
   public submitForms(): void {
     if (this.loadedBase !== this.telescope) {
       this.dataSource = []
@@ -37,13 +32,28 @@ export class TableComponent implements OnInit {
         this.dataSource = dados
       })
       this.loadedBase = this.telescope;
+
+      if (!base) {
+        this.toastr.warning('Desculpe, ocorreu um erro. Por favor, tente novamente.', 'Erro', {
+          closeButton: true,
+          timeOut: 3000,
+          positionClass: 'toast-top-center'
+        });
+      }
+      else {
+        this.toastr.info(`Carregando informações do telescópio ${this.telescope}`, 'Carregando...', {
+          closeButton: true,
+          timeOut: 2000,
+          positionClass: 'toast-top-center'
+        });
+      }
     }
   }
 
   public downloadCsv(): void {
     const id = this.telescope;
 
-    this.apiService.getTelescopeCsv(id).subscribe((blobData: Blob) => {
+    let result = this.apiService.getTelescopeCsv(id).subscribe((blobData: Blob) => {
       const blob = new Blob([blobData], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -55,6 +65,20 @@ export class TableComponent implements OnInit {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     });
-  }
 
+    if (!result) {
+      this.toastr.warning('Desculpe, ocorreu um erro. Por favor, tente novamente.', 'Erro', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
+    }
+    else {
+      this.toastr.success('Download concluido com sucesso!', 'Sucesso', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
+    }
+  }
 }
