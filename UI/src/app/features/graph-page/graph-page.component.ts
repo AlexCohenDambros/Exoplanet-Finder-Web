@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/configuration/API/api.service';
+import { SelectSectorComponent } from 'src/app/shared/select-sector/select-sector.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-graph-page',
@@ -27,8 +30,9 @@ export class GraphPageComponent {
   constructor(
     private http: HttpClient,
     private apiService: ApiService,
-    private toastr: ToastrService) { }
-
+    private toastr: ToastrService,
+    private dialog: MatDialog,
+    private _bottomSheet: MatBottomSheet) { }
 
   public onSelectChange(event: any): void {
     const selectedName = event.value;
@@ -73,6 +77,20 @@ export class GraphPageComponent {
     } else {
       this.resetList();
     }
+  }
+
+  public openBottomSheet(item: any): void {
+    console.log("item", item);
+
+    const dialogRef = this.dialog.open(SelectSectorComponent, {
+      width: '450px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+
+
   }
 
   private resetList(): void {

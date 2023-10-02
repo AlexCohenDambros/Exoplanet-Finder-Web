@@ -26,7 +26,7 @@
     <mat-divider class="customDivider"></mat-divider>
 
     <ng-container class="container" *ngFor="let target of dataSource.list_targets">
-      <mat-card class="custom-card">
+      <mat-card class="custom-card" (click)="openBottomSheet(target)">
         <mat-card-title>{{ target }}</mat-card-title>
       </mat-card>
     </ng-container>

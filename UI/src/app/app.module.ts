@@ -36,6 +36,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { TableComponent } from './features/table/table.component';
 import { GraphPageComponent } from './features/graph-page/graph-page.component';
+import { SelectSectorComponent } from './shared/select-sector/select-sector.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -57,7 +59,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectModelsComponent,
     ModalInputFilesComponent,
     TableComponent,
-    GraphPageComponent
+    GraphPageComponent,
+    SelectSectorComponent
   ],
   imports: [
     NgChartsModule,
@@ -91,7 +94,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatExpansionModule,
     MatDividerModule,
-    MatTableModule
+    MatTableModule,
+    MatBottomSheetModule
   ],
   bootstrap: [AppComponent]
 })
