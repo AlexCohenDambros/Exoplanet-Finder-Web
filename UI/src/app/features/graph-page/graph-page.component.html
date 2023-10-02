@@ -5,15 +5,7 @@
     </div>
     <mat-divider></mat-divider>
 
-    <ng-container class="container" *ngFor="let item of selectedObservationsModel">
-      <mat-card class="custom-card">
-        <mat-card-title>{{item.name}}</mat-card-title>
-      </mat-card>
-    </ng-container>
-  </mat-drawer>
-
-  <mat-drawer-content>
-    <div class="center-element">
+    <div class="selectMode">
       <mat-form-field>
         <mat-label>Selecione o telescópio</mat-label>
         <mat-select (selectionChange)="onSelectChange($event)">
@@ -23,6 +15,25 @@
         </mat-select>
       </mat-form-field>
     </div>
+
+    <div class="customFilter" *ngIf="!seeFilter">
+
+      <input type="text" [(ngModel)]="searchValue" (input)="filterList()" placeholder="Pesquisar observação">
+      <button class="buttonFilter" mat-raised-button color="primary" (click)="clearInput()">Limpar</button>
+
+    </div>
+
+    <mat-divider class="customDivider"></mat-divider>
+
+    <ng-container class="container" *ngFor="let target of dataSource.list_targets">
+      <mat-card class="custom-card">
+        <mat-card-title>{{ target }}</mat-card-title>
+      </mat-card>
+    </ng-container>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    aaaaa
   </mat-drawer-content>
 
 </mat-drawer-container>

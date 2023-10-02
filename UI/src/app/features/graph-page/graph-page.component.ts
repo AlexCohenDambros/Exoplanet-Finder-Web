@@ -1,49 +1,22 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
+import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { ApiService } from 'src/app/configuration/API/api.service';
 
 @Component({
   selector: 'app-graph-page',
   templateUrl: './graph-page.component.html',
   styleUrls: ['./graph-page.component.scss']
 })
+
 export class GraphPageComponent {
 
-  @ViewChild('drawer') drawer!: MatDrawer;
+  loadedBase = '';
+  dataSource: any = { list_targets: [] };
+  searchValue: string = '';
+  originalList: string[] = [];
+  seeFilter: boolean = true;
 
-  selectedObservationsModel: any[] = [];
-
-  tessObservationsModel = [
-    { value: 1, name: 'ID 1' },
-    { value: 2, name: 'ID 2' },
-    { value: 3, name: 'ID 3' },
-    { value: 4, name: 'ID 4' },
-    { value: 5, name: 'ID 5' },
-    { value: 6, name: 'ID 6' },
-    { value: 7, name: 'ID 7' },
-    { value: 8, name: 'ID 8' },
-    { value: 9, name: 'ID 9' },
-    { value: 10, name: 'ID 10' },
-    { value: 11, name: 'ID 11' },
-  ];
-
-  k2ObservationsModel = [
-    { value: 1, name: 'ID 1' },
-    { value: 2, name: 'ID 2' },
-    { value: 3, name: 'ID 3' },
-    { value: 4, name: 'ID 4' },
-    { value: 5, name: 'ID 5' },
-  ];
-
-  keplerObservationsModel = [
-    { value: 1, name: 'ID 1' },
-    { value: 2, name: 'ID 2' },
-    { value: 3, name: 'ID 3' },
-    { value: 4, name: 'ID 4' },
-    { value: 5, name: 'ID 5' },
-    { value: 6, name: 'ID 6' },
-    { value: 7, name: 'ID 7' },
-    { value: 8, name: 'ID 8' },
-  ];
 
   telescopeModel = [
     { value: 1, name: 'TESS' },
@@ -51,30 +24,58 @@ export class GraphPageComponent {
     { value: 3, name: 'Kepler' },
   ]
 
-  toggleDrawer() {
-    if (this.drawer.opened) {
-      this.drawer.close();
-    } else {
-      this.drawer.open();
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService,
+    private toastr: ToastrService) { }
+
+
+  public onSelectChange(event: any): void {
+    const selectedName = event.value;
+
+    if (this.loadedBase !== selectedName) {
+      this.dataSource.list_targets = [];
+      let base = this.apiService.getTargets(selectedName)
+      base.subscribe(dados => {
+        this.originalList = dados.list_targets;
+        this.dataSource.list_targets = [...this.originalList];
+        this.loadedBase = selectedName;
+        this.seeFilter = false;
+      })
+
+      if (!base) {
+        this.toastr.warning('Desculpe, ocorreu um erro. Por favor, tente novamente.', 'Erro', {
+          closeButton: true,
+          timeOut: 3000,
+          positionClass: 'toast-top-center'
+        });
+      }
+      else {
+        this.toastr.info(`Carregando informações do telescópio ${selectedName}`, 'Carregando...', {
+          closeButton: true,
+          timeOut: 2000,
+          positionClass: 'toast-top-center'
+        });
+      }
     }
   }
 
-  onSelectChange(event: any) {
-    const selectedName = event.value;
+  public clearInput(): void {
+    this.searchValue = '';
+    this.filterList();
+  }
 
-    switch (selectedName) {
-      case 'TESS':
-        this.selectedObservationsModel = this.tessObservationsModel;
-        break;
-      case 'K2':
-        this.selectedObservationsModel = this.k2ObservationsModel;
-        break;
-      case 'Kepler':
-        this.selectedObservationsModel = this.keplerObservationsModel;
-        break;
-      default:
-        this.selectedObservationsModel = [];
-        break;
+  public filterList(): void {
+    if (this.searchValue) {
+      this.dataSource.list_targets = this.originalList.filter(
+        (item: string) => item.toLowerCase().includes(this.searchValue.toLowerCase())
+      );
+    } else {
+      this.resetList();
     }
+  }
+
+  private resetList(): void {
+    this.dataSource.list_targets = [...this.originalList];
   }
 }
