@@ -1,11 +1,9 @@
 import os
-from . import method_bls
+from MethodBLS import method_bls
 
 import pandas as pd
 
 from io import StringIO
-import io
-import base64
 
 from flask import request, Blueprint, jsonify, Response
 
@@ -201,43 +199,57 @@ def generate_graph():
         data = request.json
         id_target = data["id"]
         telescope = data["telescope"].upper()
+        sectors = data["sector"]
         
         try:
             if telescope == 'Kepler':
                 id_target = 'KIC ' + str(id_target)
+                author_observation = "Kepler"
+                
             elif telescope == 'TESS':
                 id_target = 'TIC ' + str(id_target)
+                author_observation = "SPOC"
             else:
                 return jsonify({"error": "ID not recognized"}), 400
             
-            lc = lk.search_lightcurve(id_target, cadence='long').download_all()
+            lc = lk.search_lightcurve(id_target, author=author_observation, sector= sectors).download_all()
             
             if lc is not None:
+
+                df, plot1_image_base64, plot2_image_base64 = method_bls.data_bls(lc)
                 
+                print(df.head())
                 
-                method_bls.data_bls(lc)
-                
-                
-                
-                # fig, ax = plt.subplots(figsize=(20, 10))
-                
-                # lcs.plot(ax= ax)
-                
-                # # Save the figure to a BytesIO object
-                # img_buffer = io.BytesIO()
-                # fig.savefig(img_buffer, format='png')
-                # img_buffer.seek(0)
-                
-                # # Converts the figure to base64 representation
-                # img_base64_flatten= base64.b64encode(img_buffer.read()).decode('utf-8')
-                
-                # plt.close(fig)
-                # plt.clf()
-                
-                # return jsonify({"image_flatten": img_base64_flatten})
+                # Convert the DataFrame to CSV format
+                csv_data = df.to_csv(index=False)
+
+                # Response 
+                return jsonify({"data": csv_data, "image1_base64": plot1_image_base64, "image2_base64": plot2_image_base64})
             
             else:
                 return jsonify({"error": "No light curve data found"}), 404
+            
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+    
+
+@bp.route('/generateGraph', methods=['GET'])
+def generate_graph():
+    try:
+        data = request.json
+        id_target = data["id"]
+        telescope = data["telescope"].upper()
+        
+        try:
+            
+
+            # Response 
+            return jsonify({"data"})
+        
+        
             
         except Exception as e:
             return jsonify({"error": str(e)}), 500
