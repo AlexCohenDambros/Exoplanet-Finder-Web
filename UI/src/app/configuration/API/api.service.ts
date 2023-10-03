@@ -43,7 +43,9 @@ export class ApiService {
     };
     return this.http.post(url, { id, target }, options);
   }
-
+  getObservationAnalysis(model: string, vision: string, telescope:string, targets: any): any{
+    return {teste:"corno"}
+  }
   private blobToListOfLists(blobData: Blob, maxRows: number = 400): Observable<any> {
     return new Observable(observer => {
       const reader = new FileReader();
