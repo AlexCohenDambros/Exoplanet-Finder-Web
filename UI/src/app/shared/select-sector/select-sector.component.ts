@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -8,17 +8,31 @@ import { FormControl } from '@angular/forms';
 })
 export class SelectSectorComponent {
 
-  toppings = new FormControl();
   toppingList: string[] = ['Tomato', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage'];
-  filteredToppingList: string[] = [];
+  filteredToppingList: string[] = [...this.toppingList];
+  searchValue: string = '';
+  selectedToppings: string[] = [];
+  toppingsFormControl = new FormControl();
 
-  constructor() {
-    this.filteredToppingList = [...this.toppingList];
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['searchValue'] && !changes['searchValue'].firstChange) {
+      this.updateFilteredToppings();
+    }
   }
 
   filterItems(value: string) {
-    this.filteredToppingList = this.toppingList.filter(topping =>
-      topping.toLowerCase().includes(value.toLowerCase())
-    );
+    this.searchValue = value;
+    this.updateFilteredToppings();
   }
+
+  updateFilteredToppings() {
+    const selectedToppings = this.selectedToppings;
+    if (this.searchValue.trim() === '') {
+      this.filteredToppingList = selectedToppings.length > 0 ? selectedToppings : [...this.toppingList];
+    } else {
+      this.filteredToppingList = this.toppingList
+        .filter(topping => topping.toLowerCase().includes(this.searchValue.toLowerCase()));
+    }
+  }
+
 }

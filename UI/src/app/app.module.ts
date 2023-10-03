@@ -88,7 +88,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTabsModule,
     MatSidenavModule,
     MatFormFieldModule,
-    MatInputModule,
     FormsModule,
     MatButtonModule,
     MatDialogModule,

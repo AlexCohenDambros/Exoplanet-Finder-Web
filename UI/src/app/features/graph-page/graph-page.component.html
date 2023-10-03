@@ -18,7 +18,9 @@
 
     <div class="customFilter" *ngIf="!seeFilter">
 
-      <input type="text" [(ngModel)]="searchValue" (input)="filterList()" placeholder="Pesquisar observação">
+      <input type="text" [(ngModel)]="searchValue" (input)="filterList()" placeholder="Pesquisar observação"
+        class="mat-input-element custom-input">
+
       <button class="buttonFilter" mat-raised-button color="primary" (click)="clearInput()">Limpar</button>
 
     </div>
