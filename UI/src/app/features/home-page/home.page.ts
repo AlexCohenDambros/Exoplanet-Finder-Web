@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/shared/translate/language.service';
 
 @Component({
@@ -11,9 +12,22 @@ export class HomeComponent implements OnInit {
   selectedOption!: number;
 
   constructor(
-    public languageService: LanguageService) { }
+    public languageService: LanguageService,
+    private route: Router) { }
 
   public ngOnInit(): void {
     this.languageService.setInitialLanguage();
+  }
+
+  public goToTelescopesPage(): void {
+    this.route.navigate(['/telescopes']);
+  }
+
+  public goToExoplanetPage(): void {
+    this.route.navigate(['/exoplanet']);
+  }
+
+  public goToModelsPage(): void {
+    this.route.navigate(['/models']);
   }
 }

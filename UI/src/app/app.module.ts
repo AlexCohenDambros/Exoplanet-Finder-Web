@@ -33,9 +33,12 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { TableComponent } from './features/table/table.component';
-import { GraphPageComponent } from './features/graph-page/graph-page.component';
-import { SelectSectorComponent } from './shared/select-sector/select-sector.component';
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
+import { ExoplanetTabsComponent } from './shared/exoplanet-tabs/exoplanet-tabs.component';
+import { ExoplanetInfoComponent } from './shared/exoplanet-info/exoplanet-info.component';
+import { InitialComponentComponent } from './shared/initial-component/initial-component.component';
+import { UsingModelsComponent } from './shared/using-models/using-models.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -56,8 +59,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectModelsComponent,
     ModalInputFilesComponent,
     TableComponent,
-    GraphPageComponent,
-    SelectSectorComponent
+    ExoplanetTabsComponent,
+    ExoplanetInfoComponent,
+    InitialComponentComponent,
+    UsingModelsComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +95,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatExpansionModule,
     MatDividerModule,
     MatTableModule,
-    MatBottomSheetModule
+    MatListModule,
+    RouterModule
   ],
   bootstrap: [AppComponent]
 })
