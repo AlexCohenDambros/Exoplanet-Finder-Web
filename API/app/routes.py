@@ -75,14 +75,13 @@ def get_data_telescope():
         return jsonify({"error": str(e)}), 400
 
 
-@bp.route('/getTargets', methods=['POST'])
+@bp.route('/getTargets', methods=['GET'])
 def get_targets():
     try:
         data = request.json
         received_id = data["id"].upper()
         return_sectors_authors = data["sectors_authors"] == True
-        
-        print(return_sectors_authors)
+        candidates = data["candidates"] == True
         
         # Check if the ID is empty or equal to TESS, K2, or Kepler
         if not received_id or received_id not in ["TESS", "K2", "KEPLER"]:
@@ -147,9 +146,17 @@ def get_targets():
 
             df.rename(columns=info['rename_columns'], inplace=True)
             df = df[info['select_columns']]
+            
+        if received_id == "TESS":
+            names_disp = {"FP": 'FALSE POSITIVE', "PC": 'CANDIDATE',
+                        "CP": 'CONFIRMED', "FA": 'FALSE POSITIVE', "KP": 'CONFIRMED'}
+            df.replace({'disposition': names_disp}, inplace=True)
+            
 
-        list_targets = df["id_target"].unique().tolist()
-        list_targets = list(map(str, list_targets))
+        if candidates is True:
+            df = df[df['disposition'] == 'CANDIDATE']
+            list_targets = df["id_target"].unique().tolist()
+            list_targets = list(map(str, list_targets))
         
         if return_sectors_authors is True:
             final_dict = {}
@@ -239,7 +246,7 @@ def generate_graph():
     
 
 @bp.route('/evaluateCandidate', methods=['POST'])
-def generate_graph():
+def evaluate_candidate():
     try:
         data = request.json
         id_target_candidate = data["id_candidate"]
