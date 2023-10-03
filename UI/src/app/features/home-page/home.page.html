@@ -4,9 +4,19 @@
 
 <mat-drawer-container class="example-container">
   <mat-drawer #drawer mode="side" opened>
-    <button mat-raised-button class="drawer-button" (click)="goToExoplanetPage()">O que é exoplanetas?</button>
-    <button mat-raised-button class="drawer-button" (click)="goToModelsPage()">Quais modelos utilizamos?</button>
-    <button mat-raised-button class="drawer-button" (click)="goToTelescopesPage()">Tipos de telescópios</button>
+
+    <button mat-raised-button class="drawer-button" (click)="goToExoplanetPage()">
+      O que é exoplanetas?
+    </button>
+
+    <button mat-raised-button class="drawer-button" (click)="goToModelsPage()">
+      Quais modelos utilizamos?
+    </button>
+
+    <button mat-raised-button class="drawer-button" (click)="goToTelescopesPage()">
+      Tipos de telescópios
+    </button>
+
   </mat-drawer>
   <mat-drawer-content>
     <router-outlet></router-outlet>
