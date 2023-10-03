@@ -1,5 +1,6 @@
 import os
 from MethodBLS import method_bls
+from GeneralFunctions import general
 
 import pandas as pd
 
@@ -79,7 +80,10 @@ def get_targets():
     try:
         data = request.json
         received_id = data["id"].upper()
-
+        return_sectors_authors = data["sectors_authors"] == True
+        
+        print(return_sectors_authors)
+        
         # Check if the ID is empty or equal to TESS, K2, or Kepler
         if not received_id or received_id not in ["TESS", "K2", "KEPLER"]:
             return jsonify({"error": "Invalid ID value"}), 500
@@ -146,10 +150,19 @@ def get_targets():
 
         list_targets = df["id_target"].unique().tolist()
         list_targets = list(map(str, list_targets))
-
-        # Return JSON
-        response_data = {"list_targets": list_targets}
-        return jsonify(response_data)
+        
+        if return_sectors_authors is True:
+            final_dict = {}
+            for target in list_targets[:10]:
+                new_dict = general.getSectorsAuthors(target, received_id)
+                final_dict.update(new_dict)     
+                    
+            return jsonify(final_dict), 200
+        
+        else:
+            # Return JSON
+            response_data = {"list_targets": list_targets}
+            return jsonify(response_data), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400
@@ -209,8 +222,6 @@ def generate_graph():
             elif telescope == 'TESS':
                 id_target = 'TIC ' + str(id_target)
                 author_observation = "SPOC"
-            else:
-                return jsonify({"error": "ID not recognized"}), 400
             
             lc = lk.search_lightcurve(id_target, author=author_observation, sector= sectors).download_all()
             
@@ -236,24 +247,24 @@ def generate_graph():
         return jsonify({"error": str(e)}), 400
     
 
-@bp.route('/generateGraph', methods=['GET'])
-def generate_graph():
-    try:
-        data = request.json
-        id_target = data["id"]
-        telescope = data["telescope"].upper()
+# @bp.route('/generateGraph', methods=['GET'])
+# def generate_graph():
+#     try:
+#         data = request.json
+#         id_target = data["id"]
+#         telescope = data["telescope"].upper()
         
-        try:
-            
+#         try:
+#             print("aaa")
 
-            # Response 
-            return jsonify({"data"})
+#             # Response 
+#             return jsonify({"data"})
         
         
             
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
+#         except Exception as e:
+#             return jsonify({"error": str(e)}), 500
         
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 400
 
