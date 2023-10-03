@@ -153,7 +153,7 @@ def get_targets():
         
         if return_sectors_authors is True:
             final_dict = {}
-            for target in list_targets[:10]:
+            for target in list_targets:
                 new_dict = general.getSectorsAuthors(target, received_id)
                 final_dict.update(new_dict)     
                     
@@ -211,25 +211,16 @@ def generate_graph():
     try:
         data = request.json
         id_target = data["id"]
-        telescope = data["telescope"].upper()
         sectors = data["sector"]
+        author_observation = data['author']
         
-        try:
-            if telescope == 'Kepler':
-                id_target = 'KIC ' + str(id_target)
-                author_observation = "Kepler"
-                
-            elif telescope == 'TESS':
-                id_target = 'TIC ' + str(id_target)
-                author_observation = "SPOC"
+        try: 
             
             lc = lk.search_lightcurve(id_target, author=author_observation, sector= sectors).download_all()
             
             if lc is not None:
 
                 df, plot1_image_base64, plot2_image_base64 = method_bls.data_bls(lc)
-                
-                print(df.head())
                 
                 # Convert the DataFrame to CSV format
                 csv_data = df.to_csv(index=False)
@@ -247,24 +238,26 @@ def generate_graph():
         return jsonify({"error": str(e)}), 400
     
 
-# @bp.route('/generateGraph', methods=['GET'])
-# def generate_graph():
-#     try:
-#         data = request.json
-#         id_target = data["id"]
-#         telescope = data["telescope"].upper()
+@bp.route('/evaluateCandidate', methods=['POST'])
+def generate_graph():
+    try:
+        data = request.json
+        id_target_candidate = data["id_candidate"]
+        model = data["model"]
+        vision = data["vision"]  # global or local
+        is_multiview = data["multiview"] == True
+        mode_multiview = data["mode"]
         
-#         try:
-#             print("aaa")
-
-#             # Response 
-#             return jsonify({"data"})
+        try:
+            
+            # Response 
+            return jsonify({"data"})
         
         
             
-#         except Exception as e:
-#             return jsonify({"error": str(e)}), 500
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
         
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
