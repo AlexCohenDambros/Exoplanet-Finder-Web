@@ -10,7 +10,6 @@ from flask import request, Blueprint, jsonify, Response
 
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
 
 import lightkurve as lk
 
@@ -18,8 +17,12 @@ import glob
 
 import warnings
 
+import time
+import queue
+import multiprocessing
+from multiprocessing import Process, Manager, Queue, freeze_support
 
-# Suprimindo os warnings específicos
+
 warnings.filterwarnings("ignore", category=UserWarning, module="astropy")
 warnings.filterwarnings("ignore", category=UserWarning, module="lightkurve")
 
@@ -32,39 +35,14 @@ received_json = ""
 def index():
     return jsonify({'message': 'Bem-vindo ao meu projeto Flask!'})
 
-
-@bp.route('/getDataTelescope', methods=['POST'])
+@bp.route('/getDataTelescope', methods=['GET'])
 def get_data_telescope():
     try:
         data = request.json
         received_id = data["id"].upper()
 
-        # Check if the ID is empty or equal to TESS, K2, or Kepler
-        if not received_id or received_id not in ["TESS", "K2", "KEPLER"]:
-            return jsonify({"error": "Invalid ID value"}), 500
-
-        # Define the CSV file path
-        csv_file_path = f'Datasets/{received_id}/*.csv'
-
-        telescope_csv_paths = glob.glob(csv_file_path)
-
-        # Check if the file exists
-        if not telescope_csv_paths:
-            return jsonify({"error": "CSV file not found for the given ID"}), 404
-
-        csv_data = ''
-        with open(telescope_csv_paths[0], 'r') as f:
-            csv_data = '\n'.join(
-                list(filter(lambda a: not a.startswith('#'), f.readlines())))[1:]
-
-        # Read the CSV file
-        df = pd.read_csv(StringIO(csv_data), on_bad_lines='skip')
-
-        if received_id == 'TESS':
-            names_disp = {"FP": 'FALSE POSITIVE', "PC": 'CANDIDATE',
-                          "CP": 'CONFIRMED', "FA": 'FALSE POSITIVE', "KP": 'CONFIRMED'}
-            df.replace({'tfopwg_disp': names_disp}, inplace=True)
-
+        df = general.read_dataset(received_id)
+        
         # Convert the DataFrame to CSV format
         csv_data = df.to_csv(index=False)
 
@@ -152,7 +130,6 @@ def get_targets():
                         "CP": 'CONFIRMED', "FA": 'FALSE POSITIVE', "KP": 'CONFIRMED'}
             df.replace({'disposition': names_disp}, inplace=True)
             
-
         if candidates is True:
             df = df[df['disposition'] == 'CANDIDATE']
             list_targets = df["id_target"].unique().tolist()
@@ -249,16 +226,87 @@ def generate_graph():
 def evaluate_candidate():
     try:
         data = request.json
+        name_telescope = data['name_telescope']
         id_target_candidate = data["id_candidate"]
         model = data["model"]
-        vision = data["vision"]  # global or local
+        vision = data["vision"]  # global, local or all
         is_multiview = data["multiview"] == True
         mode_multiview = data["mode"]
         
         try:
+            num_threads = multiprocessing.cpu_count()
+
+            df_candidate = general.open_data_candidates(name_telescope, id_target_candidate)
+            
+            print(df_candidate)
+            
+            telescopes_list = {name_telescope: df_candidate}
+
+            # ============= Execution of threads for data pre-processing =============
+            local_curves_candidate = []
+            global_curves_candidate = []
+            local_global_target_candidate = []
+
+            for name_candidate, df_candidate in telescopes_list.items():
+
+                # Manager
+                manager = Manager()
+
+                # Flare gun
+                finishedTheLines = manager.Event()
+
+                # Processing Queues
+                processinQqueue = Queue(df_candidate.shape[0])
+                answerQueue = Queue(df_candidate.shape[0] + num_threads)
+
+                threads = []
+
+                for i in range(num_threads):
+                    threads.append(Process(target=general.process_threads, args=(
+                        processinQqueue, answerQueue, finishedTheLines, name_candidate, vision)))
+                    threads[-1].start()
+
+                for _, row in df_candidate.iterrows():
+                    processinQqueue.put_nowait(row)
+
+                time.sleep(1)
+                finishedTheLines.set()
+
+                threads_finished = 0
+                while threads_finished < num_threads:
+                    try:
+                        get_result = answerQueue.get(False)
+                        if get_result == "ts":
+                            threads_finished += 1
+                            continue
+
+                        # Finish processing the data
+                        (target, data_local, data_global) = get_result
+                        local_global_target_candidate.append(target)
+                        local_curves_candidate.append(data_local)
+                        global_curves_candidate.append(data_global)
+
+                    except queue.Empty:
+                        continue
+
+                for t in threads:
+                    t.join()
+            
+            if vision == "Global" or vision == "Ambas" and not global_curves_candidate:
+                df_global = pd.DataFrame(global_curves_candidate)
+                df_global = df_global.interpolate(axis=1)
+                df_global['label'] = pd.Series(local_global_target_candidate)
+            
+            elif vision == "Local" or vision == "Ambas" and not local_curves_candidate:
+                df_local = pd.DataFrame(local_curves_candidate)
+                df_local = df_local.interpolate(axis=1)
+                df_local['label'] = pd.Series(local_global_target_candidate)
+                 
+            print(df_local)
+            # list_values_predictions = general.predict_target_candidate()
             
             # Response 
-            return jsonify({"data"})
+            return jsonify({"data": "test"})
         
         
             
