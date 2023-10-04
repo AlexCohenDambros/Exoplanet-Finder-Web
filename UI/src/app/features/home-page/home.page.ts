@@ -8,7 +8,6 @@ import { LanguageService } from 'src/app/shared/translate/language.service';
   styleUrls: ['./home.page.scss']
 })
 export class HomeComponent implements OnInit {
-
   selectedOption!: number;
 
   constructor(
@@ -29,5 +28,11 @@ export class HomeComponent implements OnInit {
 
   public goToModelsPage(): void {
     this.route.navigate(['/models']);
+  }
+  public goToHome(): void {
+    this.route.navigateByUrl('/home');
+  }
+  public goToVision(): void {
+    this.route.navigateByUrl('/vision');
   }
 }
