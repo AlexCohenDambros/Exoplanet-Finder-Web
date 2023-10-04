@@ -1,0 +1,26 @@
+.initial-page{
+  text-align: center;
+  padding: 2.2rem;
+}
+.sub1{
+  width: 70%;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+.github_link{
+  text-decoration: none!important;
+  color: black;
+  width: 50%;
+  margin: 0 auto;
+}
+.github_link mat-card{
+  transition: 0.2s ease-in;
+}
+.github_link mat-card:hover {
+
+    background-color: #ddd;
+    color: #000;
+    cursor: pointer;
+
+
+}
