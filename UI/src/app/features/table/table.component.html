@@ -1,18 +1,22 @@
 <div class="telescope-selector">
+
   <mat-form-field class="custom-mat-form-field">
-    <mat-label>Telescópio</mat-label>
+    <mat-label>{{ 'table.telescope' | translate }}</mat-label>
     <mat-select [(value)]="telescope">
       <mat-option *ngFor="let option of telescopeModel" [value]="option.name">
         {{option.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+
   <div class="buttons-search">
-    <button class="submit" mat-raised-button color="primary" (click)="submitForms()">Buscar</button>
+    <button class="submit" mat-raised-button color="primary" (click)="submitForms()">{{ 'search' | translate }}</button>
   </div>
+
   <div class="buttons-search">
-    <button class="submit" mat-raised-button color="primary" (click)="downloadCsv()"
-      [disabled]="!dataSource.length">Download dos dados</button>
+    <button class="submit" mat-raised-button color="primary" (click)="downloadCsv()" [disabled]="!dataSource.length">
+      {{ 'DownloadData' | translate }}
+    </button>
   </div>
 </div>
 

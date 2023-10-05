@@ -6,25 +6,27 @@
   <mat-drawer #drawer mode="side" opened>
 
     <button mat-raised-button class="drawer-button" (click)="goToHome()">
-      Inicio
+      {{'home.page.init' | translate}}
     </button>
     <button mat-raised-button class="drawer-button" (click)="goToExoplanetPage()">
-      Exoplanetas
+      {{'home.page.exoplanets' | translate}}
     </button>
 
     <button mat-raised-button class="drawer-button" (click)="goToModelsPage()">
-      Modelos Utilizados
+      {{'home.page.models' | translate}}
     </button>
 
     <button mat-raised-button class="drawer-button" (click)="goToTelescopesPage()">
-      Tipos de telescópios
+      {{'home.page.telescopes' | translate}}
     </button>
     <button mat-raised-button class="drawer-button" (click)="goToVision()">
-      Visão
+      {{'home.page.vision' | translate}}
     </button>
 
   </mat-drawer>
+
   <mat-drawer-content>
     <router-outlet></router-outlet>
   </mat-drawer-content>
+
 </mat-drawer-container>

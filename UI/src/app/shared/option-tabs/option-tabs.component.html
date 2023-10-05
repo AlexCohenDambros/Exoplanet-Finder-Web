@@ -1,19 +1,20 @@
-<mat-tab-group class="optionBar">
+<div [@fadeInOut]>
+  <mat-tab-group class="optionBar">
 
-  <mat-tab label="{{'homePage' | translate}}">
-    <app-home-page></app-home-page>
-  </mat-tab>
+    <mat-tab label="{{ 'homePage' | translate }}">
+      <app-home-page></app-home-page>
+    </mat-tab>
 
-  <mat-tab label="Modelos">
-    <app-select-models></app-select-models>
-  </mat-tab>
+    <mat-tab label="{{ 'Models' | translate }}">
+      <app-select-models></app-select-models>
+    </mat-tab>
 
-  <mat-tab label="Gráficos">
-    <app-graph-page></app-graph-page>
-  </mat-tab>
+    <mat-tab label="{{ 'graphs' | translate }}">
+    </mat-tab>
 
-  <mat-tab label="Tabela">
-    <app-table></app-table>
-  </mat-tab>
+    <mat-tab label="{{ 'table' | translate}}">
+      <app-table></app-table>
+    </mat-tab>
 
-</mat-tab-group>
+  </mat-tab-group>
+</div>

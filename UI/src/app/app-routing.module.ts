@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './shared/http-errors/not-found/not-found.component';
 import { ServerErrorComponent } from './shared/http-errors/server-error/server-error.component';
-import { ExoplanetTabsComponent } from './shared/exoplanet-tabs/exoplanet-tabs.component';
+import { ExoplanetTabsComponent } from './shared/telescopes-tabs/exoplanet-tabs.component';
 import { InitialComponentComponent } from './shared/initial-component/initial-component.component';
 import { ExoplanetInfoComponent } from './shared/exoplanet-info/exoplanet-info.component';
 import { UsingModelsComponent } from './shared/using-models/using-models.component';
