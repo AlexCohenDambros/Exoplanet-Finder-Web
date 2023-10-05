@@ -233,85 +233,10 @@ def evaluate_candidate():
         is_multiview = data["multiview"] == True
         mode_multiview = data["mode"]
         
-        try:
-            num_threads = multiprocessing.cpu_count()
-
-            df_candidate = general.open_data_candidates(name_telescope, id_target_candidate)
-            
-            print(df_candidate)
-            
-            telescopes_list = {name_telescope: df_candidate}
-
-            # ============= Execution of threads for data pre-processing =============
-            local_curves_candidate = []
-            global_curves_candidate = []
-            local_global_target_candidate = []
-
-            for name_candidate, df_candidate in telescopes_list.items():
-
-                # Manager
-                manager = Manager()
-
-                # Flare gun
-                finishedTheLines = manager.Event()
-
-                # Processing Queues
-                processinQqueue = Queue(df_candidate.shape[0])
-                answerQueue = Queue(df_candidate.shape[0] + num_threads)
-
-                threads = []
-
-                for i in range(num_threads):
-                    threads.append(Process(target=general.process_threads, args=(
-                        processinQqueue, answerQueue, finishedTheLines, name_candidate, vision)))
-                    threads[-1].start()
-
-                for _, row in df_candidate.iterrows():
-                    processinQqueue.put_nowait(row)
-
-                time.sleep(1)
-                finishedTheLines.set()
-
-                threads_finished = 0
-                while threads_finished < num_threads:
-                    try:
-                        get_result = answerQueue.get(False)
-                        if get_result == "ts":
-                            threads_finished += 1
-                            continue
-
-                        # Finish processing the data
-                        (target, data_local, data_global) = get_result
-                        local_global_target_candidate.append(target)
-                        local_curves_candidate.append(data_local)
-                        global_curves_candidate.append(data_global)
-
-                    except queue.Empty:
-                        continue
-
-                for t in threads:
-                    t.join()
-            
-            if vision == "Global" or vision == "Ambas" and not global_curves_candidate:
-                df_global = pd.DataFrame(global_curves_candidate)
-                df_global = df_global.interpolate(axis=1)
-                df_global['label'] = pd.Series(local_global_target_candidate)
-            
-            elif vision == "Local" or vision == "Ambas" and not local_curves_candidate:
-                df_local = pd.DataFrame(local_curves_candidate)
-                df_local = df_local.interpolate(axis=1)
-                df_local['label'] = pd.Series(local_global_target_candidate)
-                 
-            print(df_local)
-            # list_values_predictions = general.predict_target_candidate()
-            
-            # Response 
-            return jsonify({"data": "test"})
+        df = general.get_data_candidates(id_target_candidate, name_telescope, vision)
         
-        
-            
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
+        # Response 
+        return jsonify({"Response": "deu boa"})
         
     except Exception as e:
         return jsonify({"error": str(e)}), 400
