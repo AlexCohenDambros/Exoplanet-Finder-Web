@@ -1,11 +1,11 @@
 # ============= Imports =============
-import queue
+
 import glob
-import numpy as np
 import pandas as pd
 import lightkurve as lk
 from io import StringIO
-import pickle
+import joblib
+import xgboost as xgb
 
 # ============= Functions =============
 
@@ -114,10 +114,32 @@ def get_data_candidates(id_candidates, telescope, vision):
     # Use the isin() method to filter the DataFrame based on the list of target values
     df = df[df['target'].isin(id_candidates)]
     
-    # Remove the 'target' column from the DataFrame
-    df = df.drop(columns=['target'])
+    # Remove the 'label' column from the DataFrame
+    df = df.drop(columns=['label'])
     
     return df
 
-def predict_target_candidate():
-    print("test")
+def load_model(name_model, vision):
+    vision = vision.lower()
+    try:    
+        # load model from pickle file
+        model = joblib.load(f'Models/{name_model}/{name_model}_{vision}.pkl')
+        return model
+    
+    except Exception as e:
+        raise ValueError(f"Error loading the model: {str(e)}")
+
+def predict_candidate(df, model):
+    try:
+        # Remove the 'target' column from the DataFrame
+        df_no_target = df.drop("target", axis=1)
+        
+        # Make probability predictions
+        predictions = model.predict_proba(df_no_target)[:, 1]
+        
+        # Create a dictionary mapping 'target' values to their corresponding probabilities
+        result_dict = dict(zip(df["target"], predictions))
+        
+        return result_dict
+    except Exception as e:
+        raise ValueError(f"Error: {str(e)}")

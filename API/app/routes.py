@@ -222,8 +222,8 @@ def generate_graph():
         return jsonify({"error": str(e)}), 400
     
 
-@bp.route('/evaluateCandidate', methods=['POST'])
-def evaluate_candidate():
+@bp.route('/predictTargetCandidate', methods=['POST'])
+def predict_target_candidate():
     try:
         data = request.json
         name_telescope = data['name_telescope']
@@ -234,9 +234,15 @@ def evaluate_candidate():
         mode_multiview = data["mode"]
         
         df = general.get_data_candidates(id_target_candidate, name_telescope, vision)
+
+        loaded_model = general.load_model(model, vision)
         
-        # Response 
-        return jsonify({"Response": "deu boa"})
+        if loaded_model is not None:
+            predictions = general.predict_candidate(df, loaded_model)
+            return predictions, 200
+            
+        else:
+            return "Error loading the model.", 400
         
     except Exception as e:
         return jsonify({"error": str(e)}), 400
