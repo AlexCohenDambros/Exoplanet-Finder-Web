@@ -1,0 +1,19 @@
+<header>
+
+  <h1 class="text-center my-2"><strong>AdaBoost</strong></h1>
+</header>
+<div class="container">
+  <p class="my-4">O AdaBoost, uma técnica popular de aprendizado de máquina pertencente à categoria de Boosting, combina
+    vários modelos de aprendizado fracos para formar um modelo forte e preciso. Este algoritmo treina os preditores
+    sequencialmente, cada um focado em corrigir as falhas do seu antecessor. O diferencial do AdaBoost está na sua
+    capacidade de aprimorar um novo preditor, dando maior importância às instâncias mal previstas pelo preditor
+    anterior. Isso resulta em novos preditores especialmente habilidosos em corrigir os erros passados. Praticamente
+    qualquer algoritmo de aprendizado de máquina pode ser usado como o modelo de aprendizado fraco inicial, desde que
+    aceite pesos associados aos exemplos no conjunto de treinamento.</p>
+  <p class="my-4">O algoritmo AdaBoost inicia atribuindo pesos iguais a todas as amostras. Em cada iteração, constrói
+    uma árvore de decisão de profundidade 1 para classificar os dados. Calcula o peso da árvore selecionada com base no
+    erro total e atualiza os pesos das amostras, dando maior importância às classificações incorretas. Em seguida, cria
+    um novo conjunto de dados ponderado e repete o processo até atingir o número de iterações especificado. Por fim,
+    utiliza a floresta de árvores de decisão para fazer previsões em dados não vistos. As árvores são agrupadas com base
+    em suas decisões e a classificação final é determinada pela soma dos pesos das árvores.</p>
+</div>
