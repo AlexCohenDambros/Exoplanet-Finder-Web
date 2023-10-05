@@ -39,6 +39,9 @@ import { ExoplanetTabsComponent } from './shared/exoplanet-tabs/exoplanet-tabs.c
 import { ExoplanetInfoComponent } from './shared/exoplanet-info/exoplanet-info.component';
 import { InitialComponentComponent } from './shared/initial-component/initial-component.component';
 import { UsingModelsComponent } from './shared/using-models/using-models.component';
+import { XgboostComponent } from './features/xgboost/xgboost.component';
+import { SvmComponent } from './features/svm/svm.component';
+import { AdaboostComponent } from './features/adaboost/adaboost.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -62,7 +65,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     ExoplanetTabsComponent,
     ExoplanetInfoComponent,
     InitialComponentComponent,
-    UsingModelsComponent
+    UsingModelsComponent,
+    XgboostComponent,
+    SvmComponent,
+    AdaboostComponent
   ],
   imports: [
     BrowserModule,
