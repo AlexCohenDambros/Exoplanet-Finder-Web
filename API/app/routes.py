@@ -1,17 +1,28 @@
+import os
+from MethodBLS import method_bls
+from GeneralFunctions import general
+
+import pandas as pd
+
+from io import StringIO
+
+from flask import request, Blueprint, jsonify, Response
+
 import matplotlib
 matplotlib.use('Agg')
-import os
-import pandas as pd
+
+import lightkurve as lk
+
 import glob
-from io import StringIO
-from flask import request, Blueprint, jsonify, Response
-import lightkurve as lk 
-import io
-import base64
-import matplotlib.pyplot as plt
+
 import warnings
 
-# Suprimindo os warnings específicos
+import time
+import queue
+import multiprocessing
+from multiprocessing import Process, Manager, Queue, freeze_support
+
+
 warnings.filterwarnings("ignore", category=UserWarning, module="astropy")
 warnings.filterwarnings("ignore", category=UserWarning, module="lightkurve")
 
@@ -20,44 +31,18 @@ bp = Blueprint('routes', __name__)
 # Initialize a variable to store the received JSON data
 received_json = ""
 
-
 @bp.route('/')
 def index():
     return jsonify({'message': 'Bem-vindo ao meu projeto Flask!'})
 
-
-@bp.route('/getDataTelescope', methods=['POST'])
+@bp.route('/getDataTelescope', methods=['GET'])
 def get_data_telescope():
     try:
         data = request.json
         received_id = data["id"].upper()
 
-        # Check if the ID is empty or equal to TESS, K2, or Kepler
-        if not received_id or received_id not in ["TESS", "K2", "KEPLER"]:
-            return jsonify({"error": "Invalid ID value"}), 500
-
-        # Define the CSV file path
-        csv_file_path = f'Datasets/{received_id}/*.csv'
-
-        telescope_csv_paths = glob.glob(csv_file_path)
-
-        # Check if the file exists
-        if not telescope_csv_paths:
-            return jsonify({"error": "CSV file not found for the given ID"}), 404
-
-        csv_data = ''
-        with open(telescope_csv_paths[0], 'r') as f:
-            csv_data = '\n'.join(
-                list(filter(lambda a: not a.startswith('#'), f.readlines())))[1:]
-
-        # Read the CSV file
-        df = pd.read_csv(StringIO(csv_data), on_bad_lines='skip')
-
-        if received_id == 'TESS':
-            names_disp = {"FP": 'FALSE POSITIVE', "PC": 'CANDIDATE',
-                          "CP": 'CONFIRMED', "FA": 'FALSE POSITIVE', "KP": 'CONFIRMED'}
-            df.replace({'tfopwg_disp': names_disp}, inplace=True)
-
+        df = general.read_dataset(received_id)
+        
         # Convert the DataFrame to CSV format
         csv_data = df.to_csv(index=False)
 
@@ -68,12 +53,14 @@ def get_data_telescope():
         return jsonify({"error": str(e)}), 400
 
 
-@bp.route('/getTargets', methods=['POST'])
+@bp.route('/getTargets', methods=['GET'])
 def get_targets():
     try:
         data = request.json
         received_id = data["id"].upper()
-
+        return_sectors_authors = data["sectors_authors"] == True
+        candidates = data["candidates"] == True
+        
         # Check if the ID is empty or equal to TESS, K2, or Kepler
         if not received_id or received_id not in ["TESS", "K2", "KEPLER"]:
             return jsonify({"error": "Invalid ID value"}), 500
@@ -137,13 +124,29 @@ def get_targets():
 
             df.rename(columns=info['rename_columns'], inplace=True)
             df = df[info['select_columns']]
-
-        list_targets = df["id_target"].unique().tolist()
-        list_targets = list(map(str, list_targets))
-
-        # Return JSON
-        response_data = {"list_targets": list_targets}
-        return jsonify(response_data)
+            
+        if received_id == "TESS":
+            names_disp = {"FP": 'FALSE POSITIVE', "PC": 'CANDIDATE',
+                        "CP": 'CONFIRMED', "FA": 'FALSE POSITIVE', "KP": 'CONFIRMED'}
+            df.replace({'disposition': names_disp}, inplace=True)
+            
+        if candidates is True:
+            df = df[df['disposition'] == 'CANDIDATE']
+            list_targets = df["id_target"].unique().tolist()
+            list_targets = list(map(str, list_targets))
+        
+        if return_sectors_authors is True:
+            final_dict = {}
+            for target in list_targets:
+                new_dict = general.getSectorsAuthors(target, received_id)
+                final_dict.update(new_dict)     
+                    
+            return jsonify(final_dict), 200
+        
+        else:
+            # Return JSON
+            response_data = {"list_targets": list_targets}
+            return jsonify(response_data), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400
@@ -181,51 +184,131 @@ def insert_model():
         # Save the model file to the specified folder
         os.makedirs("Models/ImportedModels", exist_ok=True)
         model_file.save(os.path.join("Models/ImportedModels", model_file.filename))
-
+ 
         return jsonify({"message": "Model uploaded successfully"}), 200
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-    
 @bp.route('/generateGraph', methods=['POST'])
 def generate_graph():
     try:
         data = request.json
-        received_id = data["id"].upper()
-        target = data["target"]
+        id_target = data["id"]
+        sectors = data["sector"]
+        author_observation = data['author']
         
-        try:
-            if received_id == 'Kepler':
-                id_target = 'KIC ' + str(target)
-            elif received_id == 'TESS':
-                id_target = 'TIC ' + str(target)
-            else:
-                return jsonify({"error": "ID not recognized"}), 400
+        try: 
             
-            lcs = lk.search_lightcurve(id_target, cadence='long').download_all()
+            lc = lk.search_lightcurve(id_target, author=author_observation, sector= sectors).download_all()
             
-            if lcs is not None:
-                # Crie uma figura
-                fig, ax = plt.subplots()
+            if lc is not None:
+
+                df, plot1_image_base64, plot2_image_base64 = method_bls.data_bls(lc)
                 
-                # Plote os dados na figura
-                lcs.plot(ax=ax)
-                
-                # Salve a figura em um objeto BytesIO
-                img_buffer = io.BytesIO()
-                fig.savefig(img_buffer, format='png')
-                img_buffer.seek(0)
-                
-                # Converte a figura em representação base64
-                img_base64 = base64.b64encode(img_buffer.read()).decode('utf-8')
-                
-                plt.close(fig)  # Feche a figura para liberar recursos
-                
-                return jsonify({"image": img_base64})
+                # Convert the DataFrame to CSV format
+                csv_data = df.to_csv(index=False)
+
+                # Response 
+                return jsonify({"data": csv_data, "image1_base64": plot1_image_base64, "image2_base64": plot2_image_base64})
             
             else:
                 return jsonify({"error": "No light curve data found"}), 404
+            
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+    
+
+@bp.route('/evaluateCandidate', methods=['POST'])
+def evaluate_candidate():
+    try:
+        data = request.json
+        name_telescope = data['name_telescope']
+        id_target_candidate = data["id_candidate"]
+        model = data["model"]
+        vision = data["vision"]  # global, local or all
+        is_multiview = data["multiview"] == True
+        mode_multiview = data["mode"]
+        
+        try:
+            num_threads = multiprocessing.cpu_count()
+
+            df_candidate = general.open_data_candidates(name_telescope, id_target_candidate)
+            
+            print(df_candidate)
+            
+            telescopes_list = {name_telescope: df_candidate}
+
+            # ============= Execution of threads for data pre-processing =============
+            local_curves_candidate = []
+            global_curves_candidate = []
+            local_global_target_candidate = []
+
+            for name_candidate, df_candidate in telescopes_list.items():
+
+                # Manager
+                manager = Manager()
+
+                # Flare gun
+                finishedTheLines = manager.Event()
+
+                # Processing Queues
+                processinQqueue = Queue(df_candidate.shape[0])
+                answerQueue = Queue(df_candidate.shape[0] + num_threads)
+
+                threads = []
+
+                for i in range(num_threads):
+                    threads.append(Process(target=general.process_threads, args=(
+                        processinQqueue, answerQueue, finishedTheLines, name_candidate, vision)))
+                    threads[-1].start()
+
+                for _, row in df_candidate.iterrows():
+                    processinQqueue.put_nowait(row)
+
+                time.sleep(1)
+                finishedTheLines.set()
+
+                threads_finished = 0
+                while threads_finished < num_threads:
+                    try:
+                        get_result = answerQueue.get(False)
+                        if get_result == "ts":
+                            threads_finished += 1
+                            continue
+
+                        # Finish processing the data
+                        (target, data_local, data_global) = get_result
+                        local_global_target_candidate.append(target)
+                        local_curves_candidate.append(data_local)
+                        global_curves_candidate.append(data_global)
+
+                    except queue.Empty:
+                        continue
+
+                for t in threads:
+                    t.join()
+            
+            if vision == "Global" or vision == "Ambas" and not global_curves_candidate:
+                df_global = pd.DataFrame(global_curves_candidate)
+                df_global = df_global.interpolate(axis=1)
+                df_global['label'] = pd.Series(local_global_target_candidate)
+            
+            elif vision == "Local" or vision == "Ambas" and not local_curves_candidate:
+                df_local = pd.DataFrame(local_curves_candidate)
+                df_local = df_local.interpolate(axis=1)
+                df_local['label'] = pd.Series(local_global_target_candidate)
+                 
+            print(df_local)
+            # list_values_predictions = general.predict_target_candidate()
+            
+            # Response 
+            return jsonify({"data": "test"})
+        
+        
             
         except Exception as e:
             return jsonify({"error": str(e)}), 500
