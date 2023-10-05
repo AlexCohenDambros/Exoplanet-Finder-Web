@@ -1,6 +1,5 @@
 .table-container {
-  max-height: 400px;
-  /* Ajuste a altura conforme necessário */
+  max-height: 550px;
   overflow: auto;
 }
 
@@ -65,4 +64,16 @@
 .header-item {
   text-transform: uppercase;
   font-size: 14px !important;
+}
+
+.custom-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

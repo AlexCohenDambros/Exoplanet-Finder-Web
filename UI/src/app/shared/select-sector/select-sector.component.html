@@ -1,0 +1,17 @@
+<h3>
+  <b>
+    Selecione os setores desejados:
+  </b>
+</h3>
+
+<mat-divider></mat-divider>
+
+<div class="modal-container">
+  <mat-form-field class="full-width">
+    <mat-label>Toppings</mat-label>
+    <mat-select [formControl]="toppingsFormControl" multiple>
+      <input class="custom-input" matInput #filterInput placeholder="Buscar" (input)="filterItems(filterInput.value)">
+      <mat-option *ngFor="let topping of filteredToppingList" [value]="topping">{{ topping }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

@@ -1,4 +1,3 @@
-import { ScatterPlotComponent } from './features/scatter-plot/scatter-plot.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +18,6 @@ import { HeaderComponent } from './shared/header/header.component';
 import { NotFoundComponent } from './shared/http-errors/not-found/not-found.component';
 import { ToastrModule } from 'ngx-toastr';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgChartsModule } from 'ng2-charts';
 import { HomeTranslateComponent } from './shared/header/components/home-translate/home-translate.component';
 import { OptionTabsComponent } from './shared/option-tabs/option-tabs.component';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -35,6 +33,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { TableComponent } from './features/table/table.component';
+import { GraphPageComponent } from './features/graph-page/graph-page.component';
+import { SelectSectorComponent } from './shared/select-sector/select-sector.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -47,7 +48,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NotFoundComponent,
     ServerErrorComponent,
     HomeComponent,
-    ScatterPlotComponent,
     HomeTranslateComponent,
     OptionTabsComponent,
     TelescopeTessComponent,
@@ -55,10 +55,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     TelescopeK2Component,
     SelectModelsComponent,
     ModalInputFilesComponent,
-    TableComponent
+    TableComponent,
+    GraphPageComponent,
+    SelectSectorComponent
   ],
   imports: [
-    NgChartsModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -83,13 +84,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTabsModule,
     MatSidenavModule,
     MatFormFieldModule,
-    MatInputModule,
     FormsModule,
     MatButtonModule,
     MatDialogModule,
     MatExpansionModule,
     MatDividerModule,
-    MatTableModule
+    MatTableModule,
+    MatBottomSheetModule
   ],
   bootstrap: [AppComponent]
 })
