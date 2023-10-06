@@ -6,6 +6,7 @@ import { ExoplanetTabsComponent } from './shared/telescopes-tabs/exoplanet-tabs.
 import { InitialComponentComponent } from './shared/initial-component/initial-component.component';
 import { ExoplanetInfoComponent } from './shared/exoplanet-info/exoplanet-info.component';
 import { UsingModelsComponent } from './shared/using-models/using-models.component';
+import { VisionComponent } from './shared/vision/vision.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'telescopes', component: ExoplanetTabsComponent },
   { path: 'exoplanet', component: ExoplanetInfoComponent },
   { path: 'models', component: UsingModelsComponent },
+  { path: 'vision', component: VisionComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
