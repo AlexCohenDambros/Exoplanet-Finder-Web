@@ -42,6 +42,9 @@ import { UsingModelsComponent } from './shared/using-models/using-models.compone
 import { XgboostComponent } from './features/xgboost/xgboost.component';
 import { SvmComponent } from './features/svm/svm.component';
 import { AdaboostComponent } from './features/adaboost/adaboost.component';
+import { VisionComponent } from './shared/vision/vision.component';
+import { LocalvisionComponent } from './features/localvision/localvision.component';
+import { GlobalvisionComponent } from './features/globalvision/globalvision.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -68,7 +71,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     UsingModelsComponent,
     XgboostComponent,
     SvmComponent,
-    AdaboostComponent
+    AdaboostComponent,
+    VisionComponent,
+    LocalvisionComponent,
+    GlobalvisionComponent
   ],
   imports: [
     BrowserModule,
