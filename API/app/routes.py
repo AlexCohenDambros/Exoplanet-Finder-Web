@@ -50,7 +50,7 @@ def get_data_telescope():
         return Response(csv_data, mimetype='text/csv')
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"Error": str(e)}), 400
 
 
 @bp.route('/getTargets', methods=['GET'])
@@ -63,7 +63,7 @@ def get_targets():
         
         # Check if the ID is empty or equal to TESS, K2, or Kepler
         if not received_id or received_id not in ["TESS", "K2", "KEPLER"]:
-            return jsonify({"error": "Invalid ID value"}), 500
+            return jsonify({"Error": "Invalid ID value"}), 500
 
         # Define the CSV file path
         csv_file_path = f'Datasets/{received_id}/*.csv'
@@ -72,7 +72,7 @@ def get_targets():
 
         # Check if the file exists
         if not telescope_csv_paths:
-            return jsonify({"error": "CSV file not found for the given ID"}), 404
+            return jsonify({"Error": "CSV file not found for the given ID"}), 404
 
         csv_data = ''
         with open(telescope_csv_paths[0], 'r') as f:
@@ -149,7 +149,7 @@ def get_targets():
             return jsonify(response_data), 200
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"Error": str(e)}), 400
 
 
 @bp.route('/getModels', methods=['GET'])
@@ -165,7 +165,7 @@ def get_models():
         return jsonify(response_data)
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"Error": str(e)}), 400
 
 
 @bp.route('/insertModel', methods=['POST'])
@@ -173,13 +173,13 @@ def insert_model():
     try:
         # Check if a file is included in the POST request
         if 'model' not in request.files:
-            return jsonify({"error": "No file part"}), 400
+            return jsonify({"Error": "No file part"}), 400
 
         model_file = request.files['model']
 
         # Check if the file has a .pkl extension
         if not model_file.filename.endswith('.pkl'):
-            return jsonify({"error": "Invalid file format. Please provide a .pkl file"}), 400
+            return jsonify({"Error": "Invalid file format. Please provide a .pkl file"}), 400
 
         # Save the model file to the specified folder
         os.makedirs("Models/ImportedModels", exist_ok=True)
@@ -188,7 +188,7 @@ def insert_model():
         return jsonify({"message": "Model uploaded successfully"}), 200
     
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"Error": str(e)}), 500
     
 @bp.route('/generateGraph', methods=['POST'])
 def generate_graph():
@@ -213,13 +213,13 @@ def generate_graph():
                 return jsonify({"data": csv_data, "image1_base64": plot1_image_base64, "image2_base64": plot2_image_base64})
             
             else:
-                return jsonify({"error": "No light curve data found"}), 404
+                return jsonify({"Error": "No light curve data found"}), 404
             
         except Exception as e:
-            return jsonify({"error": str(e)}), 500
+            return jsonify({"Error": str(e)}), 500
         
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"Error": str(e)}), 400
     
 
 @bp.route('/predictTargetCandidate', methods=['POST'])
@@ -245,5 +245,22 @@ def predict_target_candidate():
             return "Error loading the model.", 400
         
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"Error": str(e)}), 400
+    
+    
+@bp.route('/infoModel', methods=['POST'])
+def info_model():
+    try:
+        data = request.json
+        name_model_model = data["model"]
+        vision = data["vision"]  # global, local or all
+
+        dict_info = general.get_info_model(name_model_model, vision)
+       
+        if not dict_info:
+            return jsonify("Error: The dictionary is empty."), 400
+        else:
+            return dict_info
+    except Exception as e:
+        return jsonify({"Error": str(e)}), 400
 

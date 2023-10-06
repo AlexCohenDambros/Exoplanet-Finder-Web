@@ -5,7 +5,7 @@ import pandas as pd
 import lightkurve as lk
 from io import StringIO
 import joblib
-import xgboost as xgb
+import base64
 
 # ============= Functions =============
 
@@ -143,3 +143,43 @@ def predict_candidate(df, model):
         return result_dict
     except Exception as e:
         raise ValueError(f"Error: {str(e)}")
+    
+def get_info_model(name_model, vision):
+    # Convert vision to lowercase for consistency
+    vision = vision.lower()
+    
+    try:    
+        # Define file paths for metrics and confusion matrix
+        metrics_model = f'ModelResults/{name_model}/Result_{name_model}_{vision}.xlsx'
+        confusion_matrix = f'ModelResults/{name_model}/ConfusionMatrix_{name_model}_{vision}.png'
+    
+        # Load the Excel file with model metrics
+        metrics_df = pd.read_excel(metrics_model)
+        
+        # drop Unnamed: 0
+        metrics_df.drop(["Unnamed: 0"], axis=1, inplace=True)
+        
+        
+        # Open the image and convert it to base64
+        with open(confusion_matrix, "rb") as image_file:
+            image_base64 = base64.b64encode(image_file.read()).decode('utf-8')
+        
+        # Return a dictionary with the data
+        result = {
+            "metrics": metrics_df.to_dict(),
+            "confusion_matrix_base64": image_base64
+        }
+        
+        return result
+    
+    except FileNotFoundError as file_not_found_error:
+        raise ValueError(f"File not found: {str(file_not_found_error)}")
+    except pd.errors.ParserError as parser_error:
+        raise ValueError(f"Error parsing Excel file: {str(parser_error)}")
+    except Exception as e:
+        raise ValueError(f"An error occurred: {str(e)}")
+    
+    
+    
+    
+    
