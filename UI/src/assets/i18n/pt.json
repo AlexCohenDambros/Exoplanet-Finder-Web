@@ -114,5 +114,16 @@
   "table": "Tabela",
   "table.telescope": "Telescópio",
   "search": "Buscar",
-  "DownloadData": "Download dados"
+  "DownloadData": "Download dados",
+  "vision-about":"Sobre",
+  "vision-about-title":"Visão",
+  "vision-about-subtitle":"Representações em machine learning",
+  "vision-about-sector1.p":"Em machine learning, o termo \"visão\" se refere à capacidade de um modelo de aprendizado de máquina de \"enxergar\" e interpretar padrões em dados de entrada. Isso é especialmente relevante em tarefas de visão computacional, onde o objetivo é extrair informações significativas de imagens ou vídeos. Existem visões globais e locais de dados, que serão abordados nas próximas seções.",
+  "vision-about-sector2.p":"Muitas vezes, a combinação estratégica dessas abordagens é empregada em aplicações de visão computacional para maximizar a interpretação precisa de dados visuais complexos. Essa sinergia entre a visão global e local desempenha um papel crucial na capacidade dos modelos de aprendizado de máquina de entender e interagir com informações visuais em uma ampla gama de contextos.",
+  "global-subtitle":"Visão geral dos dados",
+  "global-section1.p":"A visão global em aprendizado de máquina está centrada na identificação de padrões e características abrangentes em uma imagem ou conjunto de dados. Essa abordagem busca extrair informações de alto nível, como contornos, formas e texturas predominantes, permitindo uma compreensão geral da cena.",
+  "global-section2.p":"Ao se concentrar em características mais amplas, os modelos que utilizam visão global tendem a ser menos sensíveis a detalhes específicos ou variações sutis nos dados. Isso os torna particularmente úteis em tarefas que exigem uma percepção mais abrangente do ambiente, como reconhecimento de objetos em imagens complexas.",
+  "local-subtitle":"Visão específica dos dados",
+  "local-section1.p":"A visão local em machine learning se concentra em detalhes específicos e características de baixo nível em uma imagem. Essa abordagem busca identificar elementos finos, como bordas nítidas, texturas pequenas ou padrões de pixels distintos.",
+  "local-section2.p":"Ao analisar partes específicas da imagem em detalhes, os modelos que utilizam visão local são altamente sensíveis a variações minuciosas nos dados. Isso os torna especialmente eficazes em tarefas que exigem uma compreensão detalhada da estrutura da imagem, como a detecção de características específicas ou a segmentação de objetos em uma cena."
 }
