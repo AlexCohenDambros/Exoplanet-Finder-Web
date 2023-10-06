@@ -50,7 +50,7 @@ def get_data_telescope():
         return Response(csv_data, mimetype='text/csv')
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"Error": str(e)}), 400
 
 
 @bp.route('/getTargets', methods=['GET'])
@@ -63,7 +63,7 @@ def get_targets():
         
         # Check if the ID is empty or equal to TESS, K2, or Kepler
         if not received_id or received_id not in ["TESS", "K2", "KEPLER"]:
-            return jsonify({"error": "Invalid ID value"}), 500
+            return jsonify({"Error": "Invalid ID value"}), 500
 
         # Define the CSV file path
         csv_file_path = f'Datasets/{received_id}/*.csv'
@@ -72,7 +72,7 @@ def get_targets():
 
         # Check if the file exists
         if not telescope_csv_paths:
-            return jsonify({"error": "CSV file not found for the given ID"}), 404
+            return jsonify({"Error": "CSV file not found for the given ID"}), 404
 
         csv_data = ''
         with open(telescope_csv_paths[0], 'r') as f:
@@ -149,7 +149,7 @@ def get_targets():
             return jsonify(response_data), 200
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"Error": str(e)}), 400
 
 
 @bp.route('/getModels', methods=['GET'])
@@ -165,7 +165,7 @@ def get_models():
         return jsonify(response_data)
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"Error": str(e)}), 400
 
 
 @bp.route('/insertModel', methods=['POST'])
@@ -173,13 +173,13 @@ def insert_model():
     try:
         # Check if a file is included in the POST request
         if 'model' not in request.files:
-            return jsonify({"error": "No file part"}), 400
+            return jsonify({"Error": "No file part"}), 400
 
         model_file = request.files['model']
 
         # Check if the file has a .pkl extension
         if not model_file.filename.endswith('.pkl'):
-            return jsonify({"error": "Invalid file format. Please provide a .pkl file"}), 400
+            return jsonify({"Error": "Invalid file format. Please provide a .pkl file"}), 400
 
         # Save the model file to the specified folder
         os.makedirs("Models/ImportedModels", exist_ok=True)
@@ -188,7 +188,7 @@ def insert_model():
         return jsonify({"message": "Model uploaded successfully"}), 200
     
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"Error": str(e)}), 500
     
 @bp.route('/generateGraph', methods=['POST'])
 def generate_graph():
@@ -213,17 +213,17 @@ def generate_graph():
                 return jsonify({"data": csv_data, "image1_base64": plot1_image_base64, "image2_base64": plot2_image_base64})
             
             else:
-                return jsonify({"error": "No light curve data found"}), 404
+                return jsonify({"Error": "No light curve data found"}), 404
             
         except Exception as e:
-            return jsonify({"error": str(e)}), 500
+            return jsonify({"Error": str(e)}), 500
         
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"Error": str(e)}), 400
     
 
-@bp.route('/evaluateCandidate', methods=['POST'])
-def evaluate_candidate():
+@bp.route('/predictTargetCandidate', methods=['POST'])
+def predict_target_candidate():
     try:
         data = request.json
         name_telescope = data['name_telescope']
@@ -233,86 +233,34 @@ def evaluate_candidate():
         is_multiview = data["multiview"] == True
         mode_multiview = data["mode"]
         
-        try:
-            num_threads = multiprocessing.cpu_count()
+        df = general.get_data_candidates(id_target_candidate, name_telescope, vision)
 
-            df_candidate = general.open_data_candidates(name_telescope, id_target_candidate)
-            
-            print(df_candidate)
-            
-            telescopes_list = {name_telescope: df_candidate}
-
-            # ============= Execution of threads for data pre-processing =============
-            local_curves_candidate = []
-            global_curves_candidate = []
-            local_global_target_candidate = []
-
-            for name_candidate, df_candidate in telescopes_list.items():
-
-                # Manager
-                manager = Manager()
-
-                # Flare gun
-                finishedTheLines = manager.Event()
-
-                # Processing Queues
-                processinQqueue = Queue(df_candidate.shape[0])
-                answerQueue = Queue(df_candidate.shape[0] + num_threads)
-
-                threads = []
-
-                for i in range(num_threads):
-                    threads.append(Process(target=general.process_threads, args=(
-                        processinQqueue, answerQueue, finishedTheLines, name_candidate, vision)))
-                    threads[-1].start()
-
-                for _, row in df_candidate.iterrows():
-                    processinQqueue.put_nowait(row)
-
-                time.sleep(1)
-                finishedTheLines.set()
-
-                threads_finished = 0
-                while threads_finished < num_threads:
-                    try:
-                        get_result = answerQueue.get(False)
-                        if get_result == "ts":
-                            threads_finished += 1
-                            continue
-
-                        # Finish processing the data
-                        (target, data_local, data_global) = get_result
-                        local_global_target_candidate.append(target)
-                        local_curves_candidate.append(data_local)
-                        global_curves_candidate.append(data_global)
-
-                    except queue.Empty:
-                        continue
-
-                for t in threads:
-                    t.join()
-            
-            if vision == "Global" or vision == "Ambas" and not global_curves_candidate:
-                df_global = pd.DataFrame(global_curves_candidate)
-                df_global = df_global.interpolate(axis=1)
-                df_global['label'] = pd.Series(local_global_target_candidate)
-            
-            elif vision == "Local" or vision == "Ambas" and not local_curves_candidate:
-                df_local = pd.DataFrame(local_curves_candidate)
-                df_local = df_local.interpolate(axis=1)
-                df_local['label'] = pd.Series(local_global_target_candidate)
-                 
-            print(df_local)
-            # list_values_predictions = general.predict_target_candidate()
-            
-            # Response 
-            return jsonify({"data": "test"})
+        loaded_model = general.load_model(model, vision)
         
-        
+        if loaded_model is not None:
+            predictions = general.predict_candidate(df, loaded_model)
+            return predictions, 200
             
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
+        else:
+            return "Error loading the model.", 400
         
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"Error": str(e)}), 400
+    
+    
+@bp.route('/infoModel', methods=['POST'])
+def info_model():
+    try:
+        data = request.json
+        name_model_model = data["model"]
+        vision = data["vision"]  # global, local or all
+
+        dict_info = general.get_info_model(name_model_model, vision)
+       
+        if not dict_info:
+            return jsonify("Error: The dictionary is empty."), 400
+        else:
+            return dict_info
+    except Exception as e:
+        return jsonify({"Error": str(e)}), 400
 
