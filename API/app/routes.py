@@ -17,11 +17,6 @@ import glob
 
 import warnings
 
-import time
-import queue
-import multiprocessing
-from multiprocessing import Process, Manager, Queue, freeze_support
-
 
 warnings.filterwarnings("ignore", category=UserWarning, module="astropy")
 warnings.filterwarnings("ignore", category=UserWarning, module="lightkurve")
@@ -51,14 +46,12 @@ def get_data_telescope():
 
     except Exception as e:
         return jsonify({"Error": str(e)}), 400
-
-
+        
 @bp.route('/getTargets', methods=['GET'])
 def get_targets():
     try:
         data = request.json
         received_id = data["id"].upper()
-        return_sectors_authors = data["sectors_authors"] == True
         candidates = data["candidates"] == True
         
         # Check if the ID is empty or equal to TESS, K2, or Kepler
@@ -134,23 +127,30 @@ def get_targets():
             df = df[df['disposition'] == 'CANDIDATE']
             list_targets = df["id_target"].unique().tolist()
             list_targets = list(map(str, list_targets))
-        
-        if return_sectors_authors is True:
-            final_dict = {}
-            for target in list_targets:
-                new_dict = general.getSectorsAuthors(target, received_id)
-                final_dict.update(new_dict)     
-                    
-            return jsonify(final_dict), 200
-        
         else:
-            # Return JSON
-            response_data = {"list_targets": list_targets}
-            return jsonify(response_data), 200
+            df = df[df['disposition'] != 'CANDIDATE']
+            list_targets = df["id_target"].unique().tolist()
+            list_targets = list(map(str, list_targets))
+            
+        response_data = {"list_targets": list_targets}
+        return jsonify(response_data), 200
 
     except Exception as e:
         return jsonify({"Error": str(e)}), 400
 
+@bp.route('/getSectorTargets', methods=['GET'])
+def get_sector_targets():
+    try:
+        data = request.json
+        id_target = data["id_target"]
+        telescope = data["telescope"].upper()
+        
+        dict_sectorAuthors = general.getSectorsAuthors(id_target, telescope)
+         
+        return jsonify(dict_sectorAuthors), 200
+    
+    except Exception as e:
+            return jsonify({"Error": str(e)}), 400
 
 @bp.route('/getModels', methods=['GET'])
 def get_models():
