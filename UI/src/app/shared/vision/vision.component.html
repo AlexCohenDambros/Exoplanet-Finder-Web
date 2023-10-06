@@ -1,0 +1,30 @@
+<mat-tab-group class="optionBar">
+  <mat-tab label="Sobre">
+    <header>
+      <h1>{{'vision-about-title' | translate}}</h1>
+      <p class="header-subtitle">
+        {{'vision-about-subtitle' | translate}}
+      </p>
+    </header>
+    <div class="container">
+      <section>
+        <p>
+          {{'vision-about-sector1.p' | translate}}
+        </p>
+      </section>
+      <section>
+        <p>
+          {{'vision-about-sector2.p' | translate}}
+        </p>
+      </section>
+    </div>
+  </mat-tab>
+  <mat-tab label="Global">
+    <app-globalvision></app-globalvision>
+  </mat-tab>
+
+  <mat-tab label="Local">
+    <app-localvision></app-localvision>
+  </mat-tab>
+
+</mat-tab-group>

@@ -33,9 +33,18 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { TableComponent } from './features/table/table.component';
-import { GraphPageComponent } from './features/graph-page/graph-page.component';
-import { SelectSectorComponent } from './shared/select-sector/select-sector.component';
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
+import { ExoplanetTabsComponent } from './shared/telescopes-tabs/exoplanet-tabs.component';
+import { ExoplanetInfoComponent } from './shared/exoplanet-info/exoplanet-info.component';
+import { InitialComponentComponent } from './shared/initial-component/initial-component.component';
+import { UsingModelsComponent } from './shared/using-models/using-models.component';
+import { XgboostComponent } from './features/xgboost/xgboost.component';
+import { SvmComponent } from './features/svm/svm.component';
+import { AdaboostComponent } from './features/adaboost/adaboost.component';
+import { VisionComponent } from './shared/vision/vision.component';
+import { LocalvisionComponent } from './features/localvision/localvision.component';
+import { GlobalvisionComponent } from './features/globalvision/globalvision.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -56,8 +65,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectModelsComponent,
     ModalInputFilesComponent,
     TableComponent,
-    GraphPageComponent,
-    SelectSectorComponent
+    ExoplanetTabsComponent,
+    ExoplanetInfoComponent,
+    InitialComponentComponent,
+    UsingModelsComponent,
+    XgboostComponent,
+    SvmComponent,
+    AdaboostComponent,
+    VisionComponent,
+    LocalvisionComponent,
+    GlobalvisionComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +107,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatExpansionModule,
     MatDividerModule,
     MatTableModule,
-    MatBottomSheetModule
+    MatListModule,
+    RouterModule
   ],
   bootstrap: [AppComponent]
 })

@@ -1,11 +1,32 @@
-<div class="home-page m-0">
-  <div class="container">
-
-    <h1 class="home-title">
-      {{'Home.message' | translate}}
-    </h1>
-
-    <img class="home-img" src="https://media.tenor.com/a49L7qK9sRwAAAAC/tony-stark-iron-man.gif"
-      alt="Tony Stark lost in space">
-  </div>
+<div class="translate">
+  <app-home-translate></app-home-translate>
 </div>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer mode="side" opened>
+
+    <button mat-raised-button class="drawer-button" (click)="goToHome()">
+      {{'home.page.init' | translate}}
+    </button>
+    <button mat-raised-button class="drawer-button" (click)="goToExoplanetPage()">
+      {{'home.page.exoplanets' | translate}}
+    </button>
+
+    <button mat-raised-button class="drawer-button" (click)="goToModelsPage()">
+      {{'home.page.models' | translate}}
+    </button>
+
+    <button mat-raised-button class="drawer-button" (click)="goToTelescopesPage()">
+      {{'home.page.telescopes' | translate}}
+    </button>
+    <button mat-raised-button class="drawer-button" (click)="goToVision()">
+      {{'home.page.vision' | translate}}
+    </button>
+
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+
+</mat-drawer-container>

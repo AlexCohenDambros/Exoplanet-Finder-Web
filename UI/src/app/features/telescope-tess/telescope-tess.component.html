@@ -1,63 +1,59 @@
-<mat-drawer-container class="example-container">
-  <mat-drawer mode="side" opened>
-    <button mat-raised-button color="primary" style="width:200px;" (click)="openScatterPlot()">
-      {{'scatterPLotTitle' | translate}}
-    </button>
-  </mat-drawer>
-  <mat-drawer-content>
-    <div class="container">
-      <div class="telescope w-100">
-        <div>
-          <app-home-translate></app-home-translate>
-        </div>
-        <p class="telescope-title">
-          <b>
-            {{ 'tessCuriosity' | translate }}
-          </b>
-        </p>
-        <p class="telescope-subtitle">
-          {{ 'tessSubtitle' | translate }}
-        </p>
+<header>
+  <h1>
+    {{ 'telescope.tess.title' | translate }}
+  </h1>
+  <p class="header-subtitle">
+    {{ 'telescope.tess.subtitle' | translate }}
+  </p>
+</header>
 
-        <p>
-          <b>
-            {{ 'topic1' | translate }}
-          </b>
-          {{'tessText1' | translate}}
-        </p>
+<div class="container">
+  <section>
+    <h2>
+      {{ 'telescope.tess.section1.h2' | translate }}
+    </h2>
+    <p>
+      {{ 'telescope.tess.section1.p' | translate }}
+    </p>
+  </section>
 
-        <p>
-          <b>
-            {{'topic2' | translate}}
-          </b>
-          {{'tessText2' | translate}}
-        </p>
+  <section>
+    <h2>
+      {{ 'telescope.tess.section2.h2' | translate }}
+    </h2>
+    <p>
+      {{ 'telescope.tess.section2.p' | translate }}
+    </p>
+  </section>
 
-        <p>
-          <b>
-            {{'topic3' | translate}}
-          </b>
-          {{'tessText3' | translate}}
-        </p>
+  <section>
+    <h2>
+      {{ 'telescope.tess.section3.h2' | translate }}
+    </h2>
+    <p>
+      {{ 'telescope.tess.section3.p' | translate }}
+    </p>
+  </section>
 
-        <p>
-          <b>
-            {{'topic4' | translate}}
-          </b>
-          {{'tessText4' | translate}}
-        </p>
+  <section>
+    <h2>
+      {{ 'telescope.tess.section4.h2' | translate }}
+    </h2>
+    <p>
+      {{ 'telescope.tess.section4.p' | translate }}
+    </p>
+  </section>
 
-        <p>
-          <b>
-            {{'topic5' | translate}}
-          </b>
-          {{'tessText5' | translate}}
-        </p>
+  <section>
+    <h2>
+      {{ 'telescope.tess.section5.h2' | translate }}
+    </h2>
+    <p>
+      {{ 'telescope.tess.section5.p' | translate }}
+    </p>
+  </section>
 
-        <p>
-          {{'tessText6' | translate}}
-        </p>
-      </div>
-    </div>
-  </mat-drawer-content>
-</mat-drawer-container>
+  <p>
+    {{ 'telescope.tess.p' | translate }}
+  </p>
+</div>
