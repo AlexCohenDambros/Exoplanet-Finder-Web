@@ -53,8 +53,8 @@ def get_targets():
         data = request.json
         received_id = data["id"].upper()
         
-        # Check if the ID is empty or equal to TESS, K2, or Kepler
-        if not received_id or received_id not in ["TESS", "K2", "KEPLER"]:
+        # Check if the ID is empty or equal to TESS or Kepler
+        if not received_id or received_id not in ["TESS", "KEPLER"]:
             return jsonify({"Error": "Invalid ID value"}), 500
 
         # Define the CSV file path
@@ -76,15 +76,6 @@ def get_targets():
 
         # Defines the information dictionary for each telescope
         telescope_info = {
-            "K2": {
-                "drop_method": "Radial Velocity",
-                "rename_columns": {
-                    "tic_id": "id_target",
-                    "pl_orbper": "period",
-                    "pl_trandur": "duration"
-                },
-                "select_columns": ['id_target', 'disposition', 'period', 'duration']
-            },
             "KEPLER": {
                 "drop_method": None,
                 "rename_columns": {
@@ -140,8 +131,8 @@ def get_candidates_valid():
         telescope = data["telescope"].upper()
         vision = data["vision"].lower()
         
-        # Check if the ID is empty or equal to TESS, K2, or Kepler
-        if not telescope or telescope not in ["TESS", "K2", "KEPLER"]:
+        # Check if the ID is empty or equal to TESS or Kepler
+        if not telescope or telescope not in ["TESS", "KEPLER"]:
             return jsonify({"Error": "Invalid ID value"}), 500
 
         # Define the CSV file path

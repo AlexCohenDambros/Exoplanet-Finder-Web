@@ -53,8 +53,8 @@ def getSectorsAuthors(tic, telescope):
 
 def read_dataset(telescope=None):
 
-    # Check if the ID is empty or equal to TESS, K2, or Kepler
-    if not telescope or telescope not in ["TESS", "K2", "KEPLER"]:
+    # Check if the ID is empty or equal to TESS or Kepler
+    if not telescope or telescope not in ["TESS", "KEPLER"]:
         # return jsonify({"error": "Invalid ID value"}), 500
         raise ValueError("Invalid telescope name.")
 
@@ -84,7 +84,7 @@ def read_dataset(telescope=None):
 
 def get_data_candidates(id_candidates, telescope, vision):
     
-    # Check if the ID is empty or equal to TESS, K2, or Kepler
+    # Check if the ID is empty or equal to TESS or Kepler
     if not telescope or telescope not in ["TESS", "KEPLER"]:
         # return jsonify({"error": "Invalid ID value"}), 500
         raise ValueError("Invalid telescope name.")
