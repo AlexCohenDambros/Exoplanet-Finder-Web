@@ -45,6 +45,9 @@ import { AdaboostComponent } from './features/adaboost/adaboost.component';
 import { VisionComponent } from './shared/vision/vision.component';
 import { LocalvisionComponent } from './features/localvision/localvision.component';
 import { GlobalvisionComponent } from './features/globalvision/globalvision.component';
+import { GraphPageComponent } from './features/graph-page/graph-page.component';
+import { SelectSectorComponent } from './shared/select-sector/select-sector.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -74,7 +77,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdaboostComponent,
     VisionComponent,
     LocalvisionComponent,
-    GlobalvisionComponent
+    GlobalvisionComponent,
+    GraphPageComponent,
+    SelectSectorComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +113,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDividerModule,
     MatTableModule,
     MatListModule,
-    RouterModule
+    RouterModule,
+    MatCheckboxModule
   ],
   bootstrap: [AppComponent]
 })

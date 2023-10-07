@@ -19,9 +19,14 @@ export class ApiService {
     return this.http.post(url, { id: id }, { responseType: 'blob' });
   }
 
-  getTargets(id: string): Observable<any> {
+  getTargets(selectedTelescope: string, isCheckboxChecked: boolean): Observable<any> {
     const url = `${this.apiUrl}/getTargets`;
-    return this.http.post(url, { id: id }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
+    return this.http.post(url, { id: selectedTelescope, candidates: isCheckboxChecked }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
+  }
+
+  getSectorTargets(idTarget: string, telescope: string): Observable<any> {
+    const url = `${this.apiUrl}/getSectorTargets`;
+    return this.http.post(url, { id_target: idTarget, telescope: telescope }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
   }
 
   getModels(): Observable<any> {
@@ -43,8 +48,8 @@ export class ApiService {
     };
     return this.http.post(url, { id, target }, options);
   }
-  getObservationAnalysis(model: string, vision: string, telescope:string, targets: any): any{
-    return {teste:"corno"}
+  getObservationAnalysis(model: string, vision: string, telescope: string, targets: any): any {
+    return { teste: "corno" }
   }
   private blobToListOfLists(blobData: Blob, maxRows: number = 400): Observable<any> {
     return new Observable(observer => {

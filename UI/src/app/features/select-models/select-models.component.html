@@ -30,14 +30,14 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="custom-mat-form-field">
+      <!-- <mat-form-field class="custom-mat-form-field">
         <mat-label>Telescópio</mat-label>
         <mat-select [(value)]="telescope" (selectionChange)="onTelescopeChange($event)">
           <mat-option *ngFor="let option of telescopeModel" [value]="option.name">
             {{option.name}}
           </mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
 
       <mat-form-field>
         <mat-label>Targets</mat-label>
@@ -59,11 +59,11 @@
   <table aria-describedby="table" class="mat-elevation-z8">
     <thead>
       <tr>
-          <td class="mat-cell">ID</td>
-          <td class="mat-cell">Name</td>
-          <td class="mat-cell">Symbol</td>
-          <td class="mat-cell">Weight</td>
-          <td class="mat-cell">graph</td>
+        <td class="mat-cell">ID</td>
+        <td class="mat-cell">Name</td>
+        <td class="mat-cell">Symbol</td>
+        <td class="mat-cell">Weight</td>
+        <td class="mat-cell">graph</td>
       </tr>
     </thead>
     <tbody>

@@ -4,7 +4,7 @@
 }
 
 .mat-drawer {
-  width: 300px;
+  width: 240px;
   min-width: 300px;
 }
 
@@ -114,4 +114,18 @@
 .custom-input:focus {
   outline: none;
   border-color: #007bff;
+}
+
+.selectMode .example-section {
+  margin: 12px 0;
+  margin-left: -15px;
+}
+
+.customBox {
+  margin-right: 5px;
+}
+
+.customButton {
+  width: 150px;
+  margin-left: 60px;
 }

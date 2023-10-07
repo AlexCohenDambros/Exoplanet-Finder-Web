@@ -18,8 +18,8 @@ export interface PeriodicElement {
   templateUrl: './select-models.component.html',
   styleUrls: ['./select-models.component.scss']
 })
-export class SelectModelsComponent implements OnInit{
-  modelsDict: {[key: string]: number} = {};
+export class SelectModelsComponent implements OnInit {
+  modelsDict: { [key: string]: number } = {};
   model: any;
   vision: any;
   telescope: any;
@@ -80,7 +80,7 @@ export class SelectModelsComponent implements OnInit{
     this.telescope = null;
     this.target = new FormControl([]);
     this.ELEMENT_DATA = [];
-    this.targetsList=[];
+    this.targetsList = [];
   }
 
   public submitForms(): void {
@@ -92,27 +92,27 @@ export class SelectModelsComponent implements OnInit{
 
   dataSource = this.ELEMENT_DATA;
   public getModels() {
-    let new_dict:any = {}
+    let new_dict: any = {}
     this.apiService.getModels().subscribe(data => {
-      for (const chave in data.list_models){
+      for (const chave in data.list_models) {
         new_dict[chave] = data.list_models[chave];
       }
       this.modelsModel = new_dict;
+    });
+  }
+  ngOnInit() {
+    this.apiService.getModels().subscribe(data => {
+      const list_models = data.list_models;
+      this.modelsModel = list_models.map((model: any, index: any) => {
+        return { value: index + 1, name: model };
       });
-    }
-    ngOnInit() {
-      this.apiService.getModels().subscribe(data => {
-        const list_models = data.list_models;
-        this.modelsModel = list_models.map((model:any, index:any) => {
-          return { value: index + 1, name: model };
-        });
-      });
-    }
+    });
+  }
 
-    public onTelescopeChange(event: any) {
-      this.apiService.getTargets(this.telescope).subscribe(data => {
-        this.targetsList = data.list_targets;
-      })
-    }
+  // public onTelescopeChange(event: any) {
+  //   this.apiService.getTargets(this.telescope).subscribe(data => {
+  //     this.targetsList = data.list_targets;
+  //   })
+  // }
 
 }

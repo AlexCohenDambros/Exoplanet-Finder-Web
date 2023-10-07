@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/configuration/API/api.service';
 import { SelectSectorComponent } from 'src/app/shared/select-sector/select-sector.component';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-graph-page',
@@ -19,6 +18,8 @@ export class GraphPageComponent {
   searchValue: string = '';
   originalList: string[] = [];
   seeFilter: boolean = true;
+  selectedTelescope!: string;
+  isCheckboxChecked: boolean = false;
 
 
   telescopeModel = [
@@ -31,36 +32,49 @@ export class GraphPageComponent {
     private http: HttpClient,
     private apiService: ApiService,
     private toastr: ToastrService,
-    private dialog: MatDialog,
-    private _bottomSheet: MatBottomSheet) { }
+    private dialog: MatDialog) { }
 
-  public onSelectChange(event: any): void {
-    const selectedName = event.value;
+  public onButtonClick() {
+    console.log('Telescópio selecionado:', this.selectedTelescope);
+    console.log('Checkbox marcado:', this.isCheckboxChecked);
 
-    if (this.loadedBase !== selectedName) {
-      this.dataSource.list_targets = [];
-      let base = this.apiService.getTargets(selectedName)
-      base.subscribe(dados => {
-        this.originalList = dados.list_targets;
-        this.dataSource.list_targets = [...this.originalList];
-        this.loadedBase = selectedName;
-        this.seeFilter = false;
-      })
+    if (this.loadedBase !== this.selectedTelescope) {
+      if (this.selectedTelescope !== undefined) {
+        console.log("selectedName", this.selectedTelescope);
 
-      if (!base) {
-        this.toastr.warning('Desculpe, ocorreu um erro. Por favor, tente novamente.', 'Erro', {
+        this.dataSource.list_targets = [];
+        let base = this.apiService.getTargets(this.selectedTelescope, this.isCheckboxChecked)
+        base.subscribe(dados => {
+          this.originalList = dados.list_targets;
+          this.dataSource.list_targets = [...this.originalList];
+          this.loadedBase = this.selectedTelescope;
+          this.seeFilter = false;
+        })
+
+        if (!base) {
+          this.toastr.warning('Desculpe, ocorreu um erro. Por favor, tente novamente.', 'Erro', {
+            closeButton: true,
+            timeOut: 3000,
+            positionClass: 'toast-top-center'
+          });
+        }
+
+        if (this.selectedTelescope !== undefined && base) {
+          this.toastr.info(`Carregando informações do telescópio ${this.selectedTelescope}`, 'Carregando...', {
+            closeButton: true,
+            timeOut: 2000,
+            positionClass: 'toast-top-center'
+          });
+        }
+      }
+      if (this.selectedTelescope == undefined) {
+        this.toastr.warning('Por favor, selecione um telescópio.', 'Erro', {
           closeButton: true,
           timeOut: 3000,
           positionClass: 'toast-top-center'
         });
       }
-      else {
-        this.toastr.info(`Carregando informações do telescópio ${selectedName}`, 'Carregando...', {
-          closeButton: true,
-          timeOut: 2000,
-          positionClass: 'toast-top-center'
-        });
-      }
+
     }
   }
 
@@ -79,18 +93,31 @@ export class GraphPageComponent {
     }
   }
 
-  public openBottomSheet(item: any): void {
-    console.log("item", item);
+  public openDialog(item: any): void {
+    console.log('item', item);
+
+    let telescope = this.selectedTelescope;
+    let observation = item;
 
     const dialogRef = this.dialog.open(SelectSectorComponent, {
-      width: '450px'
+      width: '450px',
+      data: {
+        observation,
+        telescope
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
 
+  public onSelectChange(event: any) {
+    this.selectedTelescope = event.value;
+  }
 
+  public onCheckboxChange(event: any) {
+    this.isCheckboxChecked = event.checked;
   }
 
   private resetList(): void {
