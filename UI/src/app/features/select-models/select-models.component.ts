@@ -4,11 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalInputFilesComponent } from 'src/app/shared/modal-input-files/modal-input-files.component';
 import { ApiService } from 'src/app/configuration/API/api.service';
 import { ToastrService } from 'ngx-toastr';
+
 export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  id: string;
+  modelo: string;
+  visao: string;
+  telescopio: string;
+  probabilidade: number;
 }
 
 
@@ -24,16 +26,6 @@ export class SelectModelsComponent implements OnInit{
   vision: any;
   telescope: any;
   ELEMENT_DATA: PeriodicElement[] = [
-    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-    { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-    { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-    { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
   ]
 
   constructor(
@@ -82,14 +74,15 @@ export class SelectModelsComponent implements OnInit{
     this.ELEMENT_DATA = [];
     this.targetsList=[];
   }
-
-  public submitForms(): void {
-    console.log(this.model);
-    console.log(this.vision);
-    console.log(this.telescope);
-    console.log(this.selectedTargets);
+  async submitForms(): Promise<any> {
+    let targetListInt: number[] = []
+    targetListInt = (this.selectedTargets ?? []).map(str => parseInt(str, 10))
+    let d = await this.apiService.getPredictions(this.telescope,targetListInt,this.model,this.vision,false,"")
+    d.subscribe(result => {
+      let newData = this.converterParaDicionarios(result, this.model, this.vision,this.telescope)
+      this.ELEMENT_DATA=newData
+    });
   }
-
   dataSource = this.ELEMENT_DATA;
   public getModels() {
     let new_dict:any = {}
@@ -108,11 +101,26 @@ export class SelectModelsComponent implements OnInit{
         });
       });
     }
-
     public onTelescopeChange(event: any) {
-      this.apiService.getTargets(this.telescope).subscribe(data => {
+      this.apiService.getTargets(this.telescope, true).subscribe(data => {
         this.targetsList = data.list_targets;
       })
+    }
+    public converterParaDicionarios(dados: any, model:string,vision:string, telescope:string): PeriodicElement[] {
+      const lista: any[] = [];
+      for (let chave in dados) {
+          const id = chave;
+          const probabilidade = dados[chave];
+          lista.push({
+            id,
+            modelo: model,
+            visao: vision,
+            telescopio: telescope,
+            probabilidade:Math.round(probabilidade*10000)/100
+          });
+      }
+
+      return lista;
     }
 
 }

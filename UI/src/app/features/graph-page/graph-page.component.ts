@@ -39,7 +39,7 @@ export class GraphPageComponent {
 
     if (this.loadedBase !== selectedName) {
       this.dataSource.list_targets = [];
-      let base = this.apiService.getTargets(selectedName)
+      let base = this.apiService.getTargets(selectedName, false)
       base.subscribe(dados => {
         this.originalList = dados.list_targets;
         this.dataSource.list_targets = [...this.originalList];

@@ -19,9 +19,9 @@ export class ApiService {
     return this.http.post(url, { id: id }, { responseType: 'blob' });
   }
 
-  getTargets(id: string): Observable<any> {
+  getTargets(id: string, candidates: boolean): Observable<any> {
     const url = `${this.apiUrl}/getTargets`;
-    return this.http.post(url, { id: id }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
+    return this.http.post(url, { id: id, candidates:candidates }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
   }
 
   getModels(): Observable<any> {
@@ -43,8 +43,15 @@ export class ApiService {
     };
     return this.http.post(url, { id, target }, options);
   }
-  getObservationAnalysis(model: string, vision: string, telescope:string, targets: any): any{
-    return {teste:"corno"}
+  getPredictions(telescope: string, id_candidate: number[], model: string, vision: string, multiview: boolean, mode: string): Observable<any>
+  {
+    const url = `${this.apiUrl}/predictTargetCandidate`;
+    const options = {
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    };
+    return this.http.post(url, {name_telescope:telescope, id_candidate:[12938488,107782586], model:model, vision:vision,multiview:multiview,mode:mode}, options)
+
+
   }
   private blobToListOfLists(blobData: Blob, maxRows: number = 400): Observable<any> {
     return new Observable(observer => {

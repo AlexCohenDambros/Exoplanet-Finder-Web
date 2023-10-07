@@ -42,7 +42,7 @@
       <mat-form-field>
         <mat-label>Targets</mat-label>
         <mat-select [formControl]="target" multiple>
-          <mat-option *ngFor="let topping of targetsList" [value]="target">{{topping}}</mat-option>
+          <mat-option *ngFor="let topping of targetsList" [value]="topping" >{{topping}}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -60,18 +60,20 @@
     <thead>
       <tr>
           <td class="mat-cell">ID</td>
-          <td class="mat-cell">Name</td>
-          <td class="mat-cell">Symbol</td>
-          <td class="mat-cell">Weight</td>
-          <td class="mat-cell">graph</td>
+          <td class="mat-cell">Modelo</td>
+          <td class="mat-cell">Visão</td>
+          <td class="mat-cell">Telescopio</td>
+          <td class="mat-cell">Probabilidade</td>
+          <td class="mat-cell">Grafico</td>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let row of ELEMENT_DATA">
-        <td class="mat-cell">{{ row.position }}</td>
-        <td class="mat-cell">{{ row.name }}</td>
-        <td class="mat-cell">{{ row.symbol }}</td>
-        <td class="mat-cell">{{ row.weight }}</td>
+        <td class="mat-cell">{{ row.id }}</td>
+        <td class="mat-cell">{{ row.modelo }}</td>
+        <td class="mat-cell">{{ row.visao }}</td>
+        <td class="mat-cell">{{ row.telescopio }}</td>
+        <td class="mat-cell">{{ row.probabilidade }}</td>
         <td class="mat-cell">
           <button mat-icon-button matTooltip="Info about the action">
             <mat-icon>analytics</mat-icon>
