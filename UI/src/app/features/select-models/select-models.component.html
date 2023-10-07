@@ -47,6 +47,7 @@
       </mat-form-field>
 
       <div class="buttons-search">
+        <button class="clear" mat-raised-button color="secundary" (click)="openDialogInfoModel(vision,model)" [disabled]="!model || !vision">INFO</button>
         <button class="clear" mat-raised-button color="secundary" (click)="cleanForms()">Limpar</button>
         <button class="submit" mat-raised-button color="primary" (click)="submitForms()" [disabled]="!model || !vision || !telescope || targetsList.length === 0">Executar</button>
       </div>

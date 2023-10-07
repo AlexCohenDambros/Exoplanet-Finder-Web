@@ -1,0 +1,18 @@
+<h1 class="text-center">Métricas de Avaliação do {{ModelName}} na visão {{VisionModel}}</h1>
+<div class="d-flex align-items-center">
+  <div>
+    <h2 class="text-center">MATRIZ DE CONFUSÃO</h2>
+    <img [src]="confusionMatrix" alt="Confusion Matrix">
+  </div>
+  <div>
+    <h2 class="text-center">MÉTRICAS</h2>
+    <table>
+      <tbody class="data-table ">
+        <tr *ngFor="let row of dataInfo">
+          <td class="mat-cell key-cell">{{ row.chave }}</td>
+          <td class="mat-cell">{{row.valor}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

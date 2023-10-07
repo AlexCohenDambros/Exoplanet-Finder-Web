@@ -23,7 +23,6 @@ import { OptionTabsComponent } from './shared/option-tabs/option-tabs.component'
 import { MatTabsModule } from '@angular/material/tabs';
 import { TelescopeTessComponent } from './features/telescope-tess/telescope-tess.component';
 import { TelescopeKeplerComponent } from './features/telescope-kepler/telescope-kepler.component';
-import { TelescopeK2Component } from './features/telescope-k2/telescope-k2.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SelectModelsComponent } from './features/select-models/select-models.component';
 import { ModalInputFilesComponent } from './shared/modal-input-files/modal-input-files.component';
@@ -46,7 +45,7 @@ import { VisionComponent } from './shared/vision/vision.component';
 import { LocalvisionComponent } from './features/localvision/localvision.component';
 import { GlobalvisionComponent } from './features/globalvision/globalvision.component';
 import { ModalShowGraphComponent } from './shared/modal-show-graph/modal-show-graph.component';
-
+import { ModalShowModelInfoComponent } from './shared/modal-show-model-info/modal-show-model-info.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -62,7 +61,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     OptionTabsComponent,
     TelescopeTessComponent,
     TelescopeKeplerComponent,
-    TelescopeK2Component,
     SelectModelsComponent,
     ModalInputFilesComponent,
     TableComponent,
@@ -76,7 +74,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     VisionComponent,
     LocalvisionComponent,
     GlobalvisionComponent,
-    ModalShowGraphComponent
+    ModalShowGraphComponent,
+    ModalShowModelInfoComponent
   ],
   imports: [
     BrowserModule,

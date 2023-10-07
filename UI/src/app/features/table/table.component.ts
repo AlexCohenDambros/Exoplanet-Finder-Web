@@ -18,7 +18,6 @@ export class TableComponent {
 
   telescopeModel = [
     { value: 1, name: 'TESS' },
-    { value: 2, name: 'K2' },
     { value: 3, name: 'KEPLER' },
   ];
 

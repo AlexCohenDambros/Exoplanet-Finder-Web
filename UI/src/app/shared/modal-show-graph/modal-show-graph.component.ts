@@ -17,7 +17,6 @@ export class ModalShowGraphComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.image_path)
   }
 
 }

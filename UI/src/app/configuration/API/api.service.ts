@@ -54,8 +54,13 @@ export class ApiService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     };
     return this.http.post(url, {name_telescope:telescope, id_candidate:id_candidate, model:model, vision:vision,multiview:multiview,mode:mode}, options)
-
-
+  }
+  getModelInfo(model:string, vision:string): Observable<any> {
+    const url = `${this.apiUrl}/infoModel`;
+    const options = {
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    };
+    return this.http.post(url, {model,vision},options)
   }
   private blobToListOfLists(blobData: Blob, maxRows: number = 400): Observable<any> {
     return new Observable(observer => {

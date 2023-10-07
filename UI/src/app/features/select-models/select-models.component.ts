@@ -5,6 +5,7 @@ import { ModalInputFilesComponent } from 'src/app/shared/modal-input-files/modal
 import { ModalShowGraphComponent } from 'src/app/shared/modal-show-graph/modal-show-graph.component';
 import { ApiService } from 'src/app/configuration/API/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { ModalShowModelInfoComponent } from 'src/app/shared/modal-show-model-info/modal-show-model-info.component';
 
 export interface PeriodicElement {
   id: string;
@@ -49,7 +50,6 @@ export class SelectModelsComponent implements OnInit{
 
   telescopeModel = [
     { value: 1, name: 'TESS' },
-    { value: 2, name: 'K2' },
     { value: 3, name: 'KEPLER' },
   ];
 
@@ -142,12 +142,14 @@ export class SelectModelsComponent implements OnInit{
 
       return lista;
     }
-    public converterBytesParaBase64(bytes: any) {
-      console.log(bytes)
-      let binary = '';
-      for (let i = 0; i < bytes.length; i++) {
-        binary += String.fromCharCode(bytes[i]);
-      }
-      return window.btoa(binary);
+
+    public openDialogInfoModel(vision: string,model:string): void {
+      const dialogRef = this.dialog.open(ModalShowModelInfoComponent, {
+        width: '100%',
+        data : {
+          model: model,
+          vision: vision
+        }
+      })
     }
 }
