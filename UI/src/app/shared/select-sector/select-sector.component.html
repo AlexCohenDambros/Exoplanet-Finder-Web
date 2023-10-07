@@ -1,6 +1,6 @@
 <h3>
   <b>
-    Selecione os setores desejados:
+    Selecione o setor desejado:
   </b>
 </h3>
 
@@ -23,4 +23,8 @@
       <mat-option *ngFor="let target of finalSector" [value]="target">{{ target }}</mat-option>
     </mat-select>
   </mat-form-field>
+</div>
+
+<div>
+  <button mat-raised-button color="primary" class="customSearchButton" (click)="closeModal()">Buscar</button>
 </div>

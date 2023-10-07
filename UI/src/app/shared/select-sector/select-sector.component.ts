@@ -16,6 +16,8 @@ export class SelectSectorComponent implements OnInit {
   valorSelecionado: any;
   result: any;
   finalSector: any[] = [];
+  valorSelecionadoId: any;
+  valorSelecionadoSetor: any;
 
   constructor(
     public apiService: ApiService,
@@ -47,6 +49,20 @@ export class SelectSectorComponent implements OnInit {
     let data = this.result;
 
     this.finalSector = data[(Object.keys(data)[0])][valor]
+  }
 
+  public getSelectedValueInArray() {
+    console.log("Valor selecionado do primeiro mat-select:", this.valorSelecionadoId);
+  }
+
+  public closeModal(): void {
+    const modalValue = {
+      finalSector: this.finalSector,
+      idTargetList: this.idTargetList
+    }
+
+    console.log('modalValue', modalValue);
+
+    this.dialogRef.close();
   }
 }
