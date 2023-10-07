@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalInputFilesComponent } from 'src/app/shared/modal-input-files/modal-input-files.component';
+import { ModalShowGraphComponent } from 'src/app/shared/modal-show-graph/modal-show-graph.component';
 import { ApiService } from 'src/app/configuration/API/api.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -11,6 +12,7 @@ export interface PeriodicElement {
   visao: string;
   telescopio: string;
   probabilidade: number;
+  image: any
 }
 
 
@@ -63,13 +65,21 @@ export class SelectModelsComponent implements OnInit{
       console.log('Importação feita com sucesso');
     });
   }
+
+  openDialogGraph(image: string): void {
+    const dialogRef = this.dialog.open(ModalShowGraphComponent, {
+      width: '600px',
+      data: {
+        image:image
+      }
+    })
+  }
+
   public get selectedTargets() {
     return this.target.value;
   }
   public cleanForms(): void {
-    this.model = null;
-    this.vision = null;
-    this.telescope = null;
+    this.telescope = '';
     this.target = new FormControl([]);
     this.ELEMENT_DATA = [];
     this.targetsList=[];
@@ -118,17 +128,26 @@ export class SelectModelsComponent implements OnInit{
       const lista: any[] = [];
       for (let chave in dados) {
           const id = chave;
-          const probabilidade = dados[chave];
+          const probabilidade = dados[chave][0];
+          const image = dados[chave][1];
           lista.push({
             id,
             modelo: model,
             visao: vision,
             telescopio: telescope,
-            probabilidade:Math.round(probabilidade*10000)/100
+            probabilidade:Math.round(probabilidade*10000)/100,
+            image:image
           });
       }
 
       return lista;
     }
-
+    public converterBytesParaBase64(bytes: any) {
+      console.log(bytes)
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return window.btoa(binary);
+    }
 }

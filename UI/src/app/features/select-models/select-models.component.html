@@ -75,7 +75,7 @@
         <td class="mat-cell">{{ row.telescopio }}</td>
         <td class="mat-cell">{{ row.probabilidade }}</td>
         <td class="mat-cell">
-          <button mat-icon-button matTooltip="Info about the action">
+          <button mat-icon-button matTooltip="Info about the action" (click)="openDialogGraph(row.image)">
             <mat-icon>analytics</mat-icon>
           </button>
         </td>

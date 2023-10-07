@@ -45,6 +45,7 @@ import { AdaboostComponent } from './features/adaboost/adaboost.component';
 import { VisionComponent } from './shared/vision/vision.component';
 import { LocalvisionComponent } from './features/localvision/localvision.component';
 import { GlobalvisionComponent } from './features/globalvision/globalvision.component';
+import { ModalShowGraphComponent } from './shared/modal-show-graph/modal-show-graph.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -74,7 +75,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdaboostComponent,
     VisionComponent,
     LocalvisionComponent,
-    GlobalvisionComponent
+    GlobalvisionComponent,
+    ModalShowGraphComponent
   ],
   imports: [
     BrowserModule,
