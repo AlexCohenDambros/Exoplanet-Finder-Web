@@ -47,12 +47,11 @@ def get_data_telescope():
     except Exception as e:
         return jsonify({"Error": str(e)}), 400
         
-@bp.route('/getTargets', methods=['GET'])
+@bp.route('/getTargets', methods=['POST'])
 def get_targets():
     try:
         data = request.json
         received_id = data["id"].upper()
-        candidates = data["candidates"] == True
         
         # Check if the ID is empty or equal to TESS, K2, or Kepler
         if not received_id or received_id not in ["TESS", "K2", "KEPLER"]:
@@ -123,16 +122,44 @@ def get_targets():
                         "CP": 'CONFIRMED', "FA": 'FALSE POSITIVE', "KP": 'CONFIRMED'}
             df.replace({'disposition': names_disp}, inplace=True)
             
-        if candidates is True:
-            df = df[df['disposition'] == 'CANDIDATE']
-            list_targets = df["id_target"].unique().tolist()
-            list_targets = list(map(str, list_targets))
-        else:
-            df = df[df['disposition'] != 'CANDIDATE']
-            list_targets = df["id_target"].unique().tolist()
-            list_targets = list(map(str, list_targets))
+        
+        df = df[df['disposition'] != 'CANDIDATE']
+        list_targets = df["id_target"].unique().tolist()
+        list_targets = list(map(str, list_targets))
             
         response_data = {"list_targets": list_targets}
+        return jsonify(response_data), 200
+
+    except Exception as e:
+        return jsonify({"Error": str(e)}), 400
+
+@bp.route('/getCandidatesValid', methods=['POST'])
+def get_candidates_valid():
+    try:
+        data = request.json
+        telescope = data["telescope"].upper()
+        vision = data["vision"].lower()
+        
+        # Check if the ID is empty or equal to TESS, K2, or Kepler
+        if not telescope or telescope not in ["TESS", "K2", "KEPLER"]:
+            return jsonify({"Error": "Invalid ID value"}), 500
+
+        # Define the CSV file path
+        csv_file_path = f'PreprocessedCandidate{telescope}/preprocessed_{vision}_view_candidate.csv'
+
+        telescope_csv_paths = glob.glob(csv_file_path)
+
+        # Check if the file exists
+        if not telescope_csv_paths[0]:
+            return jsonify({"Error": "CSV file not found for the given ID"}), 404
+
+        # Read the CSV file
+        df = pd.read_csv(telescope_csv_paths[0])
+        
+        list_targets = df['target'].unique().tolist()
+        list_targets = [str(int(item.split()[1])) for item in list_targets]
+            
+        response_data = {"list_targets_candidates": list_targets}
         return jsonify(response_data), 200
 
     except Exception as e:
