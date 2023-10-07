@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/configuration/API/api.service';
@@ -10,12 +10,12 @@ import { ApiService } from 'src/app/configuration/API/api.service';
 })
 export class SelectSectorComponent implements OnInit {
 
-  toppingList: string[] = ['Tomato', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage'];
-  filteredToppingList: string[] = [...this.toppingList];
-  searchValue: string = '';
-  selectedToppings: string[] = [];
   toppingsFormControl = new FormControl();
   sectorTargets: any[] = [];
+  idTargetList: any[] = [];
+  valorSelecionado: any;
+  result: any;
+  finalSector: any[] = [];
 
   constructor(
     public apiService: ApiService,
@@ -31,31 +31,22 @@ export class SelectSectorComponent implements OnInit {
     let telescope = this.data.telescope;
 
     this.apiService.getSectorTargets(observation, telescope).subscribe((data: any) => {
-      this.sectorTargets = data;
-      console.log('dataaa', data);
-
+      this.idTargetList = Object.keys(data[Object.keys(data)[0]])
+      console.log('data', data);
+      this.result = data;
+      console.log('idTargetList', this.idTargetList);
     });
-    console.log('sectorTargets', this.sectorTargets);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['searchValue'] && !changes['searchValue'].firstChange) {
-      this.updateFilteredToppings();
-    }
+  public getSelectValue(): void {
+    this.getRealSector(this.valorSelecionado);
+    console.log('Valor selecionado:', this.valorSelecionado);
   }
 
-  filterItems(value: string) {
-    this.searchValue = value;
-    this.updateFilteredToppings();
-  }
+  public getRealSector(valor: any): void {
+    let data = this.result;
 
-  updateFilteredToppings() {
-    const selectedToppings = this.selectedToppings;
-    if (this.searchValue.trim() === '') {
-      this.filteredToppingList = selectedToppings.length > 0 ? selectedToppings : [...this.toppingList];
-    } else {
-      this.filteredToppingList = this.toppingList
-        .filter(topping => topping.toLowerCase().includes(this.searchValue.toLowerCase()));
-    }
+    this.finalSector = data[(Object.keys(data)[0])][valor]
+
   }
 }

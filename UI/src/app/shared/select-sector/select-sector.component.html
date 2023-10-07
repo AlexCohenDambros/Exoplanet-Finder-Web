@@ -8,10 +8,19 @@
 
 <div class="modal-container">
   <mat-form-field class="full-width">
+    <mat-label>Selecionar Id</mat-label>
+    <mat-select [(ngModel)]="valorSelecionado" (selectionChange)="getSelectValue()">
+      <mat-option *ngFor="let id of idTargetList" [value]="id">{{ id }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+
+<div class="modal-container">
+  <mat-form-field class="full-width">
     <mat-label>Setores</mat-label>
-    <mat-select multiple>
-      <input class="custom-input" matInput #filterInput placeholder="Buscar" (input)="filterItems(filterInput.value)">
-      <mat-option *ngFor="let topping of filteredToppingList" [value]="topping">{{ topping }}</mat-option>
+    <mat-select>
+      <mat-option *ngFor="let target of finalSector" [value]="target">{{ target }}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>
