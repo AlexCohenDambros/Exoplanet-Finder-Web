@@ -85,6 +85,11 @@ export class SelectModelsComponent implements OnInit{
     this.targetsList=[];
   }
   async submitForms(): Promise<any> {
+    this.toastr.info(`Carregando predições`, 'Carregando...', {
+      closeButton: true,
+      timeOut: 2000,
+      positionClass: 'toast-top-center'
+    });
     let targetListInt: number[] = []
     targetListInt = (this.selectedTargets ?? []).map(str => parseInt(str, 10))
     let d = await this.apiService.getPredictions(this.telescope,targetListInt,this.model,this.vision,false,"")
@@ -94,7 +99,11 @@ export class SelectModelsComponent implements OnInit{
 
         this.ELEMENT_DATA.push(element)
       });
-
+      this.toastr.success('Predição concluida com sucesso!', 'Sucesso', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
       this.telescope=""
       this.target = new FormControl([]);
     });
@@ -119,8 +128,18 @@ export class SelectModelsComponent implements OnInit{
     }
     public onTelescopeChange(event: any) {
       if(this.vision && this.telescope){
+        this.toastr.info(`Carregando informações do telescópio ${this.telescope}`, 'Carregando...', {
+          closeButton: true,
+          timeOut: 2000,
+          positionClass: 'toast-top-center'
+        });
         this.apiService.getCandidates(this.telescope, this.vision).subscribe(data => {
           this.targetsList = data.list_targets_candidates;
+          this.toastr.success('Dados carregados com sucesso!', 'Sucesso', {
+            closeButton: true,
+            timeOut: 3000,
+            positionClass: 'toast-top-center'
+          });
         })
       }
     }
@@ -144,6 +163,11 @@ export class SelectModelsComponent implements OnInit{
     }
 
     public openDialogInfoModel(vision: string,model:string): void {
+      this.toastr.info(`Carregando informação do modelo`, 'Carregando...', {
+        closeButton: true,
+        timeOut: 2000,
+        positionClass: 'toast-top-center'
+      });
       const dialogRef = this.dialog.open(ModalShowModelInfoComponent, {
         width: '100%',
         data : {
@@ -151,5 +175,10 @@ export class SelectModelsComponent implements OnInit{
           vision: vision
         }
       })
+      this.toastr.success('Informações do modelo carregadas com sucesso!', 'Sucesso', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
     }
 }
