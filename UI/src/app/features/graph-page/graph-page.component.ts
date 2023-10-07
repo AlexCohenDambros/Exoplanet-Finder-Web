@@ -24,7 +24,6 @@ export class GraphPageComponent {
 
   telescopeModel = [
     { value: 1, name: 'TESS' },
-    { value: 2, name: 'K2' },
     { value: 3, name: 'Kepler' },
   ]
 
@@ -94,7 +93,7 @@ export class GraphPageComponent {
   }
 
   public openDialog(item: any): void {
-    console.log('item', item);
+    console.log('itemmmm', item);
 
     let telescope = this.selectedTelescope;
     let observation = item;
@@ -108,9 +107,26 @@ export class GraphPageComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       console.log('result', result);
+
+      if (!result) {
+        this.toastr.warning('Por favor, selecione um setor.', 'Atenção', {
+          closeButton: true,
+          timeOut: 3000,
+          positionClass: 'toast-top-center'
+        });
+      }
+
+      let id = result.id_target;
+      let sector = result.sector;
+      let author = result.author_observation;
+      let telescope = this.selectedTelescope;
+
+      this.apiService.generateGraph(id, sector, author, telescope).subscribe((data: any) => {
+        console.log('data api', data);
+      });
     });
+
   }
 
   public onSelectChange(event: any) {

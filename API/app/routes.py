@@ -226,13 +226,19 @@ def generate_graph():
     try:
         data = request.json
         id_target = data["id"]
-        sectors = data["sector"]
+        sector = data["sector"]
         author_observation = data['author']
+        telescope = data['telescope']
 
         try:
 
+            if telescope == 'KEPLER':
+                id_target = 'KIC ' + str(id_target)
+
+            elif telescope == 'TESS':
+                id_target = 'TIC ' + str(id_target)
             lc = lk.search_lightcurve(
-                id_target, author=author_observation, sector=sectors).download_all()
+                id_target, author=author_observation, sector=sector).download_all()
 
             if lc is not None:
 

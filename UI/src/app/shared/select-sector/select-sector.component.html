@@ -8,8 +8,8 @@
 
 <div class="modal-container">
   <mat-form-field class="full-width">
-    <mat-label>Selecionar Id</mat-label>
-    <mat-select [(ngModel)]="valorSelecionado" (selectionChange)="getSelectValue()">
+    <mat-label>Id</mat-label>
+    <mat-select [(ngModel)]="author" (selectionChange)="getIdSelectValue()">
       <mat-option *ngFor="let id of idTargetList" [value]="id">{{ id }}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -19,7 +19,7 @@
 <div class="modal-container">
   <mat-form-field class="full-width">
     <mat-label>Setores</mat-label>
-    <mat-select>
+    <mat-select [(ngModel)]="sector" (selectionChange)="getTargetSelectValue()">
       <mat-option *ngFor="let target of finalSector" [value]="target">{{ target }}</mat-option>
     </mat-select>
   </mat-form-field>

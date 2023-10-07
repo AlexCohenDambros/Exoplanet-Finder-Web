@@ -13,7 +13,8 @@ export class SelectSectorComponent implements OnInit {
   toppingsFormControl = new FormControl();
   sectorTargets: any[] = [];
   idTargetList: any[] = [];
-  valorSelecionado: any;
+  author: any;
+  sector: any;
   result: any;
   finalSector: any[] = [];
   valorSelecionadoId: any;
@@ -30,6 +31,9 @@ export class SelectSectorComponent implements OnInit {
 
   public getSectorTarget(): void {
     let observation = this.data.observation;
+    console.log('observationnnn', observation);
+    console.log("this.data.observation", this.data.observation);
+
     let telescope = this.data.telescope;
 
     this.apiService.getSectorTargets(observation, telescope).subscribe((data: any) => {
@@ -40,9 +44,13 @@ export class SelectSectorComponent implements OnInit {
     });
   }
 
-  public getSelectValue(): void {
-    this.getRealSector(this.valorSelecionado);
-    console.log('Valor selecionado:', this.valorSelecionado);
+  public getIdSelectValue(): void {
+    this.getRealSector(this.author);
+    console.log('Valor do Id selecionado:', this.author);
+  }
+
+  public getTargetSelectValue(): void {
+    console.log('Valor do target selecionado:', this.sector);
   }
 
   public getRealSector(valor: any): void {
@@ -51,18 +59,18 @@ export class SelectSectorComponent implements OnInit {
     this.finalSector = data[(Object.keys(data)[0])][valor]
   }
 
-  public getSelectedValueInArray() {
-    console.log("Valor selecionado do primeiro mat-select:", this.valorSelecionadoId);
-  }
-
   public closeModal(): void {
+    console.log('SelectedId', this.author);
+    console.log('SelectedTarget', this.sector);
+
     const modalValue = {
-      finalSector: this.finalSector,
-      idTargetList: this.idTargetList
+      id_target: this.data.observation,
+      sector: this.author,
+      author_observation: this.sector
     }
 
     console.log('modalValue', modalValue);
 
-    this.dialogRef.close();
+    this.dialogRef.close(modalValue);
   }
 }
