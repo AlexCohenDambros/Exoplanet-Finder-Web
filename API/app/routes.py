@@ -47,12 +47,11 @@ def get_data_telescope():
     except Exception as e:
         return jsonify({"Error": str(e)}), 400
         
-@bp.route('/getTargets', methods=['GET'])
+@bp.route('/getTargets', methods=['POST'])
 def get_targets():
     try:
         data = request.json
         received_id = data["id"].upper()
-        candidates = data["candidates"] == True
         
         # Check if the ID is empty or equal to TESS, K2, or Kepler
         if not received_id or received_id not in ["TESS", "K2", "KEPLER"]:
@@ -123,16 +122,44 @@ def get_targets():
                         "CP": 'CONFIRMED', "FA": 'FALSE POSITIVE', "KP": 'CONFIRMED'}
             df.replace({'disposition': names_disp}, inplace=True)
             
-        if candidates is True:
-            df = df[df['disposition'] == 'CANDIDATE']
-            list_targets = df["id_target"].unique().tolist()
-            list_targets = list(map(str, list_targets))
-        else:
-            df = df[df['disposition'] != 'CANDIDATE']
-            list_targets = df["id_target"].unique().tolist()
-            list_targets = list(map(str, list_targets))
+        
+        df = df[df['disposition'] != 'CANDIDATE']
+        list_targets = df["id_target"].unique().tolist()
+        list_targets = list(map(str, list_targets))
             
         response_data = {"list_targets": list_targets}
+        return jsonify(response_data), 200
+
+    except Exception as e:
+        return jsonify({"Error": str(e)}), 400
+
+@bp.route('/getCandidatesValid', methods=['POST'])
+def get_candidates_valid():
+    try:
+        data = request.json
+        telescope = data["telescope"].upper()
+        vision = data["vision"].lower()
+        
+        # Check if the ID is empty or equal to TESS, K2, or Kepler
+        if not telescope or telescope not in ["TESS", "K2", "KEPLER"]:
+            return jsonify({"Error": "Invalid ID value"}), 500
+
+        # Define the CSV file path
+        csv_file_path = f'PreprocessedCandidate{telescope}/preprocessed_{vision}_view_candidate.csv'
+
+        telescope_csv_paths = glob.glob(csv_file_path)
+
+        # Check if the file exists
+        if not telescope_csv_paths[0]:
+            return jsonify({"Error": "CSV file not found for the given ID"}), 404
+
+        # Read the CSV file
+        df = pd.read_csv(telescope_csv_paths[0])
+        
+        list_targets = df['target'].unique().tolist()
+        list_targets = [str(int(item.split()[1])) for item in list_targets]
+            
+        response_data = {"list_targets_candidates": list_targets}
         return jsonify(response_data), 200
 
     except Exception as e:
@@ -233,13 +260,32 @@ def predict_target_candidate():
         is_multiview = data["multiview"] == True
         mode_multiview = data["mode"]
         
-        df = general.get_data_candidates(id_target_candidate, name_telescope, vision)
+        df, img_base64_dict = general.get_data_candidates(id_target_candidate, name_telescope, vision)
 
         loaded_model = general.load_model(model, vision)
         
         if loaded_model is not None:
             predictions = general.predict_candidate(df, loaded_model)
-            return predictions, 200
+            
+            # Combine the keys from both dictionaries
+            all_keys = set(predictions.keys()) | set(img_base64_dict.keys())
+
+            # Initialize a new dictionary to store values in lists
+            result = {}
+
+            # Iterate through the keys and add corresponding values to lists
+            for key in all_keys:
+                values = []
+                
+                if key in predictions:
+                    values.append(predictions[key])
+                
+                if key in img_base64_dict:
+                    values.append(img_base64_dict[key])
+                
+                result[key] = values
+                
+            return result, 200
             
         else:
             return "Error loading the model.", 400
