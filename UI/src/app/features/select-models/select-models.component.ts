@@ -22,9 +22,10 @@ export interface PeriodicElement {
 })
 export class SelectModelsComponent implements OnInit{
   modelsDict: {[key: string]: number} = {};
-  model: any;
-  vision: any;
+  model: any = "SVM";
+  vision: any = "Global";
   telescope: any;
+
   ELEMENT_DATA: PeriodicElement[] = [
   ]
 
@@ -42,7 +43,6 @@ export class SelectModelsComponent implements OnInit{
   visionModel = [
     { value: 1, name: 'Global' },
     { value: 2, name: 'Local' },
-    { value: 3, name: 'Ambas' },
   ];
 
   telescopeModel = [
@@ -80,7 +80,13 @@ export class SelectModelsComponent implements OnInit{
     let d = await this.apiService.getPredictions(this.telescope,targetListInt,this.model,this.vision,false,"")
     d.subscribe(result => {
       let newData = this.converterParaDicionarios(result, this.model, this.vision,this.telescope)
-      this.ELEMENT_DATA=newData
+      newData.forEach(element => {
+
+        this.ELEMENT_DATA.push(element)
+      });
+
+      this.telescope=""
+      this.target = new FormControl([]);
     });
   }
   dataSource = this.ELEMENT_DATA;
@@ -102,9 +108,11 @@ export class SelectModelsComponent implements OnInit{
       });
     }
     public onTelescopeChange(event: any) {
-      this.apiService.getTargets(this.telescope, true).subscribe(data => {
-        this.targetsList = data.list_targets;
-      })
+      if(this.vision && this.telescope){
+        this.apiService.getCandidates(this.telescope, this.vision).subscribe(data => {
+          this.targetsList = data.list_targets_candidates;
+        })
+      }
     }
     public converterParaDicionarios(dados: any, model:string,vision:string, telescope:string): PeriodicElement[] {
       const lista: any[] = [];

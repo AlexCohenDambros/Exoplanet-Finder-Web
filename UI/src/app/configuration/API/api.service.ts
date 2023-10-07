@@ -23,6 +23,10 @@ export class ApiService {
     const url = `${this.apiUrl}/getTargets`;
     return this.http.post(url, { id: id, candidates:candidates }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
   }
+  getCandidates(id: string, vision: string): Observable<any> {
+    const url = `${this.apiUrl}/getCandidatesValid`;
+    return this.http.post(url, { telescope: id, vision:vision }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
+  }
 
   getModels(): Observable<any> {
     const url = `${this.apiUrl}/getModels`;
@@ -49,7 +53,7 @@ export class ApiService {
     const options = {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     };
-    return this.http.post(url, {name_telescope:telescope, id_candidate:[12938488,107782586], model:model, vision:vision,multiview:multiview,mode:mode}, options)
+    return this.http.post(url, {name_telescope:telescope, id_candidate:id_candidate, model:model, vision:vision,multiview:multiview,mode:mode}, options)
 
 
   }

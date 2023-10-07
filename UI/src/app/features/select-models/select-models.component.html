@@ -23,7 +23,7 @@
 
       <mat-form-field class="custom-mat-form-field">
         <mat-label>Visão</mat-label>
-        <mat-select [(value)]="vision">
+        <mat-select [(value)]="vision" (selectionChange)="onTelescopeChange($event)">
           <mat-option *ngFor="let option of visionModel" [value]="option.name">
             {{option.name}}
           </mat-option>
@@ -48,7 +48,7 @@
 
       <div class="buttons-search">
         <button class="clear" mat-raised-button color="secundary" (click)="cleanForms()">Limpar</button>
-        <button class="submit" mat-raised-button color="primary" (click)="submitForms()">Executar</button>
+        <button class="submit" mat-raised-button color="primary" (click)="submitForms()" [disabled]="!model || !vision || !telescope || targetsList.length === 0">Executar</button>
       </div>
 
     </mat-expansion-panel>
