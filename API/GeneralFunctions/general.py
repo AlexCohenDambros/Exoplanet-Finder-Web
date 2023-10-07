@@ -25,9 +25,8 @@ def getSectorsAuthors(tic, telescope):
     # Initialize the final dictionary
     final_dict = {}
 
-    # Initialize empty lists for sectors and authors
-    sectors = []
-    authors = []
+    # Initialize a dictionary for sectors and authors
+    sectors_dict = {}
 
     # Loop through the search results
     for index in search_result:
@@ -36,13 +35,19 @@ def getSectorsAuthors(tic, telescope):
         sector = mission.split()[-1]
         author = index.author[0]
         
-        # Add the sector to the sectors list (if not already added)
+        # Add the sector and author to the sectors_dict
         if sector.isdigit():
-            sectors.append(sector)
-            authors.append(author)
+            sector_num = int(sector)
+            if sector_num not in sectors_dict:
+                sectors_dict[sector_num] = set()  # Usar um conjunto para garantir valores únicos
+            sectors_dict[sector_num].add(author)
 
-    # Add sectors and authors to the final dictionary
-    final_dict[tic] = {'sectors': sectors, 'authors': authors}
+    # Converter o conjunto de autores de volta em lista
+    for sector_num, authors_set in sectors_dict.items():
+        sectors_dict[sector_num] = list(authors_set)
+
+    # Add sectors_dict to the final dictionary
+    final_dict[tic] = sectors_dict
 
     return final_dict
 
