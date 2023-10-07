@@ -260,13 +260,32 @@ def predict_target_candidate():
         is_multiview = data["multiview"] == True
         mode_multiview = data["mode"]
         
-        df = general.get_data_candidates(id_target_candidate, name_telescope, vision)
+        df, img_base64_dict = general.get_data_candidates(id_target_candidate, name_telescope, vision)
 
         loaded_model = general.load_model(model, vision)
         
         if loaded_model is not None:
             predictions = general.predict_candidate(df, loaded_model)
-            return predictions, 200
+            
+            # Combine the keys from both dictionaries
+            all_keys = set(predictions.keys()) | set(img_base64_dict.keys())
+
+            # Initialize a new dictionary to store values in lists
+            result = {}
+
+            # Iterate through the keys and add corresponding values to lists
+            for key in all_keys:
+                values = []
+                
+                if key in predictions:
+                    values.append(predictions[key])
+                
+                if key in img_base64_dict:
+                    values.append(img_base64_dict[key])
+                
+                result[key] = values
+                
+            return result, 200
             
         else:
             return "Error loading the model.", 400

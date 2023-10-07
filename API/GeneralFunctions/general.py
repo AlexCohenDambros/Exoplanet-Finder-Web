@@ -6,6 +6,8 @@ import lightkurve as lk
 from io import StringIO
 import joblib
 import base64
+import matplotlib.pyplot as plt
+import io
 
 # ============= Functions =============
 
@@ -114,10 +116,37 @@ def get_data_candidates(id_candidates, telescope, vision):
     # Use the isin() method to filter the DataFrame based on the list of target values
     df = df[df['target'].isin(id_candidates)]
     
+    img_base64_dict = {}
+
+    # Loop to iterate through each row of the DataFrame
+    for index, row in df.iterrows():
+        # Extract all values from the row except for the 'label' and 'target' columns
+        flux_values = row.drop(['label', 'target']).values
+
+        # Create the scatter plot
+        plt.scatter(range(len(flux_values)), flux_values, s=10, alpha=0.5, c='k')
+        plt.xlabel('Phase [JD]')
+        plt.ylabel('Normalized Flux')
+        plt.title(f'Scatter Plot of Normalized Flux for {row["label"]} ({row["target"]})')
+
+        # Save the plot to a byte buffer
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+
+        # Convert the image to base64
+        img_base64 = base64.b64encode(buffer.read()).decode('utf-8')
+
+        # Store the base64 image in the dictionary with the key being the value of the 'target' column
+        img_base64_dict[row['target']] = img_base64
+
+        # Clear the current plot
+        plt.clf()
+
     # Remove the 'label' column from the DataFrame
     df = df.drop(columns=['label'])
     
-    return df
+    return df, img_base64_dict
 
 def load_model(name_model, vision):
     vision = vision.lower()
