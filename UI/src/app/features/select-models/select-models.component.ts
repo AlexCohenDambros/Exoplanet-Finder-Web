@@ -2,13 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalInputFilesComponent } from 'src/app/shared/modal-input-files/modal-input-files.component';
+import { ModalShowGraphComponent } from 'src/app/shared/modal-show-graph/modal-show-graph.component';
 import { ApiService } from 'src/app/configuration/API/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { ModalShowModelInfoComponent } from 'src/app/shared/modal-show-model-info/modal-show-model-info.component';
+import { ModalAboutSelectModelPageComponent } from 'src/app/shared/modal-about-select-model-page/modal-about-select-model-page.component';
+
 export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  id: string;
+  modelo: string;
+  visao: string;
+  telescopio: string;
+  probabilidade: number;
+  image: any
 }
 
 
@@ -20,20 +26,11 @@ export interface PeriodicElement {
 })
 export class SelectModelsComponent implements OnInit{
   modelsDict: {[key: string]: number} = {};
-  model: any;
-  vision: any;
+  model: any = "SVM";
+  vision: any = "Global";
   telescope: any;
+
   ELEMENT_DATA: PeriodicElement[] = [
-    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-    { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-    { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-    { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
   ]
 
   constructor(
@@ -50,12 +47,10 @@ export class SelectModelsComponent implements OnInit{
   visionModel = [
     { value: 1, name: 'Global' },
     { value: 2, name: 'Local' },
-    { value: 3, name: 'Ambas' },
   ];
 
   telescopeModel = [
     { value: 1, name: 'TESS' },
-    { value: 2, name: 'K2' },
     { value: 3, name: 'KEPLER' },
   ];
 
@@ -68,28 +63,74 @@ export class SelectModelsComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Importação feita com sucesso');
+      this.toastr.info(`Recarregando lista de modelos...`, 'Carregando...', {
+        closeButton: true,
+        timeOut: 2000,
+        positionClass: 'toast-top-center'
+      });
+      this.apiService.getModels().subscribe(data => {
+        const list_models = data.list_models;
+        this.modelsModel = list_models.map((model:any, index:any) => {
+          return { value: index + 1, name: model };
+        });
+      });
+      this.toastr.success('Lista de modelos atualizada!', 'Sucesso', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
     });
   }
+
+  openDialogGraph(image: string): void {
+    const dialogRef = this.dialog.open(ModalShowGraphComponent, {
+      width: '600px',
+      data: {
+        image:image
+      }
+    })
+  }
+
   public get selectedTargets() {
     return this.target.value;
   }
   public cleanForms(): void {
-    this.model = null;
-    this.vision = null;
-    this.telescope = null;
+    this.telescope = '';
     this.target = new FormControl([]);
     this.ELEMENT_DATA = [];
     this.targetsList=[];
   }
+  async submitForms(): Promise<any> {
+    this.toastr.info(`Carregando predições`, 'Carregando...', {
+      closeButton: true,
+      timeOut: 2000,
+      positionClass: 'toast-top-center'
+    });
 
-  public submitForms(): void {
-    console.log(this.model);
-    console.log(this.vision);
-    console.log(this.telescope);
-    console.log(this.selectedTargets);
+    let targetListInt: number[] = (this.selectedTargets ?? []).map(str => parseInt(str, 10));
+
+    try {
+      const result = await this.apiService.getPredictions(this.telescope, targetListInt, this.model, this.vision, false, "").toPromise();
+      let newData = this.converterParaDicionarios(result, this.model, this.vision, this.telescope);
+      newData.forEach(element => {
+        this.ELEMENT_DATA.push(element);
+      });
+      this.toastr.success('Predição concluída com sucesso!', 'Sucesso', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
+      this.telescope = "";
+      this.target = new FormControl([]);
+    } catch (error) {
+      console.error('Ocorreu um erro:', error);
+      this.toastr.error('Ocorreu um erro ao processar a solicitação', 'Erro', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
+    }
   }
-
   dataSource = this.ELEMENT_DATA;
   public getModels() {
     let new_dict:any = {}
@@ -108,11 +149,65 @@ export class SelectModelsComponent implements OnInit{
         });
       });
     }
-
     public onTelescopeChange(event: any) {
-      this.apiService.getTargets(this.telescope).subscribe(data => {
-        this.targetsList = data.list_targets;
-      })
+      if(this.vision && this.telescope){
+        this.toastr.info(`Carregando informações do telescópio ${this.telescope}`, 'Carregando...', {
+          closeButton: true,
+          timeOut: 2000,
+          positionClass: 'toast-top-center'
+        });
+        this.apiService.getCandidates(this.telescope, this.vision).subscribe(data => {
+          this.targetsList = data.list_targets_candidates;
+          this.toastr.success('Dados carregados com sucesso!', 'Sucesso', {
+            closeButton: true,
+            timeOut: 3000,
+            positionClass: 'toast-top-center'
+          });
+        })
+      }
+    }
+    public converterParaDicionarios(dados: any, model:string,vision:string, telescope:string): PeriodicElement[] {
+      const lista: any[] = [];
+      for (let chave in dados) {
+          const id = chave;
+          const probabilidade = dados[chave][0];
+          const image = dados[chave][1];
+          lista.push({
+            id,
+            modelo: model,
+            visao: vision,
+            telescopio: telescope,
+            probabilidade:Math.round(probabilidade*10000)/100,
+            image:image
+          });
+      }
+
+      return lista;
     }
 
+    public openDialogInfoModel(vision: string,model:string): void {
+      this.toastr.info(`Carregando informação do modelo`, 'Carregando...', {
+        closeButton: true,
+        timeOut: 2000,
+        positionClass: 'toast-top-center'
+      });
+      const dialogRef = this.dialog.open(ModalShowModelInfoComponent, {
+        width: '100%',
+        data : {
+          model: model,
+          vision: vision
+        }
+      })
+      this.toastr.success('Informações do modelo carregadas com sucesso!', 'Sucesso', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
+    }
+    about() {
+      const dialogRef = this.dialog.open(ModalAboutSelectModelPageComponent, {
+        width: '100%',
+
+      })
+    }
 }

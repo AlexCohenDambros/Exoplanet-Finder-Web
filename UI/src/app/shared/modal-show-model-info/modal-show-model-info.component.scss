@@ -1,0 +1,19 @@
+.data-table th,
+.data-table td {
+  padding:  1rem 2rem;
+  text-align: left;
+  font-size: 16px;
+  border: 1px solid #ddd;
+}
+.mat-cell {
+  text-transform: uppercase;
+  text-align: center;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+.key-cell{
+  font-weight: bold;
+}
+.image-confusion-matrix{
+  width: 80%;
+}

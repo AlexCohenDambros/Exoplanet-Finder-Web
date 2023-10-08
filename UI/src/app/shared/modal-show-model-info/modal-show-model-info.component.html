@@ -1,0 +1,21 @@
+<button mat-icon-button aria-label="close dialog" mat-dialog-close class="my-2">
+  <mat-icon>close</mat-icon>
+</button>
+<h1 class="text-center">{{"modal-show-info-model" | translate}} {{ModelName}} - {{VisionModel}}</h1>
+<div class="d-flex align-items-center">
+  <div>
+    <h2 class="text-center">{{"modal-show-info-model-matriz" | translate}}</h2>
+    <img [src]="confusionMatrix" alt="Confusion Matrix" class="image-confusion-matrix">
+  </div>
+  <div>
+    <h2 class="text-center">{{"modal-show-info-model-metricas" | translate}}</h2>
+    <table>
+      <tbody class="data-table ">
+        <tr *ngFor="let row of dataInfo">
+          <td class="mat-cell key-cell">{{ row.chave }}</td>
+          <td class="mat-cell">{{row.valor}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
