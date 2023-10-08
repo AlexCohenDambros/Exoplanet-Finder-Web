@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,6 +44,11 @@ import { AdaboostComponent } from './features/adaboost/adaboost.component';
 import { VisionComponent } from './shared/vision/vision.component';
 import { LocalvisionComponent } from './features/localvision/localvision.component';
 import { GlobalvisionComponent } from './features/globalvision/globalvision.component';
+import { GraphPageComponent } from './features/graph-page/graph-page.component';
+import { SelectSectorComponent } from './shared/select-sector/select-sector.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { VisualizeGraphComponent } from './shared/visualize-graph/visualize-graph.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ModalShowGraphComponent } from './shared/modal-show-graph/modal-show-graph.component';
 import { ModalShowModelInfoComponent } from './shared/modal-show-model-info/modal-show-model-info.component';
 import { ModalAboutSelectModelPageComponent } from './shared/modal-about-select-model-page/modal-about-select-model-page.component';
@@ -76,6 +80,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     VisionComponent,
     LocalvisionComponent,
     GlobalvisionComponent,
+    GraphPageComponent,
+    SelectSectorComponent,
+    VisualizeGraphComponent,
     ModalShowGraphComponent,
     ModalShowModelInfoComponent,
     ModalAboutSelectModelPageComponent
@@ -113,6 +120,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTableModule,
     MatListModule,
     RouterModule,
+    MatCheckboxModule,
     MatTooltipModule
   ],
   bootstrap: [AppComponent]

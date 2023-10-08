@@ -1,3 +1,6 @@
+import warnings
+import glob
+import lightkurve as lk
 import os
 from MethodBLS import method_bls
 from GeneralFunctions import general
@@ -27,6 +30,7 @@ bp = Blueprint('routes', __name__)
 # Initialize a variable to store the received JSON data
 received_json = ""
 
+
 @bp.route('/')
 def index():
     return jsonify({'message': 'Bem-vindo ao meu projeto Flask!'})
@@ -38,7 +42,7 @@ def get_data_telescope():
         received_id = data["id"].upper()
 
         df = general.read_dataset(received_id)
-        
+
         # Convert the DataFrame to CSV format
         csv_data = df.to_csv(index=False)
 
@@ -47,7 +51,8 @@ def get_data_telescope():
 
     except Exception as e:
         return jsonify({"Error": str(e)}), 400
-        
+
+
 @bp.route('/getTargets', methods=['POST'])
 def get_targets():
     try:
@@ -108,22 +113,22 @@ def get_targets():
 
             df.rename(columns=info['rename_columns'], inplace=True)
             df = df[info['select_columns']]
-            
+
         if received_id == "TESS":
             names_disp = {"FP": 'FALSE POSITIVE', "PC": 'CANDIDATE',
-                        "CP": 'CONFIRMED', "FA": 'FALSE POSITIVE', "KP": 'CONFIRMED'}
+                          "CP": 'CONFIRMED', "FA": 'FALSE POSITIVE', "KP": 'CONFIRMED'}
             df.replace({'disposition': names_disp}, inplace=True)
-            
-        
+
         df = df[df['disposition'] != 'CANDIDATE']
         list_targets = df["id_target"].unique().tolist()
         list_targets = list(map(str, list_targets))
-            
+
         response_data = {"list_targets": list_targets}
         return jsonify(response_data), 200
 
     except Exception as e:
         return jsonify({"Error": str(e)}), 400
+
 
 @bp.route('/getCandidatesValid', methods=['POST'])
 def get_candidates_valid():
@@ -147,29 +152,31 @@ def get_candidates_valid():
 
         # Read the CSV file
         df = pd.read_csv(telescope_csv_paths[0])
-        
+
         list_targets = df['target'].unique().tolist()
         list_targets = [str(int(item.split()[1])) for item in list_targets]
-            
+
         response_data = {"list_targets_candidates": list_targets}
         return jsonify(response_data), 200
 
     except Exception as e:
         return jsonify({"Error": str(e)}), 400
 
-@bp.route('/getSectorTargets', methods=['GET'])
+
+@bp.route('/getSectorTargets', methods=['POST'])
 def get_sector_targets():
     try:
         data = request.json
         id_target = data["id_target"]
         telescope = data["telescope"].upper()
-        
+
         dict_sectorAuthors = general.getSectorsAuthors(id_target, telescope)
-         
+
         return jsonify(dict_sectorAuthors), 200
-    
+
     except Exception as e:
-            return jsonify({"Error": str(e)}), 400
+        return jsonify({"Error": str(e)}), 400
+
 
 @bp.route('/getModels', methods=['GET'])
 def get_models():
@@ -220,12 +227,14 @@ def insert_model():
 
     except Exception as e:
         return jsonify({"Error": str(e)}), 500
-    
+
+
 @bp.route('/generateGraph', methods=['POST'])
 def generate_graph():
     try:
         data = request.json
         id_target = data["id"]
+        sector = data["sector"]
         sector = data["sector"]
         author_observation = data['author']
         telescope = data['telescope']
@@ -242,23 +251,24 @@ def generate_graph():
             
             if lc is not None:
 
-                df, plot1_image_base64, plot2_image_base64 = method_bls.data_bls(lc)
-                
+                df, plot1_image_base64, plot2_image_base64 = method_bls.data_bls(
+                    lc)
+
                 # Convert the DataFrame to CSV format
                 csv_data = df.to_csv(index=False)
 
-                # Response 
+                # Response
                 return jsonify({"data": csv_data, "image1_base64": plot1_image_base64, "image2_base64": plot2_image_base64})
-            
+
             else:
                 return jsonify({"Error": "No light curve data found"}), 404
-            
+
         except Exception as e:
             return jsonify({"Error": str(e)}), 500
-        
+
     except Exception as e:
         return jsonify({"Error": str(e)}), 400
-    
+
 
 @bp.route('/predictTargetCandidate', methods=['POST'])
 def predict_target_candidate():
@@ -270,14 +280,15 @@ def predict_target_candidate():
         vision = data["vision"]  # global, local or all
         is_multiview = data["multiview"] == True
         mode_multiview = data["mode"]
-        
-        df, img_base64_dict = general.get_data_candidates(id_target_candidate, name_telescope, vision)
+
+        df, img_base64_dict = general.get_data_candidates(
+            id_target_candidate, name_telescope, vision)
 
         loaded_model = general.load_model(model, vision)
-        
+
         if loaded_model is not None:
             predictions = general.predict_candidate(df, loaded_model)
-            
+
             # Combine the keys from both dictionaries
             all_keys = set(predictions.keys()) | set(img_base64_dict.keys())
 
@@ -287,24 +298,24 @@ def predict_target_candidate():
             # Iterate through the keys and add corresponding values to lists
             for key in all_keys:
                 values = []
-                
+
                 if key in predictions:
                     values.append(predictions[key])
-                
+
                 if key in img_base64_dict:
                     values.append(img_base64_dict[key])
-                
+
                 result[key] = values
-                
+
             return result, 200
-            
+
         else:
             return "Error loading the model.", 400
-        
+
     except Exception as e:
         return jsonify({"Error": str(e)}), 400
-    
-    
+
+
 @bp.route('/infoModel', methods=['POST'])
 def info_model():
     try:
@@ -313,7 +324,7 @@ def info_model():
         vision = data["vision"]  # global, local or all
 
         dict_info = general.get_info_model(name_model_model, vision)
-       
+
         if not dict_info:
             return jsonify("Error: The dictionary is empty."), 400
         else:

@@ -3,19 +3,16 @@ header {
   color: #fff;
   height: 60px;
   width: 100%;
-  display: flex;
-  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 999;
 }
 
-.container {
-  max-width: 1200px;
-  width: 100%;
-  padding: 0 20px;
-  margin: 0 auto;
+.customTitle {
+  font-size: 1.5em;
+  margin-top: 14px;
+  margin-left: 100px;
 }
 
 .home-button {
@@ -35,11 +32,4 @@ header {
 .home-button:hover {
   background-image: url(../header/components/home-icon/alien.png);
   cursor: pointer;
-}
-
-.home-translate {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
 }

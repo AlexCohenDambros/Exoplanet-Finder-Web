@@ -98,7 +98,7 @@ export class SelectModelsComponent implements OnInit{
     this.telescope = '';
     this.target = new FormControl([]);
     this.ELEMENT_DATA = [];
-    this.targetsList=[];
+    this.targetsList = [];
   }
   async submitForms(): Promise<any> {
     this.toastr.info(`Carregando predições`, 'Carregando...', {
@@ -133,9 +133,9 @@ export class SelectModelsComponent implements OnInit{
   }
   dataSource = this.ELEMENT_DATA;
   public getModels() {
-    let new_dict:any = {}
+    let new_dict: any = {}
     this.apiService.getModels().subscribe(data => {
-      for (const chave in data.list_models){
+      for (const chave in data.list_models) {
         new_dict[chave] = data.list_models[chave];
       }
       this.modelsModel = new_dict;

@@ -1,14 +1,23 @@
 .modal-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .full-width {
   width: 100%;
+  margin-left: 10px;
+}
+
+.customToolTip {
+  margin-top: 15px;
 }
 
 .custom-input {
   height: 40px;
+}
+
+.customSearchButton {
+  float: right;
 }
