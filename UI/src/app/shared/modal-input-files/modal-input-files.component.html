@@ -10,7 +10,7 @@
     <mat-card-title>{{'addArchive' | translate }}</mat-card-title>
   </mat-card-header>
   <mat-form-field class="custom-mat-form-field">
-    <mat-label>Visão</mat-label>
+    <mat-label>{{'vision-modal-input-file' | translate}}</mat-label>
     <mat-select [(value)]="vision">
       <mat-option *ngFor="let option of visionModel" [value]="option.name">
         {{option.name}}

@@ -126,5 +126,23 @@
   "global-section3.p":"As nossas análises de visão global das curvas de luz tem um total de 2001 pontos, que é maior que a visão local para proporcionar uma análise mais abrangente do trânsito planetário",
   "local-subtitle":"Visão específica dos dados",
   "local-section1.p":"A visão local em machine learning se concentra em detalhes específicos e características de baixo nível em uma imagem. Essa abordagem busca identificar elementos finos, como bordas nítidas, texturas pequenas ou padrões de pixels distintos.",
-  "local-section2.p":"Ao analisar partes específicas da imagem em detalhes, os modelos que utilizam visão local são altamente sensíveis a variações minuciosas nos dados. Isso os torna especialmente eficazes em tarefas que exigem uma compreensão detalhada da estrutura da imagem, como a detecção de características específicas ou a segmentação de objetos em uma cena. Para a visão local, utilizaremos um tamanho fixo de 201 pontos para as curvas de luz."
+  "local-section2.p":"Ao analisar partes específicas da imagem em detalhes, os modelos que utilizam visão local são altamente sensíveis a variações minuciosas nos dados. Isso os torna especialmente eficazes em tarefas que exigem uma compreensão detalhada da estrutura da imagem, como a detecção de características específicas ou a segmentação de objetos em uma cena. Para a visão local, utilizaremos um tamanho fixo de 201 pontos para as curvas de luz.",
+  "vision-modal-input-file":"Visão",
+  "modal-show-info-model":"Métricas de Avaliação:",
+  "modal-show-info-model-matriz":"MATRIZ DE CONFUSÃO",
+  "modal-show-info-model-metricas":"MÉTRICAS",
+  "select-model-search": "Buscar",
+  "select-model-models":"Modelo",
+  "select-model-vision":"Visão",
+  "select-model-telescope":"Telescópio",
+  "select-model-targets":"Targets",
+  "select-model-info":"INFO",
+  "select-model-clean":"Limpar",
+  "select-model-submit":"Executar",
+  "select-mode-table-model":"Modelo",
+  "select-mode-table-vision":"Visão",
+  "select-mode-table-telescope":"Telescópio",
+  "select-mode-table-prob":"Probabilidade",
+  "select-mode-table-graph":"Gráfico"
+
 }

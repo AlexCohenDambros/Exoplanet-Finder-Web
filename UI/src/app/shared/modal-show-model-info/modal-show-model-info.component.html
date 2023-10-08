@@ -1,11 +1,11 @@
-<h1 class="text-center">Métricas de Avaliação do {{ModelName}} na visão {{VisionModel}}</h1>
+<h1 class="text-center">{{"modal-show-info-model" | translate}} {{ModelName}} - {{VisionModel}}</h1>
 <div class="d-flex align-items-center">
   <div>
-    <h2 class="text-center">MATRIZ DE CONFUSÃO</h2>
+    <h2 class="text-center">{{"modal-show-info-model-matriz" | translate}}</h2>
     <img [src]="confusionMatrix" alt="Confusion Matrix">
   </div>
   <div>
-    <h2 class="text-center">MÉTRICAS</h2>
+    <h2 class="text-center">{{"modal-show-info-model-metricas" | translate}}</h2>
     <table>
       <tbody class="data-table ">
         <tr *ngFor="let row of dataInfo">
