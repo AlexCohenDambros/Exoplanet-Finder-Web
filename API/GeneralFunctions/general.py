@@ -161,7 +161,7 @@ def load_model(name_model, vision):
         return model
     
     except Exception as e:
-        raise ValueError(f"Error loading the model: {str(e)}")
+        raise ValueError(f"Error loading the model: Model not found")
 
 def predict_candidate(df, model):
     try:
