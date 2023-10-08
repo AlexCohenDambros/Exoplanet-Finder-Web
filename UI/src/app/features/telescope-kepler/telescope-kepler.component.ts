@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './telescope-kepler.component.html',
   styleUrls: ['./telescope-kepler.component.scss']
 })
+
 export class TelescopeKeplerComponent { }

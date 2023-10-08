@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './adaboost.component.html',
   styleUrls: ['./adaboost.component.scss']
 })
+
 export class AdaboostComponent { }

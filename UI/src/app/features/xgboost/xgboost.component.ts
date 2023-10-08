@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './xgboost.component.html',
   styleUrls: ['./xgboost.component.scss']
 })
+
 export class XgboostComponent { }

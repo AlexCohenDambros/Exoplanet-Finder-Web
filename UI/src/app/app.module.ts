@@ -53,6 +53,7 @@ import { ModalShowGraphComponent } from './shared/modal-show-graph/modal-show-gr
 import { ModalShowModelInfoComponent } from './shared/modal-show-model-info/modal-show-model-info.component';
 import { ModalAboutSelectModelPageComponent } from './shared/modal-about-select-model-page/modal-about-select-model-page.component';
 import { ModalAboutGraphPageComponent } from './shared/modal-about-graph-page/modal-about-graph-page.component';
+import { ModalAboutTableComponent } from './shared/ModalAboutTable/ModalAboutTable.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -87,7 +88,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalShowGraphComponent,
     ModalShowModelInfoComponent,
     ModalAboutSelectModelPageComponent,
-    ModalAboutGraphPageComponent
+    ModalAboutGraphPageComponent,
+    ModalAboutTableComponent
   ],
   imports: [
     BrowserModule,

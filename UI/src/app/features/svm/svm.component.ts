@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './svm.component.html',
   styleUrls: ['./svm.component.scss']
 })
+
 export class SvmComponent { }

@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './telescope-tess.component.html',
   styleUrls: ['./telescope-tess.component.scss']
 })
+
 export class TelescopeTessComponent { }
