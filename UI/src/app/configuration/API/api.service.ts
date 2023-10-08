@@ -5,16 +5,19 @@ import { Observable, switchMap } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiService {
+
   private apiUrl = 'http://localhost:5000';
+
   constructor(private http: HttpClient) { }
 
-  getTelescopeDataFiltered(id: string): Observable<Blob> {
+  public getTelescopeDataFiltered(id: string): Observable<Blob> {
     const url = `${this.apiUrl}/getDataTelescope`;
     return this.http.post(url, { id: id }, { responseType: 'blob' }).pipe(switchMap(blobData => this.blobToListOfLists(blobData)));
   }
 
-  getTelescopeCsv(id: string): Observable<Blob> {
+  public getTelescopeCsv(id: string): Observable<Blob> {
     const url = `${this.apiUrl}/getDataTelescope`;
     return this.http.post(url, { id: id }, { responseType: 'blob' });
   }
@@ -28,7 +31,12 @@ export class ApiService {
     return this.http.post(url, { telescope: id, vision:vision }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
   }
 
-  getModels(): Observable<any> {
+  public getSectorTargets(idTarget: string, telescope: string): Observable<any> {
+    const url = `${this.apiUrl}/getSectorTargets`;
+    return this.http.post(url, { id_target: idTarget, telescope: telescope }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
+  }
+
+  public getModels(): Observable<any> {
     const url = `${this.apiUrl}/getModels`;
     return this.http.get(url, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
   }
@@ -41,7 +49,7 @@ export class ApiService {
     return this.http.post(url, formData );
   }
 
-  getImagem(id: string, target: string): Observable<any> {
+  public getImagem(id: string, target: string): Observable<any> {
     const url = `${this.apiUrl}/generateGraph`;
     const options = {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
@@ -63,6 +71,16 @@ export class ApiService {
     };
     return this.http.post(url, {model,vision},options)
   }
+
+  public generateGraph(id: string, sector: string, author: string, telescope: string): Observable<any> {
+    const url = `${this.apiUrl}/generateGraph`;
+    const options = {
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    };
+    return this.http.post(url, { id, sector, author, telescope }, options);
+  }
+
+
   private blobToListOfLists(blobData: Blob, maxRows: number = 400): Observable<any> {
     return new Observable(observer => {
       const reader = new FileReader();
@@ -84,8 +102,4 @@ export class ApiService {
       reader.readAsText(blobData);
     });
   }
-
-
-
-
 }

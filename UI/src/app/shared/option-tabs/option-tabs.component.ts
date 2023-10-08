@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations';
 
 @Component({
@@ -18,9 +18,4 @@ import { trigger, transition, animate, style } from '@angular/animations';
   ],
 })
 
-export class OptionTabsComponent implements OnInit {
-
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-}
+export class OptionTabsComponent { }
