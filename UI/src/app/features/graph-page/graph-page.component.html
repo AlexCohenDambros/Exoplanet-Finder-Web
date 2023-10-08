@@ -2,8 +2,10 @@
   <mat-drawer #drawer mode="side" opened>
     <div class="custom-drawer-title">
       Observações
+      <div class="about-button mx-4 mt-1" (click)="modalInfo()">
+        <mat-icon color="primary" matTooltip="About the page" >info</mat-icon>
+      </div>
     </div>
-
     <mat-divider></mat-divider>
 
     <div class="selectMode">

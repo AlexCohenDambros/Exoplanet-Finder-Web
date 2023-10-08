@@ -148,6 +148,9 @@
   "modal-about-models-subtitle":"Sobre a página",
   "modal-about-models-section-p1":"Esta página é utilizada para fazer predições dos candidaso selecionados no campo ",
   "modal-about-models-section-p2":"Também é possível inserir modelos pré-treinados, selecionando a visão correta quando for inserir, para evitar mal funcionamento da plataforma",
-  "modal-about-models-section-p3":"Cada predição será sua probabilidade dela ser um exoplaneta com um gráfico para mostrar a curva de luz do candidato"
-
+  "modal-about-models-section-p3":"Cada predição será sua probabilidade dela ser um exoplaneta com um gráfico para mostrar a curva de luz do candidato",
+  "modal-about-graph-title":"Informações",
+  "modal-about-graph-subtitle":"Sobre a página",
+  "modal-about-graph-section-p1":"Esta pagina contém análises gráficas sobre os candidatos a exoplaneta",
+  "modal-about-graph-section-p2":"Você pode selecionar uma observação qualquer e diversos gráficos serão gerados sobre ela"
 }

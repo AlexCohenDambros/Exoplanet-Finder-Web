@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/configuration/API/api.service';
+import { ModalAboutGraphPageComponent } from 'src/app/shared/modal-about-graph-page/modal-about-graph-page.component';
 import { SelectSectorComponent } from 'src/app/shared/select-sector/select-sector.component';
 
 @Component({
@@ -134,5 +135,12 @@ export class GraphPageComponent {
 
   private resetList(): void {
     this.dataSource.list_targets = [...this.originalList];
+  }
+
+  public modalInfo():void {
+    const dialogRef = this.dialog.open(ModalAboutGraphPageComponent, {
+      width: '80%',
+
+    });
   }
 }
