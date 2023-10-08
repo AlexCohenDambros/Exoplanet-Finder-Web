@@ -212,8 +212,3 @@ def get_info_model(name_model, vision):
         raise ValueError(f"Error parsing Excel file: {str(parser_error)}")
     except Exception as e:
         raise ValueError(f"An error occurred: {str(e)}")
-    
-    
-    
-    
-    

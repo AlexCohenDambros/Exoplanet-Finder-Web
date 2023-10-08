@@ -14,6 +14,7 @@ matplotlib.use('Agg')
 import lightkurve as lk
 
 import glob
+from werkzeug.utils import secure_filename 
 
 import warnings
 
@@ -30,7 +31,7 @@ received_json = ""
 def index():
     return jsonify({'message': 'Bem-vindo ao meu projeto Flask!'})
 
-@bp.route('/getDataTelescope', methods=['GET'])
+@bp.route('/getDataTelescope', methods=['POST'])
 def get_data_telescope():
     try:
         data = request.json
@@ -189,22 +190,34 @@ def get_models():
 @bp.route('/insertModel', methods=['POST'])
 def insert_model():
     try:
+        model_file = request.files['model']
+        vision = request.form.get('vision').lower()
+
+        if not vision:
+            return jsonify({"Error": "A vision is needed"}), 400
+
         # Check if a file is included in the POST request
         if 'model' not in request.files:
             return jsonify({"Error": "No file part"}), 400
-
-        model_file = request.files['model']
 
         # Check if the file has a .pkl extension
         if not model_file.filename.endswith('.pkl'):
             return jsonify({"Error": "Invalid file format. Please provide a .pkl file"}), 400
 
-        # Save the model file to the specified folder
-        os.makedirs("Models/ImportedModels", exist_ok=True)
-        model_file.save(os.path.join("Models/ImportedModels", model_file.filename))
- 
+        # Get the filename without the extension
+        filename_without_extension = os.path.splitext(secure_filename(model_file.filename))[0]
+
+        # Add the vision to the filename
+        filename_with_vision = f"{filename_without_extension}_{vision}.pkl"
+
+        # Create the folder with the base filename of the file
+        os.makedirs(f"Models/{filename_without_extension}", exist_ok=True)
+
+        # Save the file with the modified name in the folder
+        model_file.save(os.path.join(f"Models/{filename_without_extension}", filename_with_vision))
+
         return jsonify({"message": "Model uploaded successfully"}), 200
-    
+
     except Exception as e:
         return jsonify({"Error": str(e)}), 500
     
@@ -213,12 +226,19 @@ def generate_graph():
     try:
         data = request.json
         id_target = data["id"]
-        sectors = data["sector"]
+        sector = data["sector"]
         author_observation = data['author']
+        telescope = data['telescope']
         
         try: 
+
+            if telescope == 'KEPLER':
+                id_target = 'KIC ' + str(id_target)
+                
+            elif telescope == 'TESS':
+                id_target = 'TIC ' + str(id_target)
             
-            lc = lk.search_lightcurve(id_target, author=author_observation, sector= sectors).download_all()
+            lc = lk.search_lightcurve(id_target, author=author_observation, sector= sector).download_all()
             
             if lc is not None:
 
@@ -300,4 +320,3 @@ def info_model():
             return dict_info
     except Exception as e:
         return jsonify({"Error": str(e)}), 400
-
