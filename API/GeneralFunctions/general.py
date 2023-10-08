@@ -53,8 +53,8 @@ def getSectorsAuthors(tic, telescope):
 
 def read_dataset(telescope=None):
 
-    # Check if the ID is empty or equal to TESS, K2, or Kepler
-    if not telescope or telescope not in ["TESS", "K2", "KEPLER"]:
+    # Check if the ID is empty or equal to TESS or Kepler
+    if not telescope or telescope not in ["TESS", "KEPLER"]:
         # return jsonify({"error": "Invalid ID value"}), 500
         raise ValueError("Invalid telescope name.")
 
@@ -84,7 +84,7 @@ def read_dataset(telescope=None):
 
 def get_data_candidates(id_candidates, telescope, vision):
     
-    # Check if the ID is empty or equal to TESS, K2, or Kepler
+    # Check if the ID is empty or equal to TESS or Kepler
     if not telescope or telescope not in ["TESS", "KEPLER"]:
         # return jsonify({"error": "Invalid ID value"}), 500
         raise ValueError("Invalid telescope name.")
@@ -161,7 +161,7 @@ def load_model(name_model, vision):
         return model
     
     except Exception as e:
-        raise ValueError(f"Error loading the model: {str(e)}")
+        raise ValueError(f"Error loading the model: Model not found")
 
 def predict_candidate(df, model):
     try:
@@ -212,8 +212,3 @@ def get_info_model(name_model, vision):
         raise ValueError(f"Error parsing Excel file: {str(parser_error)}")
     except Exception as e:
         raise ValueError(f"An error occurred: {str(e)}")
-    
-    
-    
-    
-    
