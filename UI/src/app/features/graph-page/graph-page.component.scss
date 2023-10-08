@@ -4,8 +4,13 @@
 }
 
 .mat-drawer {
-  width: 240px;
+  width: 310px;
   min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .custom-drawer-title {
@@ -59,10 +64,12 @@
 }
 
 .selectMode {
-  margin-left: 50px;
-  margin-top: 10px;
   width: 300px;
-  /* Ajuste a largura conforme necessário */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 80vh;
 }
 
 .mat-select {
@@ -117,15 +124,17 @@
 }
 
 .selectMode .example-section {
-  margin: 12px 0;
-  margin-left: -15px;
+  margin-left: -30px;
 }
 
 .customBox {
+  margin-left: 30px;
   margin-right: 5px;
+  margin-bottom: 10px;
 }
 
 .customButton {
   width: 150px;
-  margin-left: 60px;
+  margin-top: 0;
+  margin-left: 70px;
 }

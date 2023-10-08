@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/configuration/API/api.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { ApiService } from 'src/app/configuration/API/api.service';
   templateUrl: './select-sector.component.html',
   styleUrls: ['./select-sector.component.scss']
 })
+
 export class SelectSectorComponent implements OnInit {
 
   toppingsFormControl = new FormControl();
@@ -22,6 +24,7 @@ export class SelectSectorComponent implements OnInit {
 
   constructor(
     public apiService: ApiService,
+    public toastr: ToastrService,
     public dialogRef: MatDialogRef<SelectSectorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -31,22 +34,18 @@ export class SelectSectorComponent implements OnInit {
 
   public getSectorTarget(): void {
     let observation = this.data.observation;
-    console.log('observationnnn', observation);
-    console.log("this.data.observation", this.data.observation);
 
     let telescope = this.data.telescope;
 
     this.apiService.getSectorTargets(observation, telescope).subscribe((data: any) => {
       this.idTargetList = Object.keys(data[Object.keys(data)[0]])
-      console.log('data', data);
+
       this.result = data;
-      console.log('idTargetList', this.idTargetList);
     });
   }
 
   public getIdSelectValue(): void {
     this.getRealSector(this.author);
-    console.log('Valor do Id selecionado:', this.author);
   }
 
   public getTargetSelectValue(): void {
@@ -60,8 +59,6 @@ export class SelectSectorComponent implements OnInit {
   }
 
   public closeModal(): void {
-    console.log('SelectedId', this.author);
-    console.log('SelectedTarget', this.sector);
 
     const modalValue = {
       id_target: this.data.observation,
@@ -69,8 +66,29 @@ export class SelectSectorComponent implements OnInit {
       author_observation: this.sector
     }
 
-    console.log('modalValue', modalValue);
+    if (modalValue.id_target === undefined || modalValue.sector === undefined || modalValue.author_observation === undefined) {
+      this.toastr.warning('Aconteceu um erro inesperado, tente novamente!', 'Erro', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
+    }
+    else {
+      this.toastr.info('Carregando informações!', 'Carregando', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
 
-    this.dialogRef.close(modalValue);
+      setTimeout(() => {
+        this.toastr.success('Observação selecionada com sucesso!', 'Sucesso', {
+          closeButton: true,
+          timeOut: 3000,
+          positionClass: 'toast-top-center'
+        });
+      }, 3000);
+
+      this.dialogRef.close(modalValue);
+    }
   }
 }

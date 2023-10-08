@@ -3,9 +3,11 @@
     <div class="custom-drawer-title">
       Observações
     </div>
+
     <mat-divider></mat-divider>
 
     <div class="selectMode">
+
       <mat-form-field>
         <mat-label>Selecione o telescópio</mat-label>
         <mat-select [(ngModel)]="selectedTelescope" (selectionChange)="onSelectChange($event)">
@@ -19,7 +21,10 @@
         <mat-checkbox color="primary" class="customBox" [(ngModel)]="isCheckboxChecked"
           (change)="onCheckboxChange($event)"></mat-checkbox>
         <span>Deseja selecionar candidatos?</span>
+        <mat-icon color="primary"
+          matTooltip="Dados de observações realizadas onde existe a possibilidade de haver um exoplaneta ou não">info</mat-icon>
       </section>
+
     </div>
 
     <button mat-raised-button color="primary" class="customButton" (click)="onButtonClick()">Buscar</button>
@@ -40,12 +45,15 @@
         <mat-card-title>{{ target }}</mat-card-title>
       </mat-card>
     </ng-container>
+
   </mat-drawer>
 
   <mat-drawer-content>
+
     <div *ngIf="graphData">
       <app-visualize-graph [graphData]="graphData"></app-visualize-graph>
     </div>
+
   </mat-drawer-content>
 
 </mat-drawer-container>

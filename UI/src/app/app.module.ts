@@ -49,6 +49,7 @@ import { GraphPageComponent } from './features/graph-page/graph-page.component';
 import { SelectSectorComponent } from './shared/select-sector/select-sector.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { VisualizeGraphComponent } from './shared/visualize-graph/visualize-graph.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -116,7 +117,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTableModule,
     MatListModule,
     RouterModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTooltipModule
   ],
   bootstrap: [AppComponent]
 })

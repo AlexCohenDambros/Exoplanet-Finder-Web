@@ -36,12 +36,8 @@ export class GraphPageComponent {
     private dialog: MatDialog) { }
 
   public onButtonClick() {
-    console.log('Telescópio selecionado:', this.selectedTelescope);
-    console.log('Checkbox marcado:', this.isCheckboxChecked);
-
     if (this.loadedBase !== this.selectedTelescope) {
       if (this.selectedTelescope !== undefined) {
-        console.log("selectedName", this.selectedTelescope);
 
         this.dataSource.list_targets = [];
         let base = this.apiService.getTargets(this.selectedTelescope, this.isCheckboxChecked)
@@ -95,7 +91,6 @@ export class GraphPageComponent {
   }
 
   public openDialog(item: any): void {
-    console.log('itemmmm', item);
 
     let telescope = this.selectedTelescope;
     let observation = item;
@@ -109,7 +104,6 @@ export class GraphPageComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('result', result);
 
       if (!result) {
         this.toastr.warning('Por favor, selecione um setor.', 'Atenção', {
@@ -126,8 +120,6 @@ export class GraphPageComponent {
 
       this.apiService.generateGraph(id, sector, author, telescope).subscribe((data: any) => {
         this.graphData = data;
-
-        console.log('graphData', this.graphData);
       });
     });
   }
