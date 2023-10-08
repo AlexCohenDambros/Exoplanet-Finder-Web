@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,6 +47,7 @@ import { LocalvisionComponent } from './features/localvision/localvision.compone
 import { GlobalvisionComponent } from './features/globalvision/globalvision.component';
 import { ModalShowGraphComponent } from './shared/modal-show-graph/modal-show-graph.component';
 import { ModalShowModelInfoComponent } from './shared/modal-show-model-info/modal-show-model-info.component';
+import { ModalAboutSelectModelPageComponent } from './shared/modal-about-select-model-page/modal-about-select-model-page.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -75,7 +77,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LocalvisionComponent,
     GlobalvisionComponent,
     ModalShowGraphComponent,
-    ModalShowModelInfoComponent
+    ModalShowModelInfoComponent,
+    ModalAboutSelectModelPageComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +112,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDividerModule,
     MatTableModule,
     MatListModule,
-    RouterModule
+    RouterModule,
+    MatTooltipModule
   ],
   bootstrap: [AppComponent]
 })

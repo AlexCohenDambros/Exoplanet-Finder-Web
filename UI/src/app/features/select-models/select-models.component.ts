@@ -6,6 +6,7 @@ import { ModalShowGraphComponent } from 'src/app/shared/modal-show-graph/modal-s
 import { ApiService } from 'src/app/configuration/API/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { ModalShowModelInfoComponent } from 'src/app/shared/modal-show-model-info/modal-show-model-info.component';
+import { ModalAboutSelectModelPageComponent } from 'src/app/shared/modal-about-select-model-page/modal-about-select-model-page.component';
 
 export interface PeriodicElement {
   id: string;
@@ -203,5 +204,10 @@ export class SelectModelsComponent implements OnInit{
         positionClass: 'toast-top-center'
       });
     }
+    about() {
+      const dialogRef = this.dialog.open(ModalAboutSelectModelPageComponent, {
+        width: '100%',
 
+      })
+    }
 }

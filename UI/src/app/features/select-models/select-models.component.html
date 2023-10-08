@@ -45,10 +45,13 @@
           <mat-option *ngFor="let topping of targetsList" [value]="topping" >{{topping}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <div class="buttons-search">
+      <div class="buttons-search d-flex">
+        <div (click)="about()" class="about-button mx-4 mt-1">
+          <mat-icon color="primary" matTooltip="About the page" >info</mat-icon>
+        </div>
         <button class="clear" mat-raised-button color="secundary" (click)="openDialogInfoModel(vision,model)" [disabled]="!model || !vision">{{"select-model-info" | translate}}</button>
-        <button class="clear" mat-raised-button color="secundary" (click)="cleanForms()">{{"select-mode-clean" | translate}}</button>
-        <button class="submit" mat-raised-button color="primary" (click)="submitForms()" [disabled]="!model || !vision || !telescope || targetsList.length === 0">{{"select-mode-table-submit" | translate}}</button>
+        <button class="clear" mat-raised-button color="secundary" (click)="cleanForms()">{{"select-model-clean" | translate}}</button>
+        <button class="submit" mat-raised-button color="primary" (click)="submitForms()" [disabled]="!model || !vision || !telescope || targetsList.length === 0">{{"select-model-submit" | translate}}</button>
       </div>
     </mat-expansion-panel>
   </mat-accordion>

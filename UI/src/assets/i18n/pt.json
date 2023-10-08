@@ -143,6 +143,11 @@
   "select-mode-table-vision":"Visão",
   "select-mode-table-telescope":"Telescópio",
   "select-mode-table-prob":"Probabilidade",
-  "select-mode-table-graph":"Gráfico"
+  "select-mode-table-graph":"Gráfico",
+  "modal-about-models-title":"Informações",
+  "modal-about-models-subtitle":"Sobre a página",
+  "modal-about-models-section-p1":"Esta página é utilizada para fazer predições dos candidaso selecionados no campo ",
+  "modal-about-models-section-p2":"Também é possível inserir modelos pré-treinados, selecionando a visão correta quando for inserir, para evitar mal funcionamento da plataforma",
+  "modal-about-models-section-p3":"Cada predição será sua probabilidade dela ser um exoplaneta com um gráfico para mostrar a curva de luz do candidato"
 
 }
