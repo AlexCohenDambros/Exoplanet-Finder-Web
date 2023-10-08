@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './ModalAboutTable.component.html',
   styleUrls: ['./ModalAboutTable.component.css']
 })
+
 export class ModalAboutTableComponent { }
