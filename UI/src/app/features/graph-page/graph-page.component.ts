@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/configuration/API/api.service';
@@ -12,6 +12,7 @@ import { SelectSectorComponent } from 'src/app/shared/select-sector/select-secto
 })
 
 export class GraphPageComponent {
+  @Input() data: any;
 
   loadedBase = '';
   dataSource: any = { list_targets: [] };
@@ -20,6 +21,7 @@ export class GraphPageComponent {
   seeFilter: boolean = true;
   selectedTelescope!: string;
   isCheckboxChecked: boolean = false;
+  graphData: any;
 
 
   telescopeModel = [
@@ -123,10 +125,11 @@ export class GraphPageComponent {
       let telescope = this.selectedTelescope;
 
       this.apiService.generateGraph(id, sector, author, telescope).subscribe((data: any) => {
-        console.log('data api', data);
+        this.graphData = data;
+
+        console.log('graphData', this.graphData);
       });
     });
-
   }
 
   public onSelectChange(event: any) {

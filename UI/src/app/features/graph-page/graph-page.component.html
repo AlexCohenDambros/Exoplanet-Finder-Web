@@ -1,5 +1,5 @@
 <mat-drawer-container class="example-container full-screen" [hasBackdrop]="false">
-  <mat-drawer #drawer mode="side" [opened]="true" autosize>
+  <mat-drawer #drawer mode="side" opened>
     <div class="custom-drawer-title">
       Observações
     </div>
@@ -43,8 +43,9 @@
   </mat-drawer>
 
   <mat-drawer-content>
-    aaaaa
-    <!-- TODO: criar um componente que recebe a variavel com o path da imagem base64 -->
+    <div *ngIf="graphData">
+      <app-visualize-graph [graphData]="graphData"></app-visualize-graph>
+    </div>
   </mat-drawer-content>
 
 </mat-drawer-container>

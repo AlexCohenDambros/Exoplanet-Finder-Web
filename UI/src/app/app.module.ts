@@ -48,6 +48,7 @@ import { GlobalvisionComponent } from './features/globalvision/globalvision.comp
 import { GraphPageComponent } from './features/graph-page/graph-page.component';
 import { SelectSectorComponent } from './shared/select-sector/select-sector.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { VisualizeGraphComponent } from './shared/visualize-graph/visualize-graph.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -79,7 +80,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LocalvisionComponent,
     GlobalvisionComponent,
     GraphPageComponent,
-    SelectSectorComponent
+    SelectSectorComponent,
+    VisualizeGraphComponent
   ],
   imports: [
     BrowserModule,
