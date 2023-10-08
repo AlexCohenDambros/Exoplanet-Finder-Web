@@ -33,11 +33,12 @@ export class ApiService {
     return this.http.get(url, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
   }
 
-  InsertModel(arquivo: File): Observable<any> {
+  InsertModel(arquivo: File, vision: string): Observable<any> {
     const url = `${this.apiUrl}/insertModel`;
     const formData = new FormData();
-    formData.append('arquivo', arquivo, arquivo.name);
-    return this.http.post(url, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
+    formData.append('model', arquivo, arquivo.name);
+    formData.append('vision', vision);
+    return this.http.post(url, formData );
   }
 
   getImagem(id: string, target: string): Observable<any> {

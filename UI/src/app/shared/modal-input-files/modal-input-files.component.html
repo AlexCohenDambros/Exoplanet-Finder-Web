@@ -9,7 +9,16 @@
     </div>
     <mat-card-title>{{'addArchive' | translate }}</mat-card-title>
   </mat-card-header>
+  <mat-form-field class="custom-mat-form-field">
+    <mat-label>Visão</mat-label>
+    <mat-select [(value)]="vision">
+      <mat-option *ngFor="let option of visionModel" [value]="option.name">
+        {{option.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   <mat-card-content>
-    <input type="file" (change)="selectFile()">
+    <input type="file" (change)="selectFile($event)">
   </mat-card-content>
+  <button class="submit" mat-raised-button color="primary" (click)="insert()">Inserir</button>
 </mat-card>

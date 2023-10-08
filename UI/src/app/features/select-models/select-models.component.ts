@@ -62,7 +62,22 @@ export class SelectModelsComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Importação feita com sucesso');
+      this.toastr.info(`Recarregando lista de modelos...`, 'Carregando...', {
+        closeButton: true,
+        timeOut: 2000,
+        positionClass: 'toast-top-center'
+      });
+      this.apiService.getModels().subscribe(data => {
+        const list_models = data.list_models;
+        this.modelsModel = list_models.map((model:any, index:any) => {
+          return { value: index + 1, name: model };
+        });
+      });
+      this.toastr.success('Lista de modelos atualizada!', 'Sucesso', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
     });
   }
 
@@ -90,23 +105,30 @@ export class SelectModelsComponent implements OnInit{
       timeOut: 2000,
       positionClass: 'toast-top-center'
     });
-    let targetListInt: number[] = []
-    targetListInt = (this.selectedTargets ?? []).map(str => parseInt(str, 10))
-    let d = await this.apiService.getPredictions(this.telescope,targetListInt,this.model,this.vision,false,"")
-    d.subscribe(result => {
-      let newData = this.converterParaDicionarios(result, this.model, this.vision,this.telescope)
-      newData.forEach(element => {
 
-        this.ELEMENT_DATA.push(element)
+    let targetListInt: number[] = (this.selectedTargets ?? []).map(str => parseInt(str, 10));
+
+    try {
+      const result = await this.apiService.getPredictions(this.telescope, targetListInt, this.model, this.vision, false, "").toPromise();
+      let newData = this.converterParaDicionarios(result, this.model, this.vision, this.telescope);
+      newData.forEach(element => {
+        this.ELEMENT_DATA.push(element);
       });
-      this.toastr.success('Predição concluida com sucesso!', 'Sucesso', {
+      this.toastr.success('Predição concluída com sucesso!', 'Sucesso', {
         closeButton: true,
         timeOut: 3000,
         positionClass: 'toast-top-center'
       });
-      this.telescope=""
+      this.telescope = "";
       this.target = new FormControl([]);
-    });
+    } catch (error) {
+      console.error('Ocorreu um erro:', error);
+      this.toastr.error('Ocorreu um erro ao processar a solicitação', 'Erro', {
+        closeButton: true,
+        timeOut: 3000,
+        positionClass: 'toast-top-center'
+      });
+    }
   }
   dataSource = this.ELEMENT_DATA;
   public getModels() {
@@ -181,4 +203,5 @@ export class SelectModelsComponent implements OnInit{
         positionClass: 'toast-top-center'
       });
     }
+
 }
