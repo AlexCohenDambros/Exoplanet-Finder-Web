@@ -1,6 +1,6 @@
 <h3>
   <b>
-    Selecione o setor desejado:
+    {{ 'title-select-sector' | translate }}
   </b>
 </h3>
 
@@ -8,10 +8,10 @@
 
 <div class="modal-container">
 
-  <mat-icon class="customToolTip" color="primary" matTooltip="Número de observações">info</mat-icon>
+  <mat-icon class="customToolTip" color="primary" matTooltip="{{ 'observationsCount' | translate }}">info</mat-icon>
 
   <mat-form-field class="full-width">
-    <mat-label>Setor</mat-label>
+    <mat-label>{{ 'sector' | translate }}</mat-label>
     <mat-select [(ngModel)]="author" (selectionChange)="getIdSelectValue()">
       <mat-option *ngFor="let id of idTargetList" [value]="id">{{ id }}</mat-option>
     </mat-select>
@@ -22,10 +22,10 @@
 
 <div class="modal-container">
 
-  <mat-icon class="customToolTip" color="primary" matTooltip="Nome da missão que realizou a observação">info</mat-icon>
+  <mat-icon class="customToolTip" color="primary" matTooltip="{{ 'observationMission' | translate }}">info</mat-icon>
 
   <mat-form-field class="full-width">
-    <mat-label>Autores</mat-label>
+    <mat-label>{{'authors' | translate}}</mat-label>
     <mat-select [(ngModel)]="sector" (selectionChange)="getTargetSelectValue()">
       <mat-option *ngFor="let target of finalSector" [value]="target">{{ target }}</mat-option>
     </mat-select>
@@ -34,5 +34,7 @@
 </div>
 
 <div>
-  <button mat-raised-button color="primary" class="customSearchButton" (click)="closeModal()">Buscar</button>
+  <button mat-raised-button color="primary" class="customSearchButton" (click)="closeModal()">
+    {{'search' | translate}}
+  </button>
 </div>

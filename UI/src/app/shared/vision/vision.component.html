@@ -1,5 +1,5 @@
 <mat-tab-group class="optionBar">
-  <mat-tab label="Sobre">
+  <mat-tab label="{{ 'abaut' | translate }}">
     <header>
       <h1>{{'vision-about-title' | translate}}</h1>
       <p class="header-subtitle">
@@ -19,11 +19,11 @@
       </section>
     </div>
   </mat-tab>
-  <mat-tab label="Global">
+  <mat-tab label="{{ 'global' | translate }}">
     <app-globalvision></app-globalvision>
   </mat-tab>
 
-  <mat-tab label="Local">
+  <mat-tab label="{{'local' | translate}}">
     <app-localvision></app-localvision>
   </mat-tab>
 

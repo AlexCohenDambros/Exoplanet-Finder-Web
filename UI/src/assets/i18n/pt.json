@@ -159,5 +159,18 @@
   "clean":"Limpar",
   "about-graph":"Sobre a página de gráficos",
   "about-candidates":"Observações foram realizadas em locais onde há a possibilidade de existir um exoplaneta ou não.",
-  "about-page": "Sobre a página"
+  "about-page": "Sobre a página",
+  "insert": "Inserir",
+  "modal-about-tables-text1": "Esta página apresenta uma amostra da base de dados de cada telescópio, contendo 400 linhas, onde cada coluna e seu respectivo valor estão representados.",
+  "modal-about-tables-text2": "Se desejar acessar a base completa, você pode simplesmente clicar no botão de Download, que disponibiliza todas as milhares de linhas.",
+  "title-select-sector": "Selecione o setor desejado:",
+  "observationsCount": "Número de observações",
+  "sector": "Setor",
+  "observationMission": "Nome da missão que realizou a observação",
+  "authors": "Autores",
+  "global": "Global",
+  "local": "Local",
+  "abaut": "Sobre",
+  "closeDialog": "Fechar",
+  "Targets": "Targets"
 }
