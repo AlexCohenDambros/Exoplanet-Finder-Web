@@ -123,6 +123,12 @@
   border-color: #007bff;
 }
 
+.example-section {
+  display: flex;
+  align-items: center;
+  /* Isso alinhará verticalmente os elementos ao centro */
+}
+
 .selectMode .example-section {
   margin-left: -30px;
 }
@@ -130,7 +136,7 @@
 .customBox {
   margin-left: 30px;
   margin-right: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .customButton {
@@ -138,6 +144,21 @@
   margin-top: 0;
   margin-left: 70px;
 }
-.about-button{
+
+.about-button {
   cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: -37px;
+  margin-right: 60px;
+}
+
+.blabla {
+  margin-top: 30px;
+}
+
+.customInfo {
+  margin-top: 5px;
+  margin-left: 5px;
 }

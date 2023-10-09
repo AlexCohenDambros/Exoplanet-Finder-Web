@@ -137,10 +137,9 @@ export class GraphPageComponent {
     this.dataSource.list_targets = [...this.originalList];
   }
 
-  public modalInfo():void {
-    const dialogRef = this.dialog.open(ModalAboutGraphPageComponent, {
-      width: '80%',
-
+  public modalInfo(): void {
+    this.dialog.open(ModalAboutGraphPageComponent, {
+      width: '600px',
     });
   }
 }

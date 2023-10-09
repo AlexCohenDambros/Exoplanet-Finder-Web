@@ -24,11 +24,11 @@ export class ApiService {
 
   getTargets(id: string, candidates: boolean): Observable<any> {
     const url = `${this.apiUrl}/getTargets`;
-    return this.http.post(url, { id: id, candidates:candidates }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
+    return this.http.post(url, { id: id, candidates: candidates }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
   }
   getCandidates(id: string, vision: string): Observable<any> {
     const url = `${this.apiUrl}/getCandidatesValid`;
-    return this.http.post(url, { telescope: id, vision:vision }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
+    return this.http.post(url, { telescope: id, vision: vision }, { headers: new HttpHeaders().append('Content-Type', 'application/json') });
   }
 
   public getSectorTargets(idTarget: string, telescope: string): Observable<any> {
@@ -46,7 +46,7 @@ export class ApiService {
     const formData = new FormData();
     formData.append('model', arquivo, arquivo.name);
     formData.append('vision', vision);
-    return this.http.post(url, formData );
+    return this.http.post(url, formData);
   }
 
   public getImagem(id: string, target: string): Observable<any> {
@@ -56,20 +56,19 @@ export class ApiService {
     };
     return this.http.post(url, { id, target }, options);
   }
-  getPredictions(telescope: string, id_candidate: number[], model: string, vision: string, multiview: boolean, mode: string): Observable<any>
-  {
+  getPredictions(telescope: string, id_candidate: number[], model: string, vision: string, multiview: boolean, mode: string): Observable<any> {
     const url = `${this.apiUrl}/predictTargetCandidate`;
     const options = {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     };
-    return this.http.post(url, {name_telescope:telescope, id_candidate:id_candidate, model:model, vision:vision,multiview:multiview,mode:mode}, options)
+    return this.http.post(url, { name_telescope: telescope, id_candidate: id_candidate, model: model, vision: vision, multiview: multiview, mode: mode }, options)
   }
-  getModelInfo(model:string, vision:string): Observable<any> {
+  getModelInfo(model: string, vision: string): Observable<any> {
     const url = `${this.apiUrl}/infoModel`;
     const options = {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     };
-    return this.http.post(url, {model,vision},options)
+    return this.http.post(url, { model, vision }, options)
   }
 
   public generateGraph(id: string, sector: string, author: string, telescope: string): Observable<any> {

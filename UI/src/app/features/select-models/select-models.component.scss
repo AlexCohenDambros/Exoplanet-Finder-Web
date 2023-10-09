@@ -72,12 +72,13 @@ button.mat-icon-button {
   cursor: pointer;
 }
 
-.mat-icon {
-  color: #007bff;
-  font-size: 30px;
-}
-.about-button{
+.about-button {
+  margin-top: 10px;
   width: fit-content;
-    padding: 5px;
-    cursor: pointer;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.customTitle {
+  margin-top: 18px;
 }

@@ -7,7 +7,12 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{"select-model-search" | translate}}
+          <div (click)="about()" class="about-button">
+            <mat-icon color="primary" matTooltip="About the page">info</mat-icon>
+          </div>
+          <div class="customTitle">
+            {{"select-model-search" | translate}}
+          </div>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-divider></mat-divider>
@@ -37,21 +42,29 @@
             {{option.name}}
           </mat-option>
         </mat-select>
-      </mat-form-field> -->
+      </mat-form-field>
 
       <mat-form-field>
         <mat-label>{{"select-model-targets" | translate}}</mat-label>
         <mat-select [formControl]="target" multiple>
-          <mat-option *ngFor="let topping of targetsList" [value]="topping" >{{topping}}</mat-option>
+          <mat-option *ngFor="let topping of targetsList" [value]="topping">{{topping}}</mat-option>
         </mat-select>
       </mat-form-field>
       <div class="buttons-search d-flex">
-        <div (click)="about()" class="about-button mx-4 mt-1">
-          <mat-icon color="primary" matTooltip="About the page" >info</mat-icon>
-        </div>
-        <button class="clear" mat-raised-button color="secundary" (click)="openDialogInfoModel(vision,model)" [disabled]="!model || !vision">{{"select-model-info" | translate}}</button>
-        <button class="clear" mat-raised-button color="secundary" (click)="cleanForms()">{{"select-model-clean" | translate}}</button>
-        <button class="submit" mat-raised-button color="primary" (click)="submitForms()" [disabled]="!model || !vision || !telescope || targetsList.length === 0">{{"select-model-submit" | translate}}</button>
+        <button class="clear" mat-stroked-button color="secundary" (click)="openDialogInfoModel(vision,model)"
+          [disabled]="!model || !vision">
+          {{"select-model-info" | translate}}
+        </button>
+
+        <button class="clear" mat-raised-button color="secundary" (click)="cleanForms()">
+          {{"select-model-clean" | translate}}
+        </button>
+
+        <button class="submit" mat-raised-button color="primary" (click)="submitForms()"
+          [disabled]="!model || !vision || !telescope || targetsList.length === 0">
+          {{"select-model-submit" | translate}}
+        </button>
+
       </div>
     </mat-expansion-panel>
   </mat-accordion>
@@ -61,12 +74,12 @@
   <table aria-describedby="table" class="mat-elevation-z8">
     <thead>
       <tr>
-          <td class="mat-cell">ID</td>
-          <td class="mat-cell">{{"select-mode-table-model" | translate}}</td>
-          <td class="mat-cell">{{"select-mode-table-vision" | translate}}</td>
-          <td class="mat-cell">{{"select-mode-table-telescope" | translate}}</td>
-          <td class="mat-cell">{{"select-mode-table-prob" | translate}}</td>
-          <td class="mat-cell">{{"select-mode-table-graph" | translate}}</td>
+        <td class="mat-cell">ID</td>
+        <td class="mat-cell">{{"select-mode-table-model" | translate}}</td>
+        <td class="mat-cell">{{"select-mode-table-vision" | translate}}</td>
+        <td class="mat-cell">{{"select-mode-table-telescope" | translate}}</td>
+        <td class="mat-cell">{{"select-mode-table-prob" | translate}}</td>
+        <td class="mat-cell">{{"select-mode-table-graph" | translate}}</td>
       </tr>
     </thead>
     <tbody>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/configuration/API/api.service';
+import { ModalAboutTableComponent } from 'src/app/shared/ModalAboutTable/ModalAboutTable.component';
 
 @Component({
   selector: 'app-table',
@@ -11,7 +13,8 @@ export class TableComponent {
 
   constructor(
     private apiService: ApiService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private dialog: MatDialog) { }
 
   loadedBase = ''
   telescope = 'TESS';
@@ -79,5 +82,11 @@ export class TableComponent {
         positionClass: 'toast-top-center'
       });
     }
+  }
+
+  public about(): void {
+    this.dialog.open(ModalAboutTableComponent, {
+      width: '600px',
+    })
   }
 }

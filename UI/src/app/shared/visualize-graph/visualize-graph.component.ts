@@ -10,9 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 export class VisualizeGraphComponent implements OnInit {
   @Input() graphData: any;
 
-  constructor(
-    public toastr: ToastrService,
-  ) { }
+  constructor(public toastr: ToastrService) { }
 
   image_path_1: string = '';
   image_path_2: string = '';

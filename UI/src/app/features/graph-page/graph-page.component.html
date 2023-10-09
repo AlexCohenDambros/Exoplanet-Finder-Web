@@ -1,12 +1,15 @@
 <mat-drawer-container class="example-container full-screen" [hasBackdrop]="false">
   <mat-drawer #drawer mode="side" opened>
+
     <div class="custom-drawer-title">
       Observações
-      <div class="about-button mx-4 mt-1" (click)="modalInfo()">
-        <mat-icon color="primary" matTooltip="About the page" >info</mat-icon>
-      </div>
     </div>
-    <mat-divider></mat-divider>
+
+    <div class="about-button" (click)="modalInfo()">
+      <mat-icon color="primary" matTooltip="Sobre a página de gráficos">info</mat-icon>
+    </div>
+
+    <mat-divider class="blabla"></mat-divider>
 
     <div class="selectMode">
 
@@ -22,11 +25,17 @@
       <section class="example-section">
         <mat-checkbox color="primary" class="customBox" [(ngModel)]="isCheckboxChecked"
           (change)="onCheckboxChange($event)"></mat-checkbox>
-        <span>Deseja selecionar candidatos?</span>
-        <mat-icon color="primary"
-          matTooltip="Dados de observações realizadas onde existe a possibilidade de haver um exoplaneta ou não">info</mat-icon>
-      </section>
 
+        <span>Deseja selecionar candidatos?</span>
+
+        <div class="customInfo">
+          <mat-icon color="primary"
+            matTooltip="Observações foram realizadas em locais onde há a possibilidade de existir um exoplaneta ou não.">
+            info
+          </mat-icon>
+        </div>
+
+      </section>
     </div>
 
     <button mat-raised-button color="primary" class="customButton" (click)="onButtonClick()">Buscar</button>
