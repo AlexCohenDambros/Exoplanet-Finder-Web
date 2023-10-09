@@ -121,6 +121,8 @@ def get_data_candidates(id_candidates, telescope, vision):
     # Use the isin() method to filter the DataFrame based on the list of target values
     df = df[df['target'].isin(id_candidates)]
     
+    df.fillna(method='ffill', inplace=True)
+    
     img_base64_dict = {}
 
     # Loop to iterate through each row of the DataFrame
