@@ -1,5 +1,5 @@
 <div class="button-upload-model">
-  <button mat-raised-button color="primary" (click)="openDialog()">Inserir modelo</button>
+  <button mat-raised-button color="primary" (click)="openDialog()">{{ 'InsertModel' | translate }}</button>
 </div>
 
 <div class="accordion-container">
@@ -8,7 +8,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title>
           <div (click)="about()" class="about-button">
-            <mat-icon color="primary" matTooltip="About the page">info</mat-icon>
+            <mat-icon color="primary" matTooltip="{{ 'info' | translate }}">info</mat-icon>
           </div>
           <div class="customTitle">
             {{"select-model-search" | translate}}
@@ -90,7 +90,7 @@
         <td class="mat-cell">{{ row.telescopio }}</td>
         <td class="mat-cell">{{ row.probabilidade }}</td>
         <td class="mat-cell">
-          <button mat-icon-button matTooltip="Info about the action" (click)="openDialogGraph(row.image)">
+          <button mat-icon-button (click)="openDialogGraph(row.image)">
             <mat-icon>analytics</mat-icon>
           </button>
         </td>
