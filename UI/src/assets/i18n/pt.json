@@ -152,5 +152,12 @@
   "modal-about-graph-title":"Informações",
   "modal-about-graph-subtitle":"Sobre a página",
   "modal-about-graph-section-p1":"Esta pagina contém análises gráficas sobre os candidatos a exoplaneta",
-  "modal-about-graph-section-p2":"Você pode selecionar uma observação qualquer e diversos gráficos serão gerados sobre ela"
+  "modal-about-graph-section-p2":"Você pode selecionar uma observação qualquer e diversos gráficos serão gerados sobre ela",
+  "graph-page-obs":"Observações",
+  "graph-page-select-telescope":"Selecione o telescópio",
+  "graph-page-select-candidates?":"Deseja selecionar candidatos?",
+  "clean":"Limpar",
+  "about-graph":"Sobre a página de gráficos",
+  "about-candidates":"Observações foram realizadas em locais onde há a possibilidade de existir um exoplaneta ou não.",
+  "about-page": "Sobre a página"
 }

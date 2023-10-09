@@ -2,11 +2,11 @@
   <mat-drawer #drawer mode="side" opened>
 
     <div class="custom-drawer-title">
-      Observações
+      {{'graph-page-obs' | translate}}
     </div>
 
     <div class="about-button" (click)="modalInfo()">
-      <mat-icon color="primary" matTooltip="Sobre a página de gráficos">info</mat-icon>
+      <mat-icon color="primary" matTooltip="{{'about-graph' | translate}}">info</mat-icon>
     </div>
 
     <mat-divider class="blabla"></mat-divider>
@@ -14,7 +14,7 @@
     <div class="selectMode">
 
       <mat-form-field>
-        <mat-label>Selecione o telescópio</mat-label>
+        <mat-label>{{'graph-page-select-telescope' | translate}}</mat-label>
         <mat-select [(ngModel)]="selectedTelescope" (selectionChange)="onSelectChange($event)">
           <mat-option *ngFor="let item of telescopeModel" [value]="item.name">
             {{item.name}}
@@ -26,11 +26,11 @@
         <mat-checkbox color="primary" class="customBox" [(ngModel)]="isCheckboxChecked"
           (change)="onCheckboxChange($event)"></mat-checkbox>
 
-        <span>Deseja selecionar candidatos?</span>
+        <span>{{'graph-page-select-candidates?' | translate}}</span>
 
         <div class="customInfo">
           <mat-icon color="primary"
-            matTooltip="Observações foram realizadas em locais onde há a possibilidade de existir um exoplaneta ou não.">
+            matTooltip="{{'about-candidates' | translate}}">
             info
           </mat-icon>
         </div>
@@ -38,14 +38,14 @@
       </section>
     </div>
 
-    <button mat-raised-button color="primary" class="customButton" (click)="onButtonClick()">Buscar</button>
+    <button mat-raised-button color="primary" class="customButton" (click)="onButtonClick()">{{'search' | translate}}</button>
 
     <div class="customFilter" *ngIf="!seeFilter">
 
       <input type="text" [(ngModel)]="searchValue" (input)="filterList()" placeholder="Pesquisar observação"
         class="mat-input-element custom-input">
 
-      <button class="buttonFilter" mat-raised-button (click)="clearInput()">Limpar</button>
+      <button class="buttonFilter" mat-raised-button (click)="clearInput()">{{'clean' | translate}}</button>
 
     </div>
 
