@@ -300,7 +300,7 @@ def predict_target_candidate():
                 values = []
 
                 if key in predictions:
-                    values.append(predictions[key])
+                    values.append(float(predictions[key]))
 
                 if key in img_base64_dict:
                     values.append(img_base64_dict[key])
